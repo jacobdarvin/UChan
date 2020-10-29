@@ -20,6 +20,16 @@ h4 {
 	padding: 0;
 }
 
+.select:hover {
+	font-weight: bold;
+	color: #2e2e2e !important;
+}
+
 .card {
 	border: none;
+}
+
+.select {
+	text-decoration: none !important;
+	color: #2e2e2e;
 }
