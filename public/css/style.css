@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Rubik:wght@400;600;800&display=swap');
+
+body {
+	background-color: #f8f8f8;
+	font-family: 'Rubik', sans-serif;
+	font-color: #2e2e2e;
+}
+
+h1 {
+	font-weight: 800;
+	font-size: 62pt;
+	/*background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(139,255,144,1) 100%);
+  	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+  	*/
+}
+
+h4 {
+	margin: 0;
+	padding: 0;
+}
+
+.card {
+	border: none;
+}
