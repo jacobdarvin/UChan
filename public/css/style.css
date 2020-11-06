@@ -37,3 +37,30 @@ h4 {
 	text-decoration: none !important;
 	color: #2e2e2e;
 }
+
+/* POSTS */
+
+.post-general {
+	display: block;
+	max-width: 300px;
+	display: inline-block;
+}
+
+.post-subtitle {
+	font-size: 12px;
+	line-height: 0.5;
+}
+
+.post-zoom {
+  transition: transform .2s; /* Animation */
+
+}
+
+.post-zoom:hover {
+  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  z-index: 1000;
+  border-style: solid;
+
+  border-color: black;
+
+}

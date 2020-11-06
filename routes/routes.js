@@ -13,4 +13,10 @@ app.get('/', function (req, res) {
 	});
 });
 
+app.get('/board', function (req, res) {
+	res.render('board', {
+		title: 'Board',
+	});
+});
+
 module.exports = app;
