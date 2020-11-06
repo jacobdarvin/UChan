@@ -24,6 +24,10 @@ h4 {
 	padding: 0;
 }
 
+a {
+	color: #8778cf;
+}
+
 .select:hover {
 	font-weight: bold;
 	color: #2e2e2e !important;
@@ -41,10 +45,17 @@ h4 {
 
 /* POSTS */
 
+.post-author {
+	color: #8778cf;
+}
+
 .post-general {
-	display: block;
 	max-width: 300px;
 	display: inline-block;
+}
+
+.post-thread {
+	display: flex;
 }
 
 .post-subtitle {
@@ -60,8 +71,8 @@ h4 {
 .post-zoom:hover {
   transform: scale(1.25); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
   z-index: 1000;
-  border-style: solid;
 
-  border-color: black;
+  border-style: solid ;
+  border-color: rgba(0, 0, 0, 0.8);
 
 }

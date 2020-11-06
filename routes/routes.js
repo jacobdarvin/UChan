@@ -16,6 +16,14 @@ app.get('/', function (req, res) {
 app.get('/board', function (req, res) {
 	res.render('board', {
 		title: 'Board',
+		thread: false,
+	});
+});
+
+app.get('/thread', function (req, res) {
+	res.render('thread', {
+		title: 'Thread',
+		thread: true,
 	});
 });
 
