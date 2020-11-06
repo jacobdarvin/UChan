@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Rubik:wght@400;600;800&display=swap');
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
 	background-color: #f8f8f8;
 	font-family: 'Rubik', sans-serif;
