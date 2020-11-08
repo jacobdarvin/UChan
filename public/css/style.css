@@ -72,7 +72,7 @@ a {
   transform: scale(1.25); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
   z-index: 1000;
 
-  border-style: solid ;
+  border-style: solid;
   border-color: rgba(0, 0, 0, 0.8);
 
 }
