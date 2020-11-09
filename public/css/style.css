@@ -5,7 +5,8 @@ html {
 }
 
 body {
-	background-color: #f8f8f8;
+	background: #f8f8f8 url("/imgs/graphics/bg.png");
+	background-attachment: fixed;
 	font-family: 'Rubik', sans-serif;
 	font-color: #2e2e2e;
 }
@@ -26,6 +27,7 @@ h4 {
 
 a {
 	color: #2e2e2e;
+	text-decoration: none !important;
 }
 
 a:hover {
@@ -77,6 +79,7 @@ a:hover {
 
 .post-thread {
 	display: flex;
+	flex-direction: row;
 }
 
 .post-subtitle {
