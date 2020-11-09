@@ -46,6 +46,7 @@ a:hover {
 .card {
 	border: none;
 	background-color: #121212;
+	border: 1px solid #2f3336; 
 }
 
 .bg-custom {
