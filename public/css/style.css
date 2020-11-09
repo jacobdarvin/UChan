@@ -14,6 +14,7 @@ body {
 h1 {
 	font-weight: 800;
 	font-size: 62pt;
+	
 	/*background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(139,255,144,1) 100%);
   	-webkit-background-clip: text;
   	-webkit-text-fill-color: transparent;
@@ -26,7 +27,7 @@ h4 {
 }
 
 a {
-	color: #2e2e2e;
+	color: #2e2e2e !important;
 	text-decoration: none !important;
 }
 
