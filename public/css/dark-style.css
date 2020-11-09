@@ -5,15 +5,16 @@ html {
 }
 
 body {
-	background: #f8f8f8 url("/imgs/graphics/bg.png");
+	background: #070707 url("/imgs/graphics/bg-dark.png");
 	background-attachment: fixed;
 	font-family: 'Rubik', sans-serif;
-	font-color: #2e2e2e;
+	color: #ffffff !important;
 }
 
 h1 {
 	font-weight: 800;
 	font-size: 62pt;
+	color: #ffffff;
 	
 	/*background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(139,255,144,1) 100%);
   	-webkit-background-clip: text;
@@ -27,13 +28,13 @@ h4 {
 }
 
 a {
-	color: #2e2e2e !important;
+	color: #ffffff !important;
 	text-decoration: none !important;
 }
 
 a:hover {
 	font-weight: bold;
-	color: #2e2e2e !important;
+	color: white !important;
 }
 
 
@@ -44,32 +45,41 @@ a:hover {
 
 .card {
 	border: none;
+	background-color: #121212;
 }
 
 .bg-custom {
-	background-color: white;
+	background-color: black;
+	border-bottom: 1px solid;
+	border-color: #2f3336;
+}
+
+hr { 
+	display: block; height: 1px;
+    border: 0; border-top: 1px solid #2f3336;
+    margin: 1em 0; padding: 0; 
 }
 
 /* LINKS */
 .select {
 	font-size: 12pt;
 	text-decoration: none !important;
-	color: #2e2e2e;
+	color: #ffffff;
 }
 
 .select:hover {
 	font-weight: bold;
-	color: #2e2e2e !important;
+	color: #ffffff !important;
 }
 
 .select-back {
 	text-decoration: none !important;
-	color: #2e2e2e;
+	color: #ffffff;
 }
 
 .select-back:hover {
 	font-weight: bold;
-	color: #2e2e2e !important;
+	color: #ffffff !important;
 }
 
 /* POSTS */
@@ -102,20 +112,19 @@ a:hover {
   z-index: 1000;
 
   border-style: solid;
-  border-color: rgba(0, 0, 0, 0.8);
+  border-color: rgba(255, 255, 255, 1);
 
 }
 
 .dark-mode-toggle {
 	background-color: transparent;
 	border-color: transparent;
-	color: transparent;
-	-webkit-text-stroke: 2px black;
-
+	color: white;
+	-webkit-text-stroke: 1px white;
 	outline: none !important;
 }
 
 .dark-mode-toggle:hover {
-	color: black;
-	font-weight: bold;
+	color: transparent;
+	-webkit-text-stroke: 2px white;
 }
