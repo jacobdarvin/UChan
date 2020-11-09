@@ -25,7 +25,29 @@ h4 {
 }
 
 a {
-	color: #8778cf;
+	color: #2e2e2e;
+}
+
+a:hover {
+	font-weight: bold;
+	color: #2e2e2e !important;
+}
+
+
+/* BS ADJUSTMENTS */
+.active {
+	font-weight: bold;
+}
+
+.card {
+	border: none;
+}
+
+/* LINKS */
+.select {
+	font-size: 12pt;
+	text-decoration: none !important;
+	color: #2e2e2e;
 }
 
 .select:hover {
@@ -33,18 +55,17 @@ a {
 	color: #2e2e2e !important;
 }
 
-.card {
-	border: none;
-}
-
-.select {
-	font-size: 12pt;
+.select-back {
 	text-decoration: none !important;
 	color: #2e2e2e;
 }
 
-/* POSTS */
+.select-back:hover {
+	font-weight: bold;
+	color: #2e2e2e !important;
+}
 
+/* POSTS */
 .post-author {
 	color: #8778cf;
 }
