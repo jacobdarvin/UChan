@@ -1,7 +1,7 @@
 <h1 class="pt-3 mb-0" style="text-align: center;">🛸/UFO</h1>
 
 <div style="text-align: center;">
-🖊️ <a href="#" class="select" style="font-size: 16pt;">Start a Thread</a>
+🖊️ <a href="#" class="select" style="font-size: 16pt;" onclick="showReply();">Start a Thread</a>
 </div>
 
 <hr width="85%">
@@ -28,3 +28,16 @@
 	{{> post}}
 	{{> post}}
 </div>
+
+{{> post-form}}
+
+<script type="text/javascript">
+	function showReply() {
+	  var x = document.getElementById("post-form");
+	  if (x.style.display === "none") {
+	    x.style.display = "block";
+	  } else {
+	    x.style.display = "none";
+	  }
+	}
+</script>
