@@ -14,11 +14,7 @@ body {
 h1 {
 	font-weight: 800;
 	font-size: 62pt;
-	
-	/*background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(139,255,144,1) 100%);
-  	-webkit-background-clip: text;
-  	-webkit-text-fill-color: transparent;
-  	*/
+
 }
 
 h4 {
@@ -106,6 +102,14 @@ a:hover {
 
 }
 
+#logo {
+	transition: 0.3s;
+}
+#logo:hover {
+  	transform: scale(1.02); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+/* DARK MODE BUTTON */
 .dark-mode-toggle {
 	background-color: transparent;
 	border-color: transparent;

@@ -32,6 +32,8 @@ const disableDarkMode = () => {
 
 if(darkMode === 'enabled') {
 	enableDarkMode();
+} else {
+	disableDarkMode();
 }
 
 darkModeToggle.addEventListener('click', () => {

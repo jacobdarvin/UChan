@@ -5,7 +5,7 @@ html {
 }
 
 body {
-	background: #070707 url("/imgs/graphics/bg-dark.png");
+	background: #121212 url("/imgs/graphics/bg-dark.png");
 	background-attachment: fixed;
 	font-family: 'Rubik', sans-serif;
 	color: #ffffff !important;
@@ -115,6 +115,13 @@ hr {
   border-style: solid;
   border-color: rgba(255, 255, 255, 1);
 
+}
+
+#logo {
+	transition: 0.3s;
+}
+#logo:hover {
+  	transform: scale(1.02); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 .dark-mode-toggle {
