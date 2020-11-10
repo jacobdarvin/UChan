@@ -8,6 +8,9 @@ const darkModeToggle = document.querySelector('#dark-mode-toggle');
 const enableDarkMode = () => {
 	//1. change css link
 	document.getElementById('theme').setAttribute('href', '/css/dark-style.css');
+	document.getElementById('navbar').classList.remove("navbar-light");
+	document.getElementById('navbar').classList.add("navbar-dark");
+
 
 	if(document.getElementById('logo'))
 		document.getElementById('logo').setAttribute('src',  'imgs/icons/logo-dark.png');
@@ -18,6 +21,8 @@ const enableDarkMode = () => {
 const disableDarkMode = () => {
 	//1. change css link
 	document.getElementById('theme').setAttribute('href', '/css/style.css');
+	document.getElementById('navbar').classList.add("navbar-light");
+	document.getElementById('navbar').classList.remove("navbar-dark");
 
 	if(document.getElementById('logo'))
 		document.getElementById('logo').setAttribute('src',  'imgs/icons/logo.png');
