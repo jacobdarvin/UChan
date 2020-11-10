@@ -2,6 +2,7 @@ const autoincrement = require('mongoose-auto-increment');
 const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
+    /* Visible in Front*/
     postNumber: {
         type: Number,
         unique: true
@@ -15,6 +16,9 @@ const PostSchema = new mongoose.Schema({
         type: String,
         default: "300x300.png"
     },
+    quotes: [Number],
+
+    /* Invisible info */
     bump: {
         type: Date,
         required: true,
@@ -39,10 +43,21 @@ const PostSchema = new mongoose.Schema({
         required: true,
         select: false
     },
-    quotes: [Number],
-    
-    
 
+    /*If post is a THREAD */
+    noOfPosts: {
+        type: Number,
+        default: 0
+    },
+    noOfImages: {
+        type: Number,
+        default: 0,
+    },
+    uniqueIps: {
+        type: Number,
+        default: 0
+    },
+    
     /* If Post is a REPLY */
     parentPost: {
         type: Number

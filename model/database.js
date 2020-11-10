@@ -17,6 +17,8 @@ const options = {
 };
 
 const connectToDb = function() {
+    mongoose.set('useCreateIndex', true);
+    mongoose.set('useFindAndModify', false);
     mongoose.connect(url, options, function(error) {
         if(error) throw error;
         console.log('Connected to: ' + url);

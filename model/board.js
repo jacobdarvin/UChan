@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const BoardSchema = new mongoose.Schema({
     name: {
         type: String,
+        unique: true,
         required: true,
         lowercase: [true, 'Board name should be in lowercase'],
         trim: true,
@@ -34,7 +35,7 @@ const BoardSchema = new mongoose.Schema({
     },
     threads: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Thread'
+        ref: 'Post'
     }]
 });
 

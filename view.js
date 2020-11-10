@@ -5,9 +5,11 @@ const connectToDb = require('./model/database.js');
 
 connectToDb();
 
-Board.find({}, (err, result) => {
-    console.log(result);
-})
+Board.findOne({name: 'ufo'})
+    .populate('threads')
+    .exec((err, result) => {
+        console.log(result);
+    })
 
 Post.find({}, (err, result) => {
     console.log(result);

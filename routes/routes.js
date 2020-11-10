@@ -7,6 +7,9 @@ const path 		= require('path');
 
 const app 		= express();
 
+//controller imports
+const BoardController = require('../controller/boardController.js');
+
 app.get('/', function (req, res) {
 	res.render('index', {
 		title: 'UChan',
@@ -26,5 +29,7 @@ app.get('/thread', function (req, res) {
 		thread: true,
 	});
 });
+
+app.get('/:board', BoardController.getBoard);
 
 module.exports = app;
