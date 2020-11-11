@@ -102,53 +102,6 @@ a:hover {
   border-color: rgba(0, 0, 0, 0.8);
 }
 
-/* TOOL TIPS */
-
-.post-tip {
-  position: relative;
-  display: inline-block;
-  z-index: 1;
-}
-
-.post-tiptext {
-	font-size: 12px;
-}
-
-.post-tip .post-tiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1000;
-  top: -2px;
-  left: 120%;
-
-    /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-
-.post-tip .post-tiptext::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 100%;
-  margin-top: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent black transparent transparent;
-}
-
-.post-tip:hover .post-tiptext {
-  visibility: visible;
-  opacity: 1;
-}
-
-
 /* LOGO */
 #logo {
 	transition: 0.3s;
