@@ -10,7 +10,9 @@ const BoardController = {
         .lean()
         .exec(function(err, boardResult) {
             if (!boardResult) {
-                //404
+                res.render('404', {
+                    title: '404 Not Found'
+                })
                 return;
             }
             
