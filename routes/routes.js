@@ -23,6 +23,13 @@ app.get('/board', function (req, res) {
 	});
 });
 
+app.get('/about', function (req, res) {
+	res.render('about', {
+		title: 'About',
+		thread: false,
+	});
+});
+
 app.get('/thread', function (req, res) {
 	res.render('thread', {
 		title: 'Thread',
