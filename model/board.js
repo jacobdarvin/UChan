@@ -16,11 +16,6 @@ const BoardSchema = new mongoose.Schema({
         required: true,
         default: 100
     },
-    maxImageSize: {
-        type: Number,
-        required: true,
-        default: 2
-    },
 
     /* Thread details */
     threadLimit: {

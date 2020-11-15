@@ -3,7 +3,7 @@ const Board = require('./model/board.js');
 const Post = require('./model/post.js');
 const connectToDb = require('./model/database.js');
 
-connectToDb();
+database.connectToDb();
 
 Post.deleteMany({}, () => {});
 Board.deleteMany({}, () => {});

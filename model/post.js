@@ -1,5 +1,6 @@
 const autoincrement = require('mongoose-auto-increment');
 const mongoose = require('mongoose');
+const database = require('./database.js');
 
 const PostSchema = new mongoose.Schema({
     /* Visible in Front*/
@@ -11,6 +12,10 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
+    },
+    name: {
+        type: String,
+        maxlength: database.NAME_LIMIT
     },
     image: {
         type: String,

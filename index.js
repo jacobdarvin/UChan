@@ -36,7 +36,7 @@ if(port == null || port == "") {
     port = 9090;
 }
 
-connectToDb();
+database.connectToDb();
 
 app.listen(port, function () {
     console.log('UChan listening at port ' + port + '.');

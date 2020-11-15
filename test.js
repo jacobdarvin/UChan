@@ -3,7 +3,7 @@ const Board = require('./model/board.js');
 const Post = require('./model/post.js');
 const connectToDb = require('./model/database.js');
 
-connectToDb();
+database.connectToDb();
 
 let post = new Post({
     text: 'i saw an alien in taft ama',
