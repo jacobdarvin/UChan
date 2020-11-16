@@ -127,11 +127,11 @@ hr {
 	background-color: transparent;
 	border-color: transparent;
 	color: white;
-	-webkit-text-stroke: 1px white;
+	
 	outline: none !important;
 }
 
 .theme-toggle:hover {
 	color: transparent;
-	-webkit-text-stroke: 2px white;
+	-webkit-text-stroke: 1px white;
 }
