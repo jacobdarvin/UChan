@@ -1,5 +1,5 @@
 /* Express-Validator */
-const {body, params, validationResult} = require('express-validator');
+const {body, param, validationResult} = require('express-validator');
 
 /* Limits and Sanitation */
 const {THREAD_CHAR_LIMIT, IMAGE_SIZE_LIMIT, NAME_LIMIT } = require('../model/database.js');
@@ -10,15 +10,30 @@ const Board = require('../model/board.js');
 
 const ThreadValidator = {
 
+    getBoardValidation: function() {
+        var validation = [
+
+            param('board')
+                .isLength({max: 3}).withMessage('Board should not exceed three characters.')
+                .customSanitizer(value => {
+                    return sanitize(value);
+                })
+        ];
+
+        return validation;
+    },
+
     createThreadValidation: function() {
         var validation = [
 
             /* Check that the board the user is posting to exists */
-            params('board').custom(value => {
+            param('board').custom(value => {
                 return Board.findOne({name: value}).exec((err, result) => {
                     if (!result) {
                         return Promise.reject('Board user is posting to does not exist.');
                     }
+
+                    return true;
                 });
             }),
 

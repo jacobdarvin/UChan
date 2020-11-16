@@ -11,26 +11,9 @@
 </div>
 
 <div style="text-align: center;">
-	{{> post}}
-	{{> post}}
-	{{> post}}
-	{{> post}}
-	{{> post}}
-	{{> post}}
-	{{> post}}
-	{{> post}}
-
-	{{> post}}
-	{{> post}}
-	{{> post}}
-	{{> post}}
-	{{> post}}
-	{{> post}}
-	{{> post}}
-	{{> post}}
-
-	{{> post}}
-	{{> post}}
+	{{#each threads}}
+		{{> post}}
+	{{/each}}
 </div>
 
 {{> post-form}}

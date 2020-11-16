@@ -7,8 +7,11 @@ const path 		= require('path');
 
 const app 		= express();
 
-//controller imports
+// controller imports
 const BoardController = require('../controller/boardController.js');
+
+// validators
+const ThreadValidator = require('../validator/threadValidator.js');
 
 app.get('/', function (req, res) {
 	res.render('index', {
@@ -37,6 +40,6 @@ app.get('/thread', function (req, res) {
 	});
 });
 
-app.get('/:board', BoardController.getBoard);
+app.get('/boards/:board', ThreadValidator.getBoardValidation(), BoardController.getBoard);
 
 module.exports = app;
