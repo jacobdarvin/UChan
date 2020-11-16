@@ -8,7 +8,7 @@ body {
 	background: #f8f8f8 url("/imgs/graphics/bg.png");
 	background-attachment: fixed;
 	font-family: 'Rubik', sans-serif;
-	font-color: #2e2e2e;
+	color: #2e2e2e;
 }
 
 h1 {
@@ -50,22 +50,18 @@ a:hover {
 .select {
 	font-size: 12pt;
 	text-decoration: none !important;
-	color: #2e2e2e;
 }
 
 .select:hover {
 	font-weight: bold;
-	color: #2e2e2e !important;
 }
 
 .select-back {
 	text-decoration: none !important;
-	color: #2e2e2e;
 }
 
 .select-back:hover {
 	font-weight: bold;
-	color: #2e2e2e !important;
 }
 
 /* POSTS */
@@ -111,7 +107,7 @@ a:hover {
 }
 
 /* DARK MODE BUTTON */
-.dark-mode-toggle {
+.theme-toggle {
 	background-color: transparent;
 	border-color: transparent;
 	color: transparent;
@@ -120,7 +116,7 @@ a:hover {
 	outline: none !important;
 }
 
-.dark-mode-toggle:hover {
+.theme-toggle:hover {
 	color: black;
 	font-weight: bold;
 }
