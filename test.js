@@ -27,7 +27,8 @@ let reply = new Post({
 reply.save();
 
 let board = new Board({
-    name: 'ufo'
+    name: 'ufo',
+    displayName: '🛸/UFO'
 });
 board.save();
 

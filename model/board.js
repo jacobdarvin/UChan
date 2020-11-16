@@ -9,6 +9,11 @@ const BoardSchema = new mongoose.Schema({
         trim: true,
         maxlength: [3, 'Board name should not exceed 3 characters.']
     },
+    displayName: {
+        type: String,
+        unique: true,
+        required: true
+    },
 
     /* Image Details */
     imageLimit: {
