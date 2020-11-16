@@ -36,6 +36,6 @@ app.get('/thread', function (req, res) {
 	});
 });
 
-app.get('/boards/:board', BoardController.getBoard);
+app.get('/:board', BoardController.getBoard);
 
 module.exports = app;
