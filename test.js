@@ -29,7 +29,6 @@ reply.save();
 let board = new Board({
     name: 'ufo'
 });
-board.threads.push(post._id);
 board.save();
 
 

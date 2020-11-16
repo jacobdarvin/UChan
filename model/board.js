@@ -27,11 +27,7 @@ const BoardSchema = new mongoose.Schema({
         type: Number, 
         required: true,
         default: 200
-    },
-    threads: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Post'
-    }]
+    }
 });
 
 module.exports = mongoose.model('Board', BoardSchema);

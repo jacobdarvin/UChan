@@ -5,7 +5,7 @@ const BoardController = {
     getBoard: function(req, res) {
         let board = req.params.board;
 
-        Board.findOne({name: board})
+        /* Board.findOne({name: board})
         .populate('threads')
         .lean()
         .exec(function(err, boardResult) {
@@ -20,7 +20,7 @@ const BoardController = {
                 title: boardResult.name,
                 threads: boardResult.threads
             })
-        })
+        }) */
     }
 }
 

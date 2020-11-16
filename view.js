@@ -5,7 +5,6 @@ const connectToDb = require('./model/database.js');
 
 database.connectToDb();
 Board.findOne({name: 'ufo'})
-    .populate('threads')
     .exec((err, result) => {
         console.log(result);
     })
