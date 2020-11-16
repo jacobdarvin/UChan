@@ -9,15 +9,11 @@ const app 		= express();
 
 // controller imports
 const BoardController = require('../controller/boardController.js');
-
+const IndexController = require('../controller/indexController.js');
 // validators
 const ThreadValidator = require('../validator/threadValidator.js');
 
-app.get('/', function (req, res) {
-	res.render('index', {
-		title: 'UChan',
-	});
-});
+app.get('/', IndexController.getIndex);
 
 app.get('/board', function (req, res) {
 	res.render('board', {
@@ -40,6 +36,6 @@ app.get('/thread', function (req, res) {
 	});
 });
 
-app.get('/boards/:board', ThreadValidator.getBoardValidation(), BoardController.getBoard);
+app.get('/boards/:board', BoardController.getBoard);
 
 module.exports = app;

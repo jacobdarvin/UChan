@@ -10,20 +10,8 @@ const Board = require('../model/board.js');
 
 const ThreadValidator = {
 
-    getBoardValidation: function() {
-        var validation = [
-
-            param('board')
-                .isLength({max: 3}).withMessage('Board should not exceed three characters.')
-                .customSanitizer(value => {
-                    return sanitize(value);
-                })
-        ];
-
-        return validation;
-    },
-
     createThreadValidation: function() {
+        console.log('validation 2')
         var validation = [
 
             /* Check that the board the user is posting to exists */
