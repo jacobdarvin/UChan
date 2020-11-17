@@ -8,7 +8,7 @@ body {
 	background: #f5fff5 url("/imgs/graphics/bg.png");
 	background-attachment: fixed;
 	font-family: 'Rubik', sans-serif;
-	color: #2a9e23;
+	color: #1a8358;
 }
 
 h1 {
@@ -23,13 +23,13 @@ h4 {
 }
 
 a {
-	color: #2a9e23 !important;
+	color: #20a06b !important;
 	text-decoration: none !important;
 }
 
 a:hover {
 	font-weight: bold;
-	color: #2a9e23 !important;
+	color: #20a06b !important;
 }
 
 
@@ -111,19 +111,19 @@ a:hover {
 }
 
 /* DARK MODE BUTTON */
-.active-toggle {
-	color: #2a9e23;
-	font-weight: bold;
-}
-
 .theme-toggle {
 	background-color: transparent;
 	border-color: transparent;
+	color: #20a06b;
 
 	outline: none !important;
 }
 
+.theme-toggle.leaf {
+	color: #186746;
+}
+
+
 .theme-toggle:hover {
-	color: #2a9e23;
-	font-weight: bold;
+	color: #186746;
 }

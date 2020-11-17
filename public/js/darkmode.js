@@ -1,8 +1,11 @@
 let darkMode = localStorage.getItem('darkMode');
 let leafMode = localStorage.getItem('leafMode');
+let skyMode  = localStorage.getItem('skyMode');
 
+const defaultModeToggle = document.querySelector('#default-mode-toggle');
 const darkModeToggle = document.querySelector('#dark-mode-toggle');
 const leafModeToggle = document.querySelector('#leaf-mode-toggle');
+const skyModeToggle  = document.querySelector('#sky-mode-toggle');
 
 //FUNCTIONS
 
@@ -17,6 +20,8 @@ const enableDarkMode = () => {
 		document.getElementById('logo').setAttribute('src',  'imgs/icons/logo-dark.png');
 
 	localStorage.setItem('leafMode', null);
+	localStorage.setItem('skyMode' , null);
+	
 	localStorage.setItem('darkMode', 'enabled');
 };
 
@@ -31,7 +36,25 @@ const enableLeafMode = () => {
 		document.getElementById('logo').setAttribute('src',  'imgs/icons/logo-leaf.png');
 
 	localStorage.setItem('darkMode', null);
+	localStorage.setItem('skyMode' , null);
+
 	localStorage.setItem('leafMode', 'enabled');
+};
+
+// SKY MODE
+
+const enableSkyMode = () => {
+	document.getElementById('theme').setAttribute('href', '/css/sky-style.css');
+	document.getElementById('navbar').classList.remove("navbar-dark");
+	document.getElementById('navbar').classList.add("navbar-light");
+
+	if(document.getElementById('logo'))
+		document.getElementById('logo').setAttribute('src',  'imgs/icons/logo-sky.png');
+
+	localStorage.setItem('darkMode', null);
+	localStorage.setItem('leafMode', null);
+
+	localStorage.setItem('skyMode' , 'enabled');
 };
 
 // THEMES DISABLER
@@ -46,6 +69,7 @@ const disableThemes = () => {
 
 	localStorage.setItem('darkMode', null);
 	localStorage.setItem('leafMode', null);
+	localStorage.setItem('skyMode' , null);
 };
 
 //FUNCTIONS
@@ -54,6 +78,8 @@ if(darkMode === 'enabled') {
 	enableDarkMode();
 } else if(leafMode === 'enabled') {
 	enableLeafMode();
+} else if(skyMode === 'enabled') {
+	enableSkyMode();
 } else {
 	disableThemes();
 }
@@ -76,4 +102,17 @@ leafModeToggle.addEventListener('click', () => {
 	} else {
 		disableThemes();
 	}
+})
+
+skyModeToggle.addEventListener('click', () => {
+	skyMode = localStorage.getItem('skyMode');
+	if(skyMode !== 'enabled') {
+		enableSkyMode();
+	} else {
+		disableThemes();
+	}
+})
+
+defaultModeToggle.addEventListener('click', () => {
+	disableThemes();
 })
