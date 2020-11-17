@@ -3,10 +3,9 @@ const Board = require('../model/board.js');
 const Post = require('../model/post.js');
 
 // Helpers
+const fsHelper = require('../helper/fsHelper.js');
 const sanitize = require('mongo-sanitize');
 const {validationResult} = require('express-validator');
-const { create } = require('express-handlebars');
-
 
 const BoardController = {
 
@@ -50,23 +49,23 @@ const BoardController = {
             let file = req.file;
             let board = req.params.board;
             
-            //TODO: Image processing
+            
             let post = new Post({
                 text: text,
                 name: name,
                 type: 'THREAD',
                 board: board,
                 ip: ip,
-                imageDisplayName: req //smth
+                imageDisplayName: file.originalName
             });
             await post.save();
 
-            let imageDbName = post.postNumber;
-            //let imageDisplayName = 
+            let imageDbName = fsHelper.renameImageAndGetDbName(post.postNumber, req.file);
+            post.image = imageDbName;
+            await post.save();
 
-            
-
-
+            //TODO bumping algo
+            //TODO captcha (validator)
         }
 
         createThread();
