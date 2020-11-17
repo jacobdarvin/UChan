@@ -113,7 +113,10 @@ a:hover {
 
 }
 
+.theme-toggle.default {
+	color: grey;
+}
+
 .theme-toggle:hover {
-	color: transparent;
-	-webkit-text-stroke: 2px black;
+	color: grey;
 }
