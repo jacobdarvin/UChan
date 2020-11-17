@@ -16,34 +16,30 @@ const ThreadValidator = {
 
             /* Check that the board the user is posting to exists */
             param('board').custom(value => {
-                return Board.findOne({name: value}).exec((err, result) => {
-                    if (!result) {
-                        return Promise.reject('Board user is posting to does not exist.');
-                    }
-
-                    return true;
-                });
+                const result = await Board.findOne({ name: value });
+                if (!result) {
+                    return Promise.reject('Board user is posting to does not exist.');
+                }
+                return true;
             }),
 
             /* Text validation */
-            body('text').trim(),
+            body('text')
+                .trim()
+                .customSanitizer(value => {
+                    return sanitize(value);
+                }),
 
-            body('text').customSanitizer(value => {
-                return sanitize(value);
-            }),
-
-            body('text', "Text should not be empty.")
-            .notEmpty(),
-
-            body('text', `Text should be within ${THREAD_CHAR_LIMIT} characters.`)
-            .isLength({max: THREAD_CHAR_LIMIT}),
+            body('text')
+                .notEmpty().withMessage("Text should not be empty.")
+                .isLength({max: THREAD_CHAR_LIMIT}).withMessage(`Text should be within ${THREAD_CHAR_LIMIT} characters.`),
 
             /* Name Validation */
-            body('name').trim(),
-
-            body('name').customSanitizer(value => {
-                return sanitize(value);
-            }),
+            body('name')
+                .trim()
+                .customSanitizer(value => {
+                    return sanitize(value);
+                }),
 
             body('name', 'Name exceeds limit.')
             .isLength({max: NAME_LIMIT}),

@@ -35,6 +35,19 @@ const BoardController = {
                     });
             });
         });
+    },
+
+    createThread: (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty) {
+            console.log(errors.array());
+
+            res.render('404', {
+                title: 'Error occured!'
+            });
+        }
+
+        
     }
 }
 
