@@ -17,9 +17,14 @@ const PostSchema = new mongoose.Schema({
         type: String,
         maxlength: database.NAME_LIMIT
     },
+
+    /* How it is fetched internally */
     image: {
-        type: String,
-        default: "300x300.png"
+        type: String
+    },
+    /* How it is displayed externally */
+    imageName: {
+        type: String
     },
     quotes: [Number],
 
