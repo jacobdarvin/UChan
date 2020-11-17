@@ -5,7 +5,7 @@ html {
 }
 
 body {
-	background: #f3fbff url("/imgs/graphics/bg.png");
+	background: #fffcf3 url("/imgs/graphics/bg.png");
 	background-attachment: fixed;
 	font-family: 'Rubik', sans-serif;
 	color: #ffaa00;
@@ -99,7 +99,7 @@ a:hover {
 }
 
 .navbar {
-	background-color: #f8fdff;
+	background-color: #fffefb;
 }
 
 /* LOGO */
@@ -119,10 +119,10 @@ a:hover {
 	outline: none !important;
 }
 
-.theme-toggle.sky {
-	color:#ffaa00;
+.theme-toggle.sun {
+	color:#9c6f00;
 }
 
 .theme-toggle:hover {
-	color: #ffaa00;
+	color: #9c6f00;
 }

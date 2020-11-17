@@ -68,7 +68,7 @@ const enableSunMode = () => {
 	document.getElementById('navbar').classList.add("navbar-light");
 
 	if(document.getElementById('logo'))
-		document.getElementById('logo').setAttribute('src',  'imgs/icons/logo-sky.png'); // NOTE: Change once Yellow UChan logo is created
+		document.getElementById('logo').setAttribute('src',  'imgs/icons/logo-sun.png'); // NOTE: Change once Yellow UChan logo is created
 
 	localStorage.setItem('darkMode', null);
 	localStorage.setItem('leafMode', null);
