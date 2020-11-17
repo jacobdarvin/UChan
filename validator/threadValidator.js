@@ -16,11 +16,12 @@ const ThreadValidator = {
 
             /* Check that the board the user is posting to exists */
             param('board').custom(value => {
-                const result = await Board.findOne({ name: value });
-                if (!result) {
-                    return Promise.reject('Board user is posting to does not exist.');
-                }
-                return true;
+                return Board.findOne({name: value}).then(result => {
+                    if (!result) {
+                        return Promise.reject('Board user is posting to does not exist.');
+                    }
+                    return true;
+                });
             }),
 
             /* Text validation */
