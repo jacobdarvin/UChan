@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Rubik:wght@400;600;800&display=swap');
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+	background: #f3fbff url("/imgs/graphics/bg.png");
+	background-attachment: fixed;
+	font-family: 'Rubik', sans-serif;
+	color: #ffaa00;
+}
+
+h1 {
+	font-weight: 800;
+	font-size: 62pt;
+
+}
+
+h4 {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color:#ffaa00 !important;
+	text-decoration: none !important;
+}
+
+a:hover {
+	font-weight: bold;
+	color: #ffaa00 !important;
+}
+
+
+/* BS ADJUSTMENTS */
+.active {
+	font-weight: bold;
+}
+
+.card {
+	border: none;
+}
+
+.bg-custom {
+	background-color: white;
+}
+
+/* LINKS */
+.select {
+	font-size: 12pt;
+	text-decoration: none !important;
+}
+
+.select:hover {
+	font-weight: bold;
+}
+
+.select-back {
+	text-decoration: none !important;
+}
+
+.select-back:hover {
+	font-weight: bold;
+}
+
+/* POSTS */
+.post-author {
+	color: #8778cf;
+}
+
+.post-general {
+	max-width: 300px;
+	display: inline-block;
+}
+
+.post-thread {
+	display: flex;
+	flex-direction: row;
+}
+
+.post-subtitle {
+	font-size: 12px;
+	line-height: 0.5;
+}
+
+.post-zoom {
+  transition: transform .2s; /* Animation */
+  z-index: 2;
+
+}
+
+.post-zoom:hover {
+  transform: scale(1.25); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  z-index: 1000;
+
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.8);
+}
+
+.navbar {
+	background-color: #f8fdff;
+}
+
+/* LOGO */
+#logo {
+	transition: 0.3s;
+}
+#logo:hover {
+  	transform: scale(1.02); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+/* DARK MODE BUTTON */
+.theme-toggle {
+	background-color: transparent;
+	border-color: transparent;
+	color: #ffaa00;
+
+	outline: none !important;
+}
+
+.theme-toggle.sky {
+	color:#ffaa00;
+}
+
+.theme-toggle:hover {
+	color: #ffaa00;
+}
