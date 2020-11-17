@@ -49,15 +49,27 @@ const BoardController = {
             let name = req.body.name;
             let file = req.file;
             let board = req.params.board;
-    
+            
+            //TODO: Image processing
             let post = new Post({
                 text: text,
                 name: name,
                 type: 'THREAD',
                 board: board,
-                ip: ip
+                ip: ip,
+                imageDisplayName: req //smth
             });
+            await post.save();
+
+            let imageDbName = post.postNumber;
+            //let imageDisplayName = 
+
+            
+
+
         }
+
+        createThread();
     } 
 }
 

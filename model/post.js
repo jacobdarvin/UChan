@@ -23,7 +23,7 @@ const PostSchema = new mongoose.Schema({
         type: String
     },
     /* How it is displayed externally */
-    imageName: {
+    imageDisplayName: {
         type: String
     },
     quotes: [Number],
