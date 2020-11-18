@@ -5,7 +5,9 @@ const Post = require('../model/post.js');
 // Helpers
 const fsHelper = require('../helper/fsHelper.js');
 const sanitize = require('mongo-sanitize');
-const {validationResult} = require('express-validator');
+
+// Validators
+const ThreadValidator = require('../validator/threadValidator.js');
 
 const BoardController = {
 
@@ -25,7 +27,8 @@ const BoardController = {
             res.render('board', {
                 title: boardResult.displayName,
                 threads: threads,
-                displayName: boardResult.displayName
+                displayName: boardResult.displayName,
+                action: `/createThread/${board}`
             });
         }
 
@@ -34,15 +37,14 @@ const BoardController = {
 
     createThread: (req, res) => {
         async function createThread() {
-            const errors = validationResult(req);
-            if (!errors.isEmpty) {
-                console.log(errors.array());
-    
+            
+            let isValid =  await ThreadValidator.createThreadValidation(req);
+            if (!isValid) {
                 res.render('404', {
-                    title: 'Error occured!'
+                    title: '404'
                 });
             }
-    
+
             let ip = req.ip;
             let text = req.body.text;
             let name = req.body.name;
@@ -56,19 +58,24 @@ const BoardController = {
                 type: 'THREAD',
                 board: board,
                 ip: ip,
-                imageDisplayName: file.originalName
             });
             await post.save();
 
-            let imageDbName = fsHelper.renameImageAndGetDbName(post.postNumber, req.file);
-            post.image = imageDbName;
-            await post.save();
+            if (req.file) {
+                console.log('hasimage')
+                let imageDbName = fsHelper.renameImageAndGetDbName(post.postNumber, req.file);
+                post.image = imageDbName;
+                post.imageDisplayName = req.file.originalName;
+                await post.save();
+            }
 
             //TODO bumping algo
             //TODO captcha (validator)
+
+            res.redirect(req.get('referer'));
         }
 
-        createThread();
+        createThread(); 
     } 
 }
 

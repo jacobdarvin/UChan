@@ -7,9 +7,20 @@ const path 		= require('path');
 
 const app 		= express();
 
+// Multer Image Processing
+var multer = require('multer');
+var storage = multer.diskStorage({
+    destination:  './public/postimgs',
+    filename: function(req, file, cb) {
+        cb(null, file.originalname)
+    }
+}),
+upload = multer({ storage: storage }).single('createPostForm');
+
 // controller imports
 const BoardController = require('../controller/boardController.js');
 const IndexController = require('../controller/indexController.js');
+
 // validators
 const ThreadValidator = require('../validator/threadValidator.js');
 
@@ -37,5 +48,6 @@ app.get('/thread', function (req, res) {
 });
 
 app.get('/:board', BoardController.getBoard);
+app.post('/createThread/:board', BoardController.createThread);
 
 module.exports = app;
