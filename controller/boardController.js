@@ -15,7 +15,9 @@ const BoardController = {
         async function getBoard() {
             let board = sanitize(req.params.board);
 
-            let threads = await Post.find({board: board, type: 'THREAD'}).sort({bump: 'desc'}).lean();
+            
+            let noOfThreadLimit = 5; //for testing
+            let threads = await Post.find({board: board, type: 'THREAD'}).sort({bump: 'desc'}).limit(noOfThreadLimit).lean();
             if (threads.length == 0) {
                 res.render('404', {
                     title: 'Board not found!'
@@ -37,12 +39,10 @@ const BoardController = {
 
     createThread: (req, res) => {
         async function createThread() {
-            
             let isValid =  await ThreadValidator.createThreadValidation(req);
             if (!isValid) {
-                res.render('404', {
-                    title: '404'
-                });
+                res.redirect(req.get('referer'));
+                return;
             }
 
             let ip = req.ip;
@@ -72,6 +72,8 @@ const BoardController = {
             //TODO bumping algo
             //TODO captcha (validator)
 
+
+            //TODO: change to res.redirect when thread is hooked up
             res.redirect(req.get('referer'));
         }
 

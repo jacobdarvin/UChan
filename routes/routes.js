@@ -15,7 +15,7 @@ var storage = multer.diskStorage({
         cb(null, file.originalname)
     }
 }),
-upload = multer({ storage: storage }).single('createPostForm');
+upload = multer({ storage: storage }).single('postImageInput');
 
 // controller imports
 const BoardController = require('../controller/boardController.js');
@@ -48,6 +48,6 @@ app.get('/thread', function (req, res) {
 });
 
 app.get('/:board', BoardController.getBoard);
-app.post('/createThread/:board', BoardController.createThread);
+app.post('/createThread/:board', upload, BoardController.createThread);
 
 module.exports = app;

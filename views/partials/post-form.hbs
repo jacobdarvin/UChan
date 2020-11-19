@@ -1,7 +1,6 @@
 <div class="card post-thread shadow-sm mt-3 p-3" style="position: fixed; top: 80px; right: 0; display: none; z-index: 99999;" id="post-form">
 
 	<form id="createPostForm" name="createPostForm" class="w-100" method="POST" action="{{action}}" enctype="multipart/form-data">
-	<input id="test" name="test">
 		<!--<span><b>Thread</b> No.15693770</span>-->
 		<a href="#" onclick="showReply();" style="right: 15px; position: absolute;" aria-label="Close">X</a>
 	<div class="form-group">
@@ -12,7 +11,7 @@
     	<textarea class="form-control" id="text" name="text" rows="3" placeholder="Comment"></textarea>
   	</div>
   	<input type="file"
-       id="postImage" name="postImage"
+       id="postImageInput" name="postImageInput"
        accept="image/*">
 
        <input type="submit" value="Submit">
