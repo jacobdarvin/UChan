@@ -17,9 +17,14 @@ const PostSchema = new mongoose.Schema({
         type: String,
         maxlength: database.NAME_LIMIT
     },
+
+    /* How it is fetched internally */
     image: {
-        type: String,
-        default: "300x300.png"
+        type: String
+    },
+    /* How it is displayed externally */
+    imageDisplayName: {
+        type: String
     },
     quotes: [Number],
 
@@ -46,7 +51,7 @@ const PostSchema = new mongoose.Schema({
     ip: {
         type: String,
         required: true,
-        select: false
+        //select: false
     },
 
     /*If post is a THREAD */

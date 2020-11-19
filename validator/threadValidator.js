@@ -1,69 +1,97 @@
-/* Express-Validator */
-const {body, param, validationResult} = require('express-validator');
-
 /* Limits and Sanitation */
-const {THREAD_CHAR_LIMIT, IMAGE_SIZE_LIMIT, NAME_LIMIT } = require('../model/database.js');
+const {THREAD_CHAR_LIMIT, IMAGE_SIZE_LIMIT, NAME_LIMIT } = require('../model/constants.js');
 const sanitize = require('mongo-sanitize');
 
 /* Mongoose Schemas */
 const Board = require('../model/board.js');
+const { exists } = require('../model/board.js');
+
+/* Others */
+const axios = require('axios').default;
+const fs = require('fs');
 
 const ThreadValidator = {
 
-    createThreadValidation: function() {
-        console.log('validation 2')
-        var validation = [
+    createThreadValidation: async function(req) {
+        console.log(THREAD_CHAR_LIMIT)
+        console.log(IMAGE_SIZE_LIMIT)
+        console.log(NAME_LIMIT)
+        
+        let captcha = req.body['g-recaptcha-response']
+        if (captcha=== undefined || captcha === '' || captcha === null) {
+            console.error('Captcha test missing or failed.')
+            if (req.file) {
+                fs.unlink(req.file.path, f => {});
+            }
+            return false;
+        }
+        
+        const secretKey = "6Lff6eQZAAAAAENSnF_AMdFRbhpMlEuU5IhD3gFz";
+        const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captcha}&remoteip=${req.connection.remoteAddress}`;
+        let response = await axios.get(verifyUrl);
+        if (!response.data.success) {
+            console.error("Captcha failed.");
 
-            /* Check that the board the user is posting to exists */
-            param('board').custom(value => {
-                return Board.findOne({name: value}).exec((err, result) => {
-                    if (!result) {
-                        return Promise.reject('Board user is posting to does not exist.');
-                    }
+            if (req.file) {
+                fs.unlink(req.file.path, f => {});
+            }
 
-                    return true;
-                });
-            }),
+            return false;
+        }
 
-            /* Text validation */
-            body('text').trim(),
+        req.params.board = sanitize(req.params.board.trim());
+        let board = req.params.board;
 
-            body('text').customSanitizer(value => {
-                return sanitize(value);
-            }),
+        req.body.text = sanitize(req.body.text.trim());
+        let text = req.body.text;
 
-            body('text', "Text should not be empty.")
-            .notEmpty(),
+        req.body.name = sanitize(req.body.name.trim());
+        let name = req.body.name;
 
-            body('text', `Text should be within ${THREAD_CHAR_LIMIT} characters.`)
-            .isLength({max: THREAD_CHAR_LIMIT}),
+        let file = req.file;
+        
+        /* Board Validation */
+        let boardExists = await Board.exists({name: board});
+        if (!exists) {
+            console.error("Board user is posting to does not exist.");
+            return false;
+        }
 
-            /* Name Validation */
-            body('name').trim(),
+        if (text == '') {
+            console.error("Text is empty.");
+            return false;
+        }
 
-            body('name').customSanitizer(value => {
-                return sanitize(value);
-            }),
+        if (text > THREAD_CHAR_LIMIT) {
+            console.error("Text exceeds limit.");
+            return false;
+        }
 
-            body('name', 'Name exceeds limit.')
-            .isLength({max: NAME_LIMIT}),
+        if (name > NAME_LIMIT) {
+            console.error("Name exceeds limit.");
+            return false;
+        }
 
+        if (file) {
+            if (file.size > IMAGE_SIZE_LIMIT) {
+                console.error("File exceeds limit.");
+                return false;
+            }
+        }
 
-            /* Image Validation */
-            body('image').custom(value => {
-                if (!value) {
-                    return true;
-                }
+        return true;
+    },
 
-                if (value.size > IMAGE_SIZE_LIMIT) {
-                    throw new Error('Image should not be larger than 2MB!');
-                }
-                
-                return true;
-            })
-        ];
+    captchaValidation: async function(captcha) {
+        const secretKey = "6Lff6eQZAAAAAENSnF_AMdFRbhpMlEuU5IhD3gFz";
+        const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captcha}&remoteip=${req.connection.remoteAddress}`;
 
-        return validation;
+        let response = await axios.get(verifyUrl);
+        if (!response.data.success) {
+            console.error("Captcha failed.");
+            return false;
+        }
+        return true;
     }
 }
 
