@@ -70,14 +70,23 @@ const BoardController = {
             }
 
             //TODO bumping algo
-            //TODO captcha (validator)
 
             //TODO: change to res.redirect when thread is hooked up
             res.redirect(req.get('referer'));
         }
 
         createThread(); 
-    } 
+    },
+
+    validateCaptcha: (req, res) => {
+        async function validateCaptcha() {
+            let captchaResult = await ThreadValidator.captchaValidation(req.body.captcha);
+
+            res.send(captchaResult);
+        }
+
+        validateCaptcha();
+    }
 }
 
 module.exports = BoardController;

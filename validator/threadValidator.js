@@ -77,6 +77,18 @@ const ThreadValidator = {
         }
 
         return true;
+    },
+
+    captchaValidation: async function(captcha) {
+        const secretKey = "6Lff6eQZAAAAAENSnF_AMdFRbhpMlEuU5IhD3gFz";
+        const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captcha}&remoteip=${req.connection.remoteAddress}`;
+        
+        let response = await axios.get(verifyUrl);
+        if (!response.data.success) {
+            console.error("Captcha failed.");
+            return false;
+        }
+        return true;
     }
 }
 
