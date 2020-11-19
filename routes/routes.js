@@ -49,5 +49,6 @@ app.get('/thread', function (req, res) {
 
 app.get('/:board', BoardController.getBoard);
 app.post('/createThread/:board', upload, BoardController.createThread);
+app.post('/verifyCaptcha', BoardController.validateCaptcha);
 
 module.exports = app;
