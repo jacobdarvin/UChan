@@ -41,7 +41,7 @@ const BoardController = {
         async function createThread() {
             let isValid =  await ThreadValidator.createThreadValidation(req);
             if (!isValid) {
-                res.redirect(req.get('referer'));
+                res.render('404', {title: '404'});
                 return;
             }
 
