@@ -87,7 +87,6 @@ a:hover {
 .post-zoom {
   transition: transform .2s; /* Animation */
   z-index: 2;
-
 }
 
 .post-zoom:hover {
