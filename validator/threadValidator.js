@@ -1,5 +1,5 @@
 /* Limits and Sanitation */
-const {THREAD_CHAR_LIMIT, IMAGE_SIZE_LIMIT, NAME_LIMIT } = require('../model/database.js');
+const {THREAD_CHAR_LIMIT, IMAGE_SIZE_LIMIT, NAME_LIMIT } = require('../model/constants.js');
 const sanitize = require('mongo-sanitize');
 
 /* Mongoose Schemas */
@@ -13,6 +13,9 @@ const fs = require('fs');
 const ThreadValidator = {
 
     createThreadValidation: async function(req) {
+        console.log(THREAD_CHAR_LIMIT)
+        console.log(IMAGE_SIZE_LIMIT)
+        console.log(NAME_LIMIT)
         
         let captcha = req.body['g-recaptcha-response']
         if (captcha=== undefined || captcha === '' || captcha === null) {
@@ -82,7 +85,7 @@ const ThreadValidator = {
     captchaValidation: async function(captcha) {
         const secretKey = "6Lff6eQZAAAAAENSnF_AMdFRbhpMlEuU5IhD3gFz";
         const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captcha}&remoteip=${req.connection.remoteAddress}`;
-        
+
         let response = await axios.get(verifyUrl);
         if (!response.data.success) {
             console.error("Captcha failed.");
