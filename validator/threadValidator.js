@@ -6,10 +6,36 @@ const sanitize = require('mongo-sanitize');
 const Board = require('../model/board.js');
 const { exists } = require('../model/board.js');
 
+/* Others */
+const axios = require('axios').default;
+const fs = require('fs');
+
 const ThreadValidator = {
 
     createThreadValidation: async function(req) {
         
+        let captcha = req.body['g-recaptcha-response']
+        if (captcha=== undefined || captcha === '' || captcha === null) {
+            console.error('Captcha test missing or failed.')
+            if (req.file) {
+                fs.unlink(req.file.path, f => {});
+            }
+            return false;
+        }
+        
+        const secretKey = "6Lff6eQZAAAAAENSnF_AMdFRbhpMlEuU5IhD3gFz";
+        const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captcha}&remoteip=${req.connection.remoteAddress}`;
+        let response = await axios.get(verifyUrl);
+        if (!response.data.success) {
+            console.error("Captcha failed.");
+
+            if (req.file) {
+                fs.unlink(req.file.path, f => {});
+            }
+
+            return false;
+        }
+
         req.params.board = sanitize(req.params.board.trim());
         let board = req.params.board;
 

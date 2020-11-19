@@ -7,6 +7,13 @@ const path 		= require('path');
 
 const app 		= express();
 
+// controller imports
+const BoardController = require('../controller/boardController.js');
+const IndexController = require('../controller/indexController.js');
+
+// db constants
+const database = require('../model/database.js');
+
 // Multer Image Processing
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -15,14 +22,7 @@ var storage = multer.diskStorage({
         cb(null, file.originalname)
     }
 }),
-upload = multer({ storage: storage }).single('postImageInput');
-
-// controller imports
-const BoardController = require('../controller/boardController.js');
-const IndexController = require('../controller/indexController.js');
-
-// validators
-const ThreadValidator = require('../validator/threadValidator.js');
+upload = multer({ storage: storage, limits: {fileSize: database.IMAGE_SIZE_LIMIT} }).single('postImageInput');
 
 app.get('/', IndexController.getIndex);
 

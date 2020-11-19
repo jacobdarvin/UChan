@@ -16,7 +16,7 @@ const BoardController = {
             let board = sanitize(req.params.board);
 
             
-            let noOfThreadLimit = 5; //for testing
+            let noOfThreadLimit = 20; //for testing
             let threads = await Post.find({board: board, type: 'THREAD'}).sort({bump: 'desc'}).limit(noOfThreadLimit).lean();
             if (threads.length == 0) {
                 res.render('404', {
@@ -63,7 +63,7 @@ const BoardController = {
 
             if (req.file) {
                 console.log('hasimage')
-                let imageDbName = fsHelper.renameImageAndGetDbName(post.postNumber, req.file);
+                let imageDbName = fsHelper.renameImageAndGetDbName(post._id, req.file);
                 post.image = imageDbName;
                 post.imageDisplayName = req.file.originalName;
                 await post.save();
@@ -71,7 +71,6 @@ const BoardController = {
 
             //TODO bumping algo
             //TODO captcha (validator)
-
 
             //TODO: change to res.redirect when thread is hooked up
             res.redirect(req.get('referer'));
