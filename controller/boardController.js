@@ -45,7 +45,7 @@ const BoardController = {
                 return;
             }
 
-            let ip = req.ip;
+            let ip = req.ip || req.connection.remoteAddress;
             let text = req.body.text;
             let name = req.body.name;
             let file = req.file;

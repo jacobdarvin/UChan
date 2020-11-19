@@ -51,7 +51,7 @@ const PostSchema = new mongoose.Schema({
     ip: {
         type: String,
         required: true,
-        select: false
+        //select: false
     },
 
     /*If post is a THREAD */
