@@ -1,19 +1,27 @@
-<div class="card post-thread shadow-sm mt-3 p-3" style="position: fixed; top: 80px; right: 0; display: none; z-index: 99999;" id="post-form">
+<div class="card post-thread shadow-sm mt-3 p-3" style="position: fixed; top: 80px; right: 0; display: none; z-index: 99999; width: 334px;" id="post-form" name="post-form">
 
 	<form id="createPostForm" name="createPostForm" class="w-100" method="POST" action="{{action}}" enctype="multipart/form-data">
 	<a href="#" onclick="showReply();" style="right: 5px; top: 0px; position: absolute;" aria-label="Close">Close [X]</a>
 
+  <div id="error" style="color: red"></div>
+
 	<div class="form-group mb-1 mt-2">
-    <input class="form-control" id="name" name="name" aria-describedby="name" placeholder="Name (Leave blank for Anonymous)">
+    <input class="form-control" maxlength="20" id="name" name="name" aria-describedby="name" placeholder="Name (Leave blank for Anonymous)">
   </div>
 
-	<div class="form-group w-100 mb-1">
-    <textarea class="form-control" id="text" name="text" rows="3" placeholder="Comment"></textarea>
+	<div class="form-group w-100 mb-1" style="width: 300px;">
+    <textarea class="form-control" maxlength="2000" id="text" name="text" rows="3" placeholder="Comment"></textarea>
   </div>
-  	<input type="file"
+
+	   <div class="g-recaptcha mt-1 mb-1" data-sitekey="6Lff6eQZAAAAACLF0onsK7F-oXM95R0-RvZKQ99s" id="captcha">  
+      </div>
+
+    <input type="file"
        id="postImageInput" name="postImageInput"
-       accept="image/*">
-	   <div class="g-recaptcha mt-1 mb-1" data-sitekey="6Lff6eQZAAAAACLF0onsK7F-oXM95R0-RvZKQ99s"></div>
-       <input type="submit" value="Submit">
+       accept="image/*"> <br>
+
+       <input type="submit" value="submit" class="select btn btn-dark w-100 mt-1" style="background-color: transparent; color: black;">
   </form>
 </div>
+
+<script type="text/javascript" src="/js/postvalidate.js"></script>
