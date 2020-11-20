@@ -6,7 +6,7 @@ const IndexController = {
 
         Post.find({type: 'THREAD'})
             .sort({bump: 'desc'})
-            .limit(6)
+            .limit(8)
             .lean()
             .exec((err, threads) => {
                 res.render('index', {
