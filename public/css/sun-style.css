@@ -46,6 +46,12 @@ a:hover {
 	background-color: white;
 }
 
+.btn-custom {
+	background-color: transparent;
+	color: #ffaa00;
+	border-color: #ffaa00;
+}
+
 /* LINKS */
 .select {
 	font-size: 12pt;
@@ -54,6 +60,8 @@ a:hover {
 
 .select:hover {
 	font-weight: bold;
+	color: #ffaa00;
+
 }
 
 .select-back {
@@ -70,7 +78,7 @@ a:hover {
 }
 
 .post-general {
-	max-width: 300px;
+	max-width: 200px;
 	display: inline-block;
 }
 

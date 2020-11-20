@@ -46,6 +46,12 @@ a:hover {
 	background-color: white;
 }
 
+.btn-custom {
+	background-color: transparent;
+	color: black;
+	border-color: black;
+}
+
 /* LINKS */
 .select {
 	font-size: 12pt;

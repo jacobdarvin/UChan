@@ -55,6 +55,12 @@ a:hover {
 	border-color: #2f3336;
 }
 
+.btn-custom {
+	background-color: transparent;
+	color: white;
+	border-color: #2f3336;
+}
+
 hr { 
 	display: block; height: 1px;
     border: 0; border-top: 1px solid #2f3336;
@@ -69,6 +75,7 @@ hr {
 
 .select:hover {
 	font-weight: bold;
+	color: white;
 }
 
 .select-back {
@@ -85,7 +92,7 @@ hr {
 }
 
 .post-general {
-	max-width: 300px;
+	max-width: 200px;
 	display: inline-block;
 }
 
