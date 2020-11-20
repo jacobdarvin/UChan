@@ -10,6 +10,7 @@ const app 		= express();
 // controller imports
 const BoardController = require('../controller/boardController.js');
 const IndexController = require('../controller/indexController.js');
+const ThreadController = require('../controller/threadController.js');
 
 // db constants
 const database = require('../model/database.js');
@@ -47,8 +48,11 @@ app.get('/thread', function (req, res) {
 	});
 });
 
+
 app.get('/:board', BoardController.getBoard);
 app.post('/createThread/:board', upload, BoardController.createThread);
 app.post('/verifyCaptcha', BoardController.validateCaptcha);
+
+app.get('/thread/:postNumber', ThreadController.getThread);
 
 module.exports = app;

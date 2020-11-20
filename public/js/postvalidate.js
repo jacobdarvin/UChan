@@ -22,7 +22,7 @@ form.addEventListener('submit', (e) => {
 	}
 
 	if (img.files.size > 1048576 * 2) {
-		messages.push('Image exceeds 2MBs');
+		messages.push('Image exceeds 2MB');
 	}
 
 	if (text.value === '' || text.value == null) {

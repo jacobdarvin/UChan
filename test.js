@@ -5,33 +5,38 @@ const connectToDb = require('./model/database.js');
 
 database.connectToDb();
 
-let post = new Post({
-    text: 'i saw an alien in taft ama',
-    image: 'Alien.jpg', //under /postimgs/
-    type: 'THREAD',
-    board: 'ufo',
-    ip: '0.0.0.0',
-    quotes: [10000024],
-    noOfPosts: 1
-});
-post.save();
+async function test() {
+    let post = new Post({
+        text: 'i saw an alien in taft ama',
+        image: 'Alien.jpg', //under /postimgs/
+        type: 'THREAD',
+        board: 'ufo',
+        ip: '0.0.0.0',
+        noOfPosts: 1
+    });
+    await post.save();
+    
+    let number = post.postNumber;
+    let reply = new Post({
+        text: `>>${number}\n kys`,
+        type: 'REPLY',
+        board: 'ufo',
+        ip: '0',
+        parentPost: number
+    })
+    await reply.save();
+    post.quotes.push(reply.postNumber);
+    await post.save();
+    
+    let board = new Board({
+        name: 'ufo',
+        displayName: '🛸/UFO'
+    });
+    await board.save();
+    
+}
 
-let number = post.postNumber;
-let reply = new Post({
-    text: `>>1000023\n kys`,
-    type: 'REPLY',
-    board: 'ufo',
-    ip: '0',
-    parentPost: 1000023
-})
-reply.save();
-
-let board = new Board({
-    name: 'ufo',
-    displayName: '🛸/UFO'
-});
-board.save();
-
+test();
 
 
 

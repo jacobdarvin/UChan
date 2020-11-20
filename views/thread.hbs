@@ -1,22 +1,14 @@
-<h1 class="pt-3 mb-0" style="text-align: center;">🛸/UFO</h1>
+<h1 class="pt-3 mb-0" style="text-align: center;">{{displayName}}</h1>
 
 <div class="container">
 	🗨️ <a href="#" class="select" onclick="showReply();" style="font-size: 16pt;">Reply To Thread</a>
 <hr>
+	
+	{{> postThread}}
 
-	{{> post-thread}}
-
-	{{> post-reply}}
-
-	<div class="card shadow-sm p-0 mt-3 p-3" style="display: flex; flex-direction: row;">
-		<div class="ml-3">
-			<span><b>Anonymous</b> 11/06/20(Fri)19:28:07 No.15693770</span> 
-			<br><br>
-			>>15693733 (OP)<br>
-			There's an old man in my hometown who rocks this. I'm clean shaven now but when I hit my 60s you bet your ass I'm gonna walk around mutton chopped
-
-		</div>
-	</div>
+	{{#each replies}}
+		{{> postReply}}
+	{{/each}}
 
 	{{> post-form}}
 	<div class="p-4">
