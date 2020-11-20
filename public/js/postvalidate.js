@@ -9,15 +9,28 @@ form.addEventListener('submit', (e) => {
 	let messages = [];
 
 	if (name.length > 20) {
-		messages.push('Please do not edit the HTML.');
+		messages.push('Please do not edit the HTML. ;)');
 	}
 
 	if (text.length > 2000) {
-		messages.push('Please do not edit the HTML.');
+		messages.push('Please do not edit the HTML. ;)');
 	}
 
+
 	if (img.files.length == 0) {
-		messages.push('No image uploaded.');
+		messages.push('No image uploaded');
+	}
+
+	if (img.files.size > 1048576 * 2) {
+		messages.push('Image exceeds 2MBs');
+	}
+
+	if (text.value === '' || text.value == null) {
+		messages.push('No text inputted');
+	}
+
+	for(let i = 0; i < messages.length; i++) {
+		console.log(messages[i])
 	}
 
 	if(messages.length > 0) {

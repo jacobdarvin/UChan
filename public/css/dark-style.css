@@ -92,8 +92,7 @@ hr {
 }
 
 .post-general {
-	max-width: 200px;
-	display: inline-block;
+	flex-wrap: wrap;
 }
 
 .post-thread {
@@ -107,9 +106,11 @@ hr {
 }
 
 .post-zoom {
-  transition: transform .2s; /* Animation */
-  z-index: 2;
+	max-height: auto;
+	max-width: 200px;
 
+	transition: transform .2s; 
+	z-index: 2;
 }
 
 .post-zoom:hover {
