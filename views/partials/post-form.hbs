@@ -1,19 +1,28 @@
-<div class="card post-thread shadow-sm mt-3 p-3" style="position: fixed; top: 80px; right: 0; display: none; z-index: 99999;" id="post-form">
+<div class="card post-thread shadow-sm mt-3 p-3" style="position: fixed; top: 80px; right: 0;  z-index: 99999;" id="post-form">
 
 	<form id="createPostForm" name="createPostForm" class="w-100" method="POST" action="{{action}}" enctype="multipart/form-data">
-	<a href="#" onclick="showReply();" style="right: 5px; top: 0px; position: absolute;" aria-label="Close">Close [X]</a>
+
+	<a onclick="showReply();" style="right: 15px; top: 0px; position: absolute;" aria-label="Close">Close [X]</a>
 
 	<div class="form-group mb-1 mt-2">
-    <input class="form-control" id="name" name="name" aria-describedby="name" placeholder="Name (Leave blank for Anonymous)">
+    <input class="form-control" maxlength="20" id="name" name="name" aria-describedby="name" placeholder="Name (Leave blank for Anonymous)">
+    <p style="color: red">{{details.nameError}}</p>
   </div>
 
 	<div class="form-group w-100 mb-1">
-    <textarea class="form-control" id="text" name="text" rows="3" placeholder="Comment"></textarea>
+    <textarea class="form-control" id="text" maxlength="2000" name="text" rows="3" placeholder="Comment"></textarea>
+    <p style="color: red">{{details.textError}}</p>
   </div>
+
   	<input type="file"
        id="postImageInput" name="postImageInput"
        accept="image/*">
-	   <div class="g-recaptcha mt-1 mb-1" data-sitekey="6Lff6eQZAAAAACLF0onsK7F-oXM95R0-RvZKQ99s"></div>
-       <input type="submit" value="Submit">
+       {{details.fileError}}
+
+       <div class="g-recaptcha mt-1 mb-1" data-sitekey="6Lff6eQZAAAAACLF0onsK7F-oXM95R0-RvZKQ99s"></div>
+       <p style="color: red">{{details.captchaError}}</p>
+
+    <input type="submit" value="Submit">
+
   </form>
 </div>

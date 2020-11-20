@@ -39,11 +39,37 @@ const BoardController = {
 
     createThread: (req, res) => {
         async function createThread() {
-            let isValid =  await ThreadValidator.createThreadValidation(req);
-            if (!isValid) {
-                res.render('404', {title: '404'});
+            var errorsArr =  await ThreadValidator.createThreadValidation(req);
+
+            if (errorsArr) {
+
+                var details = {};
+
+                for(let i = 0; i < errorsArr.length; i++) {
+                    console.log(errorsArr[i]);
+                    switch(i) {
+                        case 0: 
+                            details['captchaError'] = errorsArr[i];
+                            break;
+
+                        case 1:
+                            details['textError'] = errorsArr[i];
+                            break;
+
+                        case 2:
+                            details['nameError'] = errorsArr[i];
+                            break;
+
+                        case 3:
+                            details['fileError'] = errorsArr[i];
+                            break;
+                    }
+                }
+                res.redirect('back');
                 return;
             }
+
+            var errorsArr = null;
 
             let ip = req.ip || req.connection.remoteAddress;
             let text = req.body.text;

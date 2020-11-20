@@ -10,33 +10,37 @@ const { exists } = require('../model/board.js');
 const axios = require('axios').default;
 const fs = require('fs');
 
-const ThreadValidator = {
+var errorsArr = [];
 
+const ThreadValidator = {
     createThreadValidation: async function(req) {
+        
+
         console.log(THREAD_CHAR_LIMIT)
         console.log(IMAGE_SIZE_LIMIT)
         console.log(NAME_LIMIT)
         
         let captcha = req.body['g-recaptcha-response']
         if (captcha=== undefined || captcha === '' || captcha === null) {
-            console.error('Captcha test missing or failed.')
+            //console.error('Captcha test missing or failed.')
             if (req.file) {
                 fs.unlink(req.file.path, f => {});
             }
-            return false;
+
+            errorsArr[0] = 'Captcha test missing or failed.';
         }
         
         const secretKey = "6Lff6eQZAAAAAENSnF_AMdFRbhpMlEuU5IhD3gFz";
         const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captcha}&remoteip=${req.connection.remoteAddress}`;
         let response = await axios.get(verifyUrl);
         if (!response.data.success) {
-            console.error("Captcha failed.");
+            //console.error("Captcha failed.");
 
             if (req.file) {
                 fs.unlink(req.file.path, f => {});
             }
 
-            return false;
+            errorsArr[0] = 'Captcha test failed.';
         }
 
         req.params.board = sanitize(req.params.board.trim());
@@ -53,33 +57,35 @@ const ThreadValidator = {
         /* Board Validation */
         let boardExists = await Board.exists({name: board});
         if (!exists) {
-            console.error("Board user is posting to does not exist.");
-            return false;
+            //console.error("Board user is posting to does not exist.");
+            //return false;
         }
 
         if (text == '') {
-            console.error("Text is empty.");
-            return false;
+            //console.error("Text is empty.");
+            errorsArr[1] = 'Text is empty.';
         }
 
         if (text > THREAD_CHAR_LIMIT) {
-            console.error("Text exceeds limit.");
-            return false;
+            //console.error("Text exceeds limit.");
+            alert('Nice try buddy.');
+            errorsArr[1] = 'Text exceeds limit.';
         }
 
         if (name > NAME_LIMIT) {
-            console.error("Name exceeds limit.");
-            return false;
+            //console.error("Name exceeds limit.");
+            alert('Nice try buddy.');
+            errorsArr[2] = "Name exceeds limit.";
         }
 
         if (file) {
             if (file.size > IMAGE_SIZE_LIMIT) {
-                console.error("File exceeds limit.");
-                return false;
+                //console.error("File exceeds limit.");
+                errorsArr[3] = "File exceeds limit."
             }
         }
 
-        return true;
+        return errorsArr;
     },
 
     captchaValidation: async function(captcha) {
@@ -88,10 +94,10 @@ const ThreadValidator = {
 
         let response = await axios.get(verifyUrl);
         if (!response.data.success) {
-            console.error("Captcha failed.");
-            return false;
+            //console.error("Captcha failed.");
+            errorsArr[0] = "Captcha failed.";
         }
-        return true;
+        return errorsArr;
     }
 }
 
