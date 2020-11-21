@@ -22,5 +22,14 @@ function toggleImage(img) {
     }
 }
 
+function highlightReply(id) {
+    let replyId = id + "p";
+
+    var x = document.getElementById(replyId);
+    console.log(replyId);
+
+    x.style.border = "2px solid #ff5757";
+}
+
 //WIP - Quote '>>' detection
 //$("#reply-content:contains('>>')").prepend("BIG");

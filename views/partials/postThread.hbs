@@ -8,7 +8,7 @@
 			</a>
 			|
 			{{#each quotes}}
-				<a href="#{{this}}p" class="thread-quote">
+				<a href="#{{this}}p" onclick="highlightReply({{this}})" class="thread-quote">
 				<u>>>{{this}}</u>
 				</a>
 			{{/each}}
