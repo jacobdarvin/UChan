@@ -161,6 +161,7 @@ function addCounter() {
 	}
 
 	if(egg == 7) {
-		document.getElementById('logo-link').setAttribute('href',  'https://youtu.be/KMU0tzLwhbE');
+		document.getElementById('logo-link').setAttribute('href',  'https://youtu.be/ByrCj6eMMqo');
+		$('#logo-link').attr('target', '_blank');
 	}
 }
