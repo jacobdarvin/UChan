@@ -6,22 +6,13 @@
 	
 	{{> postThread}}
 
+	<div id="reply-section" name="reply-section">
 	{{#each replies}}
 		{{> postReply}}
 	{{/each}}
+	</div>
 
 	{{> post-form}}
 	<div class="p-4">
 	
 </div>
-
-<script type="text/javascript">
-	function showReply() {
-	  var x = document.getElementById("post-form");
-	  if (x.style.display === "none") {
-	    x.style.display = "block";
-	  } else {
-	    x.style.display = "none";
-	  }
-	}
-</script>

@@ -28,7 +28,8 @@ const ThreadController = {
             }
 
             res.render('thread', {
-                title: thread.postNumber,
+                title: board.displayName + ' - ' + thread.text,
+                postNumber: thread.postNumber,
                 displayName: board.displayName,
 
                 image: thread.image,

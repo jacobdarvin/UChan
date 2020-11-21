@@ -30,6 +30,7 @@ a {
 a:hover {
 	font-weight: bold;
 	color: #2e2e2e !important;
+	text-decoration: underline;
 }
 
 
@@ -107,6 +108,8 @@ a:hover {
   transform: scale(1.3); 
   z-index: 4;
 }
+
+/* THREAD */
 
 /* LOGO */
 #logo {

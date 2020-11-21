@@ -1,11 +1,12 @@
 <div class="post-thread">
-	<a href="#"><img src="/postimgs/{{image}}"></a>
+	<a href="#"><img src="/postimgs/{{image}}" onclick="toggleImage({{postNumber}})" id="{{postNumber}}" title="{{imageDisplayName}}" style="max-width: 300px;"></a>
 
 	<div class="ml-3">
-		<span><b>{{name}}</b> {{created}} <!--No.15693733>>15693758 >>15693770 >>15693781 >>15693806 >>15693817--></span> 
+		<span><b>{{name}}</b> {{created}} <u><a href="#" onclick="showReply({{postNumber}})">>>{{postNumber}}</a></u></span> 
 		<br>
-		<br>
+		<div>
 		{{text}}
+		</div>
 	</div>
 </div>
 
