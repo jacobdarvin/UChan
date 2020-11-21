@@ -27,12 +27,6 @@ a {
 	text-decoration: none !important;
 }
 
-a:hover {
-	font-weight: bold;
-	color: #2e2e2e !important;
-	text-decoration: underline;
-}
-
 
 /* BS ADJUSTMENTS */
 .active {
@@ -110,6 +104,13 @@ a:hover {
 }
 
 /* THREAD */
+.thread-quote{
+
+}
+
+.thread-quote:hover{
+	color: red !important;
+}
 
 /* LOGO */
 #logo {

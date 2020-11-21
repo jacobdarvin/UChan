@@ -22,4 +22,5 @@ function toggleImage(img) {
     }
 }
 
-$("#reply-section").find( "post" ).css( "background-color", "red" );
+//WIP - Quote '>>' detection
+//$("#reply-content:contains('>>')").prepend("BIG");
