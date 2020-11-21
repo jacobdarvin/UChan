@@ -78,7 +78,8 @@ a:hover {
 
 .post-general {
 	flex-wrap: wrap;
-	max-width: 200px;
+	width: 250px;
+	height: auto;
 }
 
 .post-thread {
