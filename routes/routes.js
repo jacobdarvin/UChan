@@ -26,12 +26,7 @@ upload = multer({ storage: storage, limits: {fileSize: database.IMAGE_SIZE_LIMIT
 
 app.get('/', IndexController.getIndex);
 
-app.get('/board', function (req, res) {
-	res.render('board', {
-		title: 'Board',
-		thread: false,
-	});
-});
+/* Static Pages */
 
 app.get('/about', function (req, res) {
 	res.render('about', {

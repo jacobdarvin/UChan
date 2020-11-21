@@ -149,3 +149,14 @@ sunModeToggle.addEventListener('click', () => {
 defaultModeToggle.addEventListener('click', () => {
 	disableThemes();
 })
+
+var egg = 0;
+
+function addCounter() {
+	egg++;
+
+	console.log(egg);
+	if(egg % 3 == 0) {
+		document.getElementById('logo').setAttribute('src',  'imgs/icons/logo-easter.gif');
+	}
+}
