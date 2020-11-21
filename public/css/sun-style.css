@@ -79,6 +79,7 @@ a:hover {
 
 .post-general {
 	flex-wrap: wrap;
+	max-width: 300px;
 }
 
 .post-thread {
@@ -88,7 +89,11 @@ a:hover {
 
 .post-subtitle {
 	font-size: 12px;
-	line-height: 0.5;
+	overflow: hidden;
+   	text-overflow: ellipsis;
+   	display: -webkit-box;
+   	-webkit-line-clamp: 2; /* number of lines to show */
+   	-webkit-box-orient: vertical;
 }
 
 .post-zoom {
