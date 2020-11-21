@@ -15,7 +15,8 @@ const PostSchema = new mongoose.Schema({
     },
     name: {
         type: String,
-        maxlength: database.NAME_LIMIT
+        maxlength: database.NAME_LIMIT,
+        default: 'Anonymous'
     },
 
     /* How it is fetched internally */

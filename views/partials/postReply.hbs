@@ -1,0 +1,23 @@
+
+<div class="card post-thread shadow-sm p-0 mt-3 p-3" aria-expanded="true">
+
+	<a href="#"><img src="/postimgs/{{image}}"></a>
+
+	<div class="ml-3">
+	<span><b>{{name}}</b> {{created}} </span>
+	<a href="#" style="right: 20px; position: absolute;">-</a>
+	<br><br>
+	{{text}}
+	<br>
+	</div>
+
+</div>
+
+<!--HBS INFO TO PUT-->
+<!--
+	{{quotes}} - array of postNumbers referencing post
+		literally just an array of integers
+	
+	{{imageDisplayName}} - the image's original filename given by the user. 
+		different from {{image}}, that gets how it's represented in the backend
+-->
