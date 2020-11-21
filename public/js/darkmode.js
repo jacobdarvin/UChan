@@ -156,7 +156,11 @@ function addCounter() {
 	egg++;
 
 	console.log(egg);
-	if(egg % 3 == 0) {
+	if(egg == 6) {
 		document.getElementById('logo').setAttribute('src',  'imgs/icons/logo-easter.gif');
+	}
+
+	if(egg == 7) {
+		document.getElementById('logo-link').setAttribute('href',  'https://youtu.be/KMU0tzLwhbE');
 	}
 }
