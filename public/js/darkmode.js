@@ -161,7 +161,8 @@ function addCounter() {
 	}
 
 	if(egg == 7) {
-		document.getElementById('logo-link').setAttribute('href',  'https://youtu.be/ByrCj6eMMqo');
-		$('#logo-link').attr('target', '_blank');
+		document.getElementById('logo-link').setAttribute('href',  '#eggvideo');
+		$('#logo-link').append('<iframe width="1004" id="eggvideo" height="753" src="https://www.youtube.com/embed/ByrCj6eMMqo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+		document.getElementById('logo-link').css("display: none;");
 	}
 }
