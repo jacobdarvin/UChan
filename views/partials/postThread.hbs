@@ -1,4 +1,4 @@
-<div class="post-thread">
+<div class="post-thread" id="{{postNumber}}p">
 	<a href="#"><img src="/postimgs/{{image}}" onclick="toggleImage({{postNumber}})" id="{{postNumber}}" title="{{imageDisplayName}}" style="max-width: 300px;"></a>
 
 	<div class="ml-3">
@@ -8,7 +8,7 @@
 			</a>
 			|
 			{{#each quotes}}
-				<a href="#" class="thread-quote" onclick="showReply({{this}})">
+				<a href="#{{this}}p" class="thread-quote">
 				<u>>>{{this}}</u>
 				</a>
 			{{/each}}

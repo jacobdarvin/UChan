@@ -1,26 +1,23 @@
-
-<div class="card post-thread shadow-sm p-0 mt-3 p-3" aria-expanded="true">
-
-	<a href="#"><img src="/postimgs/{{image}}" style="max-width: 300px;"></a>
+<div class="card post-thread shadow-sm p-0 mt-3 p-3" id="" aria-expanded="true" id="{{postNumber}}p">
+	<a href="#"><img src="/postimgs/{{image}}" onclick="toggleImage({{postNumber}})" id="{{postNumber}}" title="{{imageDisplayName}}" style="max-width: 300px;"></a>
 
 	<div class="ml-3">
-	<span><b>{{name}}</b> {{created}}
+		<span><b>{{name}}</b> {{created}}
 			<a href="#" class="thread-quote" onclick="showReply({{postNumber}})">
 				<u>No.{{postNumber}}</u>
 			</a>
 			|
 			{{#each quotes}}
-				<a href="#" class="thread-quote" onclick="showReply({{this}})">
+				<a href="#{{this}}p" class="thread-quote">
 				<u>>>{{this}}</u>
 				</a>
 			{{/each}}
 		</span> 
 	<a href="#" style="right: 20px; position: absolute;">-</a>
-	<br>
-	{{text}}
-	<br>
+		<br>
+		{{text}}
+		<br>
 	</div>
-
 </div>
 
 <!--HBS INFO TO PUT-->
