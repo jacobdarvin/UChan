@@ -85,6 +85,7 @@ a:hover {
 .post-thread {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 }
 
 .post-subtitle {
