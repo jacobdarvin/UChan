@@ -45,6 +45,9 @@ const ThreadValidator = {
 
         req.body.name = sanitize(req.body.name.trim());
         let name = req.body.name;
+        if (name == "") {
+            req.body.name = 'Anonymous';
+        }
 
         let file = req.file;
         

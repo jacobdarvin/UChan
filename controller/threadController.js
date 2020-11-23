@@ -2,6 +2,7 @@ const Board = require('../model/board.js');
 const Post = require('../model/post.js');
 
 const dateHelper = require('../helper/dateHelper.js');
+const fsHelper = require('../helper/fsHelper.js');
 const sanitize = require('mongo-sanitize');
 const { REPLY } = require('../validator/threadValidator.js');
 const post = require('../model/post.js');
@@ -99,11 +100,11 @@ const ThreadController = {
                 parentPost.uniqueIps.push(ip);
             }
 
-            if (reply.image != '') {
+            if (req.file) {
                 parentPost.noOfImages = parentPost.noOfImages + 1;
             }
-            parentPost.nofOfPosts = parentPost.nofOfPosts + 1;
-            parentPost.save();
+            parentPost.noOfPosts++;
+            await parentPost.save();
 
 
             res.redirect(req.get('referer'));
@@ -115,9 +116,7 @@ const ThreadController = {
 }
 
 async function processQuotes(text, postNumber) {
-    console.log(text)
-    let matches = text.match(/[>]{2}[0-1]{7}/);
-    console.log(matches)
+    let matches = text.match(/[>]{2}[\d]{7}/gm);
     if (!matches) {
         return;
     }
@@ -132,10 +131,9 @@ async function processQuotes(text, postNumber) {
         
         quotes.add(parseInt(result));
     }
-    console.log(quotes);
 
-    for (let i = 0; i < quotes.size; i++) {
-        await Post.updateOne({postNumber: quotes[i]}, {$addToSet: {quotes: postNumber}});
+    for (let item of quotes) {
+        await Post.updateOne({postNumber: item}, {$addToSet: {quotes: postNumber}});
     }
 }
 
