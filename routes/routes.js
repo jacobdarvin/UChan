@@ -49,5 +49,6 @@ app.post('/createThread/:board', upload, BoardController.createThread);
 app.post('/verifyCaptcha', BoardController.validateCaptcha);
 
 app.get('/thread/:postNumber', ThreadController.getThread);
+app.post('/replyThread/:postNumber', upload, ThreadController.replyThread);
 
 module.exports = app;

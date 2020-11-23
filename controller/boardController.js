@@ -7,7 +7,7 @@ const fsHelper = require('../helper/fsHelper.js');
 const sanitize = require('mongo-sanitize');
 
 // Validators
-const ThreadValidator = require('../validator/threadValidator.js');
+const {ThreadValidator} = require('../validator/threadValidator.js');
 const { THREAD } = require('../validator/threadValidator.js');
 
 const BoardController = {
