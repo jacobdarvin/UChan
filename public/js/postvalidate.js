@@ -16,6 +16,11 @@ form.addEventListener('submit', (e) => {
 		messages.push('Please do not edit the HTML. ;)');
 	}
 
+
+	if (img.files.length == 0) {
+		messages.push('No image uploaded');
+	}
+
 	if (img.files.size > 1048576 * 2) {
 		messages.push('Image exceeds 2MB');
 	}

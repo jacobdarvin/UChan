@@ -84,6 +84,13 @@ const ThreadValidator = {
             return false;
         }
 
+        if (type == THREAD) {
+            if (!file) {
+                console.error("File required.");
+                return false;
+            }
+        }
+
         if (file) {
             if (file.size > IMAGE_SIZE_LIMIT) {
                 console.error("File exceeds limit.");
