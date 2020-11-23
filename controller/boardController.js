@@ -7,7 +7,8 @@ const fsHelper = require('../helper/fsHelper.js');
 const sanitize = require('mongo-sanitize');
 
 // Validators
-const ThreadValidator = require('../validator/threadValidator.js');
+const {ThreadValidator} = require('../validator/threadValidator.js');
+const { THREAD } = require('../validator/threadValidator.js');
 
 const BoardController = {
 
@@ -39,7 +40,7 @@ const BoardController = {
 
     createThread: (req, res) => {
         async function createThread() {
-            let isValid =  await ThreadValidator.createThreadValidation(req);
+            let isValid =  await ThreadValidator.createPostValidation(req, THREAD);
             if (!isValid) {
                 res.render('404', {title: '404'});
                 return;
@@ -72,7 +73,7 @@ const BoardController = {
             //TODO bumping algo
 
             //TODO: change to res.redirect when thread is hooked up
-            res.redirect(req.get('referer'));
+            res.redirect(`/thread/${post.postNumber}`);
         }
 
         createThread(); 

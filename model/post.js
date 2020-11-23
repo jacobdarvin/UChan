@@ -64,10 +64,7 @@ const PostSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
-    uniqueIps: {
-        type: Number,
-        default: 0
-    },
+    uniqueIps: [String],
     
     /* If Post is a REPLY */
     parentPost: {
