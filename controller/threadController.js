@@ -3,6 +3,7 @@ const Post = require('../model/post.js');
 
 const dateHelper = require('../helper/dateHelper.js');
 const sanitize = require('mongo-sanitize');
+const { REPLY } = require('../validator/threadValidator.js');
 
 const ThreadController = {
 
@@ -31,6 +32,7 @@ const ThreadController = {
                 title: board.displayName + ' - ' + thread.text,
                 postNumber: thread.postNumber,
                 displayName: board.displayName,
+                action: `/replyThread/${thread.postNumber}`,
 
                 image: thread.image,
                 name: thread.name,
@@ -47,7 +49,33 @@ const ThreadController = {
         }
 
         getThread();
+    },
+
+    replyThread: (req, res) => {
+        async function replyThread() {
+            let isValid =  await ThreadValidator.createPostValidation(req, REPLY);
+            if (!isValid) {
+                res.render('404', {title: '404'});
+                return;
+            }
+
+            let ip = req.ip || req.connection.remoteAddress;
+            let text = req.body.text;
+            let name = req.body.name;
+            let file = req.file;
+            let parentPostNumber = req.params.parentPostNumber;
+
+            let parentPost = await Post.findOne({postNumber: parentPostNumber});
+            if (!parentPost) {
+
+            }
+
+
+        }
+        
+        replyThread();
     }
+
 }
 
 module.exports = ThreadController;

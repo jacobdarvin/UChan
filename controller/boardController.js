@@ -8,6 +8,7 @@ const sanitize = require('mongo-sanitize');
 
 // Validators
 const ThreadValidator = require('../validator/threadValidator.js');
+const { THREAD } = require('../validator/threadValidator.js');
 
 const BoardController = {
 
@@ -39,7 +40,7 @@ const BoardController = {
 
     createThread: (req, res) => {
         async function createThread() {
-            let isValid =  await ThreadValidator.createPostValidation(req);
+            let isValid =  await ThreadValidator.createPostValidation(req, THREAD);
             if (!isValid) {
                 res.render('404', {title: '404'});
                 return;

@@ -4,15 +4,19 @@ const sanitize = require('mongo-sanitize');
 
 /* Mongoose Schemas */
 const Board = require('../model/board.js');
+const Post = require('../model/post.js');
 const { exists } = require('../model/board.js');
 
 /* Others */
 const axios = require('axios').default;
 const fs = require('fs');
 
+const THREAD = 0;
+const REPLY = 1;
+
 const ThreadValidator = {
 
-    createPostValidation: async function(req) {
+    createPostValidation: async function(req, type) {
         
         let captcha = req.body['g-recaptcha-response']
         if (captcha=== undefined || captcha === '' || captcha === null) {
@@ -36,9 +40,6 @@ const ThreadValidator = {
             return false;
         }
 
-        req.params.board = sanitize(req.params.board.trim());
-        let board = req.params.board;
-
         req.body.text = sanitize(req.body.text.trim());
         let text = req.body.text;
 
@@ -47,12 +48,26 @@ const ThreadValidator = {
 
         let file = req.file;
         
-        /* Board Validation */
-        let boardExists = await Board.exists({name: board});
-        if (!boardExists) {
-            console.error("Board user is posting to does not exist.");
-            return false;
+        if (type == THREAD) {
+            req.params.board = sanitize(req.params.board.trim());
+            let board = req.params.board;
+
+            let boardExists = await Board.exists({name: board});
+            if (!boardExists) {
+                console.error("Board user is posting to does not exist.");
+                return false;
+            }
+        } else if (type == REPLY) {
+            req.params.postNumber = sanitize(req.params.postNumber.trim());
+            let postNumber = req.params.postNumber;
+
+            let postExists = await Post.exists({postNumber: postNumber, type: 'THREAD'});
+            if (!postExists) {
+                console.error("Post user is replying to does not exist.");
+                return false;
+            }
         }
+       
 
         if (text == '') {
             console.error("Text is empty.");
@@ -92,4 +107,4 @@ const ThreadValidator = {
     }
 }
 
-module.exports = ThreadValidator;
+module.exports = {ThreadValidator, THREAD, REPLY};
