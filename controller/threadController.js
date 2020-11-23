@@ -104,6 +104,8 @@ const ThreadController = {
                 parentPost.noOfImages = parentPost.noOfImages + 1;
             }
             parentPost.noOfPosts++;
+        
+            parentPost.bump = Date.now();
             await parentPost.save();
 
 
