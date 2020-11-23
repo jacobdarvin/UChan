@@ -12,10 +12,7 @@ const fs = require('fs');
 
 const ThreadValidator = {
 
-    createThreadValidation: async function(req) {
-        console.log(THREAD_CHAR_LIMIT)
-        console.log(IMAGE_SIZE_LIMIT)
-        console.log(NAME_LIMIT)
+    createPostValidation: async function(req) {
         
         let captcha = req.body['g-recaptcha-response']
         if (captcha=== undefined || captcha === '' || captcha === null) {
@@ -52,7 +49,7 @@ const ThreadValidator = {
         
         /* Board Validation */
         let boardExists = await Board.exists({name: board});
-        if (!exists) {
+        if (!boardExists) {
             console.error("Board user is posting to does not exist.");
             return false;
         }
