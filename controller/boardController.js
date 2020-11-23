@@ -72,7 +72,7 @@ const BoardController = {
             //TODO bumping algo
 
             //TODO: change to res.redirect when thread is hooked up
-            res.redirect(req.get('referer'));
+            res.redirect(`/thread/${post.postNumber}`);
         }
 
         createThread(); 
