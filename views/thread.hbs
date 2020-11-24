@@ -3,14 +3,28 @@
 <div class="container">
 	🗨️ <a href="#" class="select" onclick="showReply();" style="font-size: 16pt;">Reply To Thread</a>
 <hr>
-	
+
+<div id="thread">
 	{{> postThread}}
 
 	{{#each replies}}
 		{{> postReply}}
 	{{/each}}
-
-	{{> post-form}}
-	<div class="p-4">
-	
 </div>
+
+{{> post-form}}
+
+<div class="p-4"></div>
+
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#thread").html(function(_, html){
+    	return html.replace(/(&gt;.*)/g, '<span style="color: green">$1</span>');
+    	//return html.replace(/(&gt;&gt;\w+)/g, '<span style="color: red">$1</span>');
+    	//To DO: Figure out how to extract quotes.
+
+    	//Problem: > and >> are similar.  
+    });
+});
+</script>
