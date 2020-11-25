@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Rubik:wght@400;600;800&display=swap');
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+	background: #fff7f9 url("/imgs/graphics/bg.png");
+	background-attachment: fixed;
+	font-family: 'Rubik', sans-serif;
+	color: #bf0028;
+}
+
+h1 {
+	font-weight: 800;
+	font-size: 62pt;
+
+}
+
+h4 {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color:#bf0028 !important;
+	text-decoration: none !important;
+}
+
+a:hover {
+	color: #bf0028 !important;
+}
+
+
+/* BS ADJUSTMENTS */
+.active {
+	font-weight: bold;
+}
+
+.card {
+	border: none;
+}
+
+.bg-custom {
+	background-color: white;
+}
+
+.btn-custom {
+	background-color: transparent;
+	color: #bf0028;
+	border-color: #bf0028;
+}
+
+/* LINKS */
+.select {
+	font-size: 12pt;
+	text-decoration: none !important;
+}
+
+.select:hover {
+	font-weight: bold;
+	color: #bf0028;
+
+}
+
+.select-back {
+	text-decoration: none !important;
+}
+
+.select-back:hover {
+	font-weight: bold;
+}
+
+/* POSTS */
+.post-author {
+	color: #8778cf;
+}
+
+.post-general {
+	flex-wrap: wrap;
+	width: 250px;
+	height: auto;
+}
+
+.post-thread {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.post-subtitle {
+	font-size: 12px;
+	overflow: hidden;
+   	text-overflow: ellipsis;
+   	display: -webkit-box;
+   	-webkit-line-clamp: 2; /* number of lines to show */
+   	-webkit-box-orient: vertical;
+}
+
+.post-zoom {
+	max-height: auto;
+	max-width: 200px;
+
+	transition: transform .2s; 
+	z-index: 2;
+}
+
+
+.post-zoom:hover {
+  transform: scale(1.3); 
+  z-index: 4;
+}
+
+/* THREAD */
+.thread-quote{
+
+}
+
+.thread-quote:hover{
+	color: red !important;
+}
+
+.navbar {
+	background-color: #fffefb;
+}
+
+/* LOGO */
+#logo {
+	transition: 0.3s;
+}
+#logo:hover {
+  	transform: scale(1.02); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+/* DARK MODE BUTTON */
+.theme-toggle {
+	background-color: transparent;
+	border-color: transparent;
+	color: #bf0028;
+
+	outline: none !important;
+}
+
+.theme-toggle.sun {
+	color: #9e0324;
+}
+
+.theme-toggle:hover {
+	color: #9e0324;
+}

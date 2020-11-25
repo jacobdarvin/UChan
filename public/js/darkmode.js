@@ -2,12 +2,14 @@ let darkMode = localStorage.getItem('darkMode');
 let leafMode = localStorage.getItem('leafMode');
 let skyMode  = localStorage.getItem('skyMode');
 let sunMode = localStorage.getItem('sunMode');
+let appleMode = localStorage.getItem("appleMode");
 
 const defaultModeToggle = document.querySelector('#default-mode-toggle');
 const darkModeToggle = document.querySelector('#dark-mode-toggle');
 const leafModeToggle = document.querySelector('#leaf-mode-toggle');
 const skyModeToggle  = document.querySelector('#sky-mode-toggle');
 const sunModeToggle = document.querySelector('#sun-mode-toggle');
+const appleModeToggle = document.querySelector('#apple-mode-toggle');
 //FUNCTIONS
 
 //DARK MODE
@@ -23,8 +25,26 @@ const enableDarkMode = () => {
 	localStorage.setItem('leafMode', null);
 	localStorage.setItem('skyMode' , null);
 	localStorage.setItem('sunMode', null);
+	localStorage.setItem('appleMode', null);
 	
 	localStorage.setItem('darkMode', 'enabled');
+};
+
+// APPLE MODE
+const enableAppleMode = () => {
+	document.getElementById('theme').setAttribute('href', '/css/apple-style.css');
+	document.getElementById('navbar').classList.remove("navbar-dark");
+	document.getElementById('navbar').classList.add("navbar-light");
+
+	if(document.getElementById('logo'))
+		document.getElementById('logo').setAttribute('src',  'imgs/icons/logo-apple.png');
+
+	localStorage.setItem('leafMode', null);
+	localStorage.setItem('skyMode' , null);
+	localStorage.setItem('sunMode', null);
+	localStorage.setItem('darkMode', null);
+
+	localStorage.setItem('appleMode', 'enabled');
 };
 
 // LEAF MODE
@@ -40,6 +60,7 @@ const enableLeafMode = () => {
 	localStorage.setItem('darkMode', null);
 	localStorage.setItem('skyMode' , null);
 	localStorage.setItem('sunMode', null);
+	localStorage.setItem('appleMode', null);
 
 	localStorage.setItem('leafMode', 'enabled');
 };
@@ -57,6 +78,7 @@ const enableSkyMode = () => {
 	localStorage.setItem('darkMode', null);
 	localStorage.setItem('leafMode', null);
 	localStorage.setItem('sunMode', null);
+	localStorage.setItem('appleMode', null);
 
 	localStorage.setItem('skyMode' , 'enabled');
 };
@@ -73,6 +95,7 @@ const enableSunMode = () => {
 	localStorage.setItem('darkMode', null);
 	localStorage.setItem('leafMode', null);
 	localStorage.setItem('skyMode', null);
+	localStorage.setItem('appleMode', null);
 
 	localStorage.setItem('sunMode' , 'enabled');
 };
@@ -91,6 +114,7 @@ const disableThemes = () => {
 	localStorage.setItem('leafMode', null);
 	localStorage.setItem('skyMode' , null);
 	localStorage.setItem('sunMode', null);
+	localStorage.setItem('appleMode', null);
 };
 
 //FUNCTIONS
@@ -103,7 +127,9 @@ if(darkMode === 'enabled') {
 	enableSkyMode();
 } else if(sunMode === 'enabled'){
 	enableSunMode();
-}else {
+} else if(appleMode === 'enabled'){
+	enableAppleMode();
+} else {
 	disableThemes();
 }
 
@@ -113,6 +139,15 @@ darkModeToggle.addEventListener('click', () => {
 	darkMode = localStorage.getItem('darkMode');
 	if(darkMode !== 'enabled') {
 		enableDarkMode();
+	} else {
+		disableThemes();
+	}
+});
+
+appleModeToggle.addEventListener('click', () => {
+	appleMode = localStorage.getItem('appleMode');
+	if(appleMode !== 'enabled') {
+		enableAppleMode();
 	} else {
 		disableThemes();
 	}
