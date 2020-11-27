@@ -5,9 +5,9 @@
 			<a href="#" class="thread-quote" onclick="showReply({{postNumber}})">
 				<u>No.{{postNumber}}</u>
 			</a>
-			|
+			| Q:
 			{{#each quotes}}
-				<a href="#{{this}}p" onclick="highlightReply({{this}})" class="thread-quote">
+				<a href="#{{this}}p" onmouseover="highlightReply({{this}})" onmouseout="exitHighlight({{this}})" class="thread-quote">
 				>>{{this}}
 				</a>
 			{{/each}}

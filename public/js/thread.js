@@ -1,3 +1,14 @@
+$(document).ready(function(){
+    $("#thread").html(function(_, html){
+        return html.replace(/(&gt;.*)/g, '<span style="color: #789922">$1</span>');
+        
+        //return html.replace(/(&gt;&gt;\w+)/g, '<span style="color: red">$1</span>');
+        //To DO: Figure out how to extract quotes.
+
+        //Problem: > and >> are similar.  
+    });
+});
+
 function showReply(quote) {
     var x = document.getElementById("post-form");
     if (x.style.display === "none") {
@@ -24,12 +35,13 @@ function toggleImage(img) {
 
 function highlightReply(id) {
     let replyId = id + "p";
-
     var x = document.getElementById(replyId);
-    console.log(replyId);
-
     x.style.border = "2px solid #ff5757";
 }
 
-//WIP - Quote '>>' detection
-//$("#reply-content:contains('>>')").prepend("BIG");
+function exitHighlight(id) {
+    let replyId = id + "p";
+    var x = document.getElementById(replyId);
+
+    x.style.border = "none";
+}
