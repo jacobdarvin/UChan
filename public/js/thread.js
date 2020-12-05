@@ -42,7 +42,6 @@ function highlightReply(id) {
     let replyId = id + "p";
     var x = document.getElementById(replyId);
 
-
     if(darkMode === 'enabled')
       x.style.border = "2px dashed white";
     else
@@ -54,5 +53,9 @@ async function exitHighlight(id) {
     var x = document.getElementById(replyId);
 
     await sleep(2500);
-    x.style.border = "none";
+
+    if(darkMode === 'enabled')
+      x.style.border = "1px solid #2f3336";
+    else
+      x.style.border = "none";
 }
