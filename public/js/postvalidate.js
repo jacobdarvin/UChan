@@ -22,11 +22,11 @@ form.addEventListener('submit', (e) => {
 	let messages = [];
 
 	if (name.length > 20) {
-		messages.push('Please do not edit the HTML. ;)');
+		messages.push('Please do not edit the HTML.');
 	}
 
 	if (text.length > 2000) {
-		messages.push('Please do not edit the HTML. ;)');
+		messages.push('Please do not edit the HTML.');
 	}
 
 	if (img.files.length == 0 && threadChecker == 0) {
