@@ -7,6 +7,17 @@ const form = document.getElementById('post-form');
 
 const errorElement = document.getElementById('error');
 
+var threadChecker = 0;
+
+//Check if user posting thread or replying to one.
+$(document).ready(function() {
+	if (window.location.href.indexOf("thread") > -1) {
+		threadChecker = 1;
+ 	} else {
+ 		threadChecker = 0;
+	}
+});
+
 form.addEventListener('submit', (e) => {
 	let messages = [];
 
@@ -18,10 +29,9 @@ form.addEventListener('submit', (e) => {
 		messages.push('Please do not edit the HTML. ;)');
 	}
 
-	/*
-	if (img.files.length == 0) {
+	if (img.files.length == 0 && threadChecker == 0) {
 		messages.push('No image uploaded');
-	}*/
+	}
 
 	if (img.files.size > 1048576 * 2) {
 		messages.push('Image exceeds 2MB');

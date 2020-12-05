@@ -26,7 +26,7 @@ const enableDarkMode = () => {
 	localStorage.setItem('skyMode' , null);
 	localStorage.setItem('sunMode', null);
 	localStorage.setItem('appleMode', null);
-	
+
 	localStorage.setItem('darkMode', 'enabled');
 };
 
