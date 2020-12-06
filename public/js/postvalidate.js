@@ -1,5 +1,4 @@
 //WIP - To Do: Validate reCAPTCHA
-
 const name = document.getElementById('name');
 const text = document.getElementById('text');
 const img  = document.getElementById('postImageInput');
