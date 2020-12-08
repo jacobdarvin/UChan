@@ -10,7 +10,17 @@ const leafModeToggle = document.querySelector('#leaf-mode-toggle');
 const skyModeToggle  = document.querySelector('#sky-mode-toggle');
 const sunModeToggle = document.querySelector('#sun-mode-toggle');
 const appleModeToggle = document.querySelector('#apple-mode-toggle');
+
 //FUNCTIONS
+var threadChecker = 0;
+
+$(document).ready(function() {
+	if (window.location.href.indexOf("thread") > -1) {
+		threadChecker = 1;
+ 	} else {
+ 		threadChecker = 0;
+	}
+});
 
 //DARK MODE
 
@@ -138,6 +148,9 @@ if(darkMode === 'enabled') {
 darkModeToggle.addEventListener('click', () => {
 	darkMode = localStorage.getItem('darkMode');
 	if(darkMode !== 'enabled') {
+		if(threadChecker == 1)
+			window.location.reload();
+
 		enableDarkMode();
 	} else {
 		disableThemes();
@@ -182,6 +195,9 @@ sunModeToggle.addEventListener('click', () => {
 
 
 defaultModeToggle.addEventListener('click', () => {
+	if(threadChecker == 1)
+		window.location.reload();
+		
 	disableThemes();
 })
 
