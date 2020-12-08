@@ -2,11 +2,11 @@
 	<a href="javascript:;"><img href="javascript:;" src="/postimgs/{{image}}" onclick="toggleImage({{postNumber}})" id="{{postNumber}}" title="{{imageDisplayName}}" style="max-width: 300px;"></a>
 
 	<div class="ml-3">
-		<span><b>{{name}}</b> {{created}}
+		<a href="#" style="text-align: right; color: red !important;">[X]</a> <span><b>{{name}} (You)</b> {{created}}
 			<a href="javascript:;" class="thread-quote" onclick="showReply({{postNumber}})">
 				<u>No.{{postNumber}}</u>
 			</a>
-			| Q: 
+			| Q:
 			{{#each quotes}}
 				<a href="#{{this}}p" onmouseover="highlightReply({{this}})" onmouseout="exitHighlight({{this}})">
 				>>{{this}}
@@ -21,7 +21,7 @@
 <!--
 	{{quotes}} - array of postNumbers referencing post
 		literally just an array of integers
-	
-	{{imageDisplayName}} - the image's original filename given by the user. 
+
+	{{imageDisplayName}} - the image's original filename given by the user.
 		different from {{image}}, that gets how it's represented in the backend
 -->

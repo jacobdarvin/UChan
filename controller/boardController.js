@@ -10,13 +10,16 @@ const sanitize = require('mongo-sanitize');
 const {ThreadValidator} = require('../validator/threadValidator.js');
 const { THREAD } = require('../validator/threadValidator.js');
 
+// Cookies
+const session = require('express-session');
+
 const BoardController = {
 
     getBoard: function(req, res) {
         async function getBoard() {
             let board = sanitize(req.params.board);
 
-            
+
             let noOfThreadLimit = 20; //for testing
             let threads = await Post.find({board: board, type: 'THREAD'}).sort({bump: 'desc'}).limit(noOfThreadLimit).lean();
             if (threads.length == 0) {
@@ -27,6 +30,11 @@ const BoardController = {
             }
 
             let boardResult = await Board.findOne({name: board}).select('displayName');
+
+            if(!req.session.user){
+              req.session.user = 'random_id';
+            }
+
             res.render('board', {
                 title: boardResult.displayName,
                 threads: threads,
@@ -51,8 +59,8 @@ const BoardController = {
             let name = req.body.name;
             let file = req.file;
             let board = req.params.board;
-            
-            
+
+
             let post = new Post({
                 text: text,
                 name: name,
@@ -76,7 +84,7 @@ const BoardController = {
             res.redirect(`/thread/${post.postNumber}`);
         }
 
-        createThread(); 
+        createThread();
     },
 
     validateCaptcha: (req, res) => {

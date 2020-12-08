@@ -8,13 +8,13 @@ const IndexController = {
                             .sort({bump: 'desc'})
                             .limit(8)
                             .lean();
-            
+
             res.render('index', {
                 title: 'UChan',
                 threads: threads
             });
         }
-        
+
         getIndex();
     }
 }
