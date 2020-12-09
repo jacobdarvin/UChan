@@ -25,15 +25,26 @@ const BoardController = {
             }
 
             let noOfThreadLimit = 20; //for testing
-            let threads = await Post.find({board: board, type: 'THREAD'}).sort({bump: 'desc'}).limit(noOfThreadLimit).lean();
-            if (threads.length == 0) {
+            let [threads, boardResult] = await Promise.all([
+
+                Post.find({board: board, type: 'THREAD'}).sort({bump: 'desc'}).limit(noOfThreadLimit).lean(),
+
+                Board.findOne({name: board}).select('displayName')
+
+            ]).catch(error => {
+                res.render('404', {
+                    title: 'An error occured!'
+                });
+                console.log(error);
+                return;
+            })
+
+            if (!board) {
                 res.render('404', {
                     title: 'Board not found!'
                 });
                 return;
             }
-
-            let boardResult = await Board.findOne({name: board}).select('displayName');
 
             res.render('board', {
                 title: boardResult.displayName,
