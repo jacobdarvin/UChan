@@ -39,7 +39,7 @@ const BoardController = {
                 return;
             })
 
-            if (!board) {
+            if (!boardResult) {
                 res.render('404', {
                     title: 'Board not found!'
                 });

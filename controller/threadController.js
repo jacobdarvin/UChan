@@ -5,10 +5,12 @@ const dateHelper = require('../helper/dateHelper.js');
 const fsHelper = require('../helper/fsHelper.js');
 const sanitize = require('mongo-sanitize');
 const { REPLY } = require('../validator/threadValidator.js');
-const post = require('../model/post.js');
+
 
 const {ThreadValidator} = require('../validator/threadValidator.js');
-const { set } = require('../routes/routes.js');
+
+//cookies
+const uid = require('uid-safe');
 
 const ThreadController = {
 
@@ -21,15 +23,23 @@ const ThreadController = {
                 res.cookie('local_user', cookieValue, {maxAge: 108000})
             }
 
-            let thread = await Post.findOne({postNumber: postNumber, type: 'THREAD'}).lean();
+            let [thread, replies] = await Promise.all([
+                Post.findOne({postNumber: postNumber, type: 'THREAD'}).lean(),
+
+                Post.find({parentPost: postNumber, type: 'REPLY'})
+                        .sort({created: 'asc'})
+                        .lean()
+            ]).catch(error => {
+                console.log(error);
+                res.render('404', {title: 'An error occured!'});
+                return;
+            });
+
             if (!thread) {
                 res.render('404', {title: 'Thread not found!'});
                 return;
             }
 
-            let replies = await Post.find({parentPost: postNumber, type: 'REPLY'})
-                                .sort({created: 'asc'})
-                                .lean();
             let board = await Board.findOne({name: thread.board}).select('displayName').lean();
             
             /* Format dates*/
