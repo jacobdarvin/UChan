@@ -11,14 +11,18 @@ const {ThreadValidator} = require('../validator/threadValidator.js');
 const { THREAD } = require('../validator/threadValidator.js');
 
 // Cookies
-const session = require('express-session');
+const uid = require('uid-safe');
 
 const BoardController = {
 
     getBoard: function(req, res) {
         async function getBoard() {
             let board = sanitize(req.params.board);
-
+            
+            if(!req.cookies.local_user){
+                let cookieValue = await uid(18);
+                res.cookie('local_user', cookieValue, {maxAge: 108000})
+            }
 
             let noOfThreadLimit = 20; //for testing
             let threads = await Post.find({board: board, type: 'THREAD'}).sort({bump: 'desc'}).limit(noOfThreadLimit).lean();
@@ -30,10 +34,6 @@ const BoardController = {
             }
 
             let boardResult = await Board.findOne({name: board}).select('displayName');
-
-            if(!req.session.user){
-              req.session.user = 'random_id';
-            }
 
             res.render('board', {
                 title: boardResult.displayName,

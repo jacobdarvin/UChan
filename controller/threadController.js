@@ -16,6 +16,11 @@ const ThreadController = {
         async function getThread(){
             let postNumber = sanitize(req.params.postNumber);
 
+            if(!req.cookies.local_user){
+                let cookieValue = await uid(18);
+                res.cookie('local_user', cookieValue, {maxAge: 108000})
+            }
+
             let thread = await Post.findOne({postNumber: postNumber, type: 'THREAD'}).lean();
             if (!thread) {
                 res.render('404', {title: 'Thread not found!'});
@@ -118,6 +123,7 @@ const ThreadController = {
 }
 
 async function processQuotes(text, postNumber) {
+    //TODO: change to @
     let matches = text.match(/[>]{2}[\d]{7}/gm);
     if (!matches) {
         return;
@@ -134,6 +140,7 @@ async function processQuotes(text, postNumber) {
         quotes.add(parseInt(result));
     }
 
+    // TODO: Stack overflow for more efficienct updating
     for (let item of quotes) {
         await Post.updateOne({postNumber: item}, {$addToSet: {quotes: postNumber}});
     }
