@@ -71,6 +71,14 @@ app.get('/about', function (req, res) {
 	});
 });
 
+app.get('/rules', function (req, res) {
+	res.render('rules', {
+		title: 'Rules',
+		thread: false,
+	});
+});
+
+
 app.get('/thread', function (req, res) {
 	res.render('thread', {
 		title: 'Thread',

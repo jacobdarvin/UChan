@@ -46,6 +46,11 @@ a {
 	border-color: black;
 }
 
+/* RULES */
+.padding-15{
+	padding: 15px;
+}
+
 /* LINKS */
 .select {
 	font-size: 12pt;
