@@ -12,7 +12,8 @@ async function test() {
         type: 'THREAD',
         board: 'ufo',
         ip: '0.0.0.0',
-        noOfPosts: 1
+        noOfPosts: 1,
+        ownerCookie: 'test'
     });
     await post.save();
     
@@ -22,7 +23,8 @@ async function test() {
         type: 'REPLY',
         board: 'ufo',
         ip: '0',
-        parentPost: number
+        parentPost: number,
+        ownerCookie: 'test'
     })
     await reply.save();
     post.quotes.push(reply.postNumber);

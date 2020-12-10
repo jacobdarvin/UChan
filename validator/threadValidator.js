@@ -40,22 +40,18 @@ const ThreadValidator = {
             return false;
         }
 
-        req.body.text = sanitize(req.body.text.trim());
         let text = req.body.text;
-
-        req.body.name = sanitize(req.body.name.trim());
         let name = req.body.name;
-        if (name == "") {
-            req.body.name = 'Anonymous';
+        if (name.trim() === '' ) {
+            req.body.name = 'Anonymous'
         }
-
         let file = req.file;
         
         if (type == THREAD) {
             req.params.board = sanitize(req.params.board.trim());
             let board = req.params.board;
 
-            let boardExists = await Board.exists({name: board});
+            let boardExists = await Board.exists({name: sanitize(board)});
             if (!boardExists) {
                 console.error("Board user is posting to does not exist.");
                 return false;
@@ -64,7 +60,7 @@ const ThreadValidator = {
             req.params.postNumber = sanitize(req.params.postNumber.trim());
             let postNumber = req.params.postNumber;
 
-            let postExists = await Post.exists({postNumber: postNumber, type: 'THREAD'});
+            let postExists = await Post.exists({postNumber: sanitize(postNumber), type: 'THREAD'});
             if (!postExists) {
                 console.error("Post user is replying to does not exist.");
                 return false;

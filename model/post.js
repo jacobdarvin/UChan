@@ -54,6 +54,10 @@ const PostSchema = new mongoose.Schema({
         required: true,
         //select: false
     },
+    ownerCookie: {
+        type: String, 
+        required: true
+    },
 
     /*If post is a THREAD */
     noOfPosts: {

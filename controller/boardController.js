@@ -21,7 +21,7 @@ const BoardController = {
             
             if(!req.cookies.local_user){
                 let cookieValue = await uid(18);
-                res.cookie('local_user', cookieValue, {maxAge: 108000})
+                res.cookie('local_user', cookieValue, {maxAge:  (1000 * 60 * 60 * 24) * 30})
             }
 
             let noOfThreadLimit = 20; //for testing
@@ -65,12 +65,17 @@ const BoardController = {
                 return;
             }
 
-            let ip = req.ip || req.connection.remoteAddress;
-            let text = req.body.text;
-            let name = req.body.name;
-            let file = req.file;
-            let board = req.params.board;
-
+            if(!req.cookies.local_user){
+                let cookieValue = await uid(18);
+                res.cookie('local_user', cookieValue, {maxAge:  (1000 * 60 * 60 * 24) * 30})
+            }
+            
+            let owner = sanitize(req.cookies.local_user);
+            let ip = sanitize(req.ip) || sanitize(req.connection.remoteAddress);
+            let text = sanitize(req.body.text);
+            let name = sanitize(req.body.name);
+            let file = sanitize(req.file);
+            let board = sanitize(req.params.board);
 
             let post = new Post({
                 text: text,
@@ -78,11 +83,11 @@ const BoardController = {
                 type: 'THREAD',
                 board: board,
                 ip: ip,
+                ownerCookie: owner
             });
             await post.save();
 
             if (req.file) {
-                console.log('hasimage')
                 let imageDbName = fsHelper.renameImageAndGetDbName(post._id, req.file);
                 post.image = imageDbName;
                 post.imageDisplayName = req.file.originalName;

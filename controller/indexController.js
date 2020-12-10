@@ -7,7 +7,7 @@ const IndexController = {
         async function getIndex() {
             if(!req.cookies.local_user){
                 let cookieValue = await uid(18);
-                res.cookie('local_user', cookieValue, {maxAge: 108000})
+                res.cookie('local_user', cookieValue, {maxAge:  (1000 * 60 * 60 * 24) * 30})
             }
 
             let threads = await  Post.find({type: 'THREAD'})

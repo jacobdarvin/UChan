@@ -4,7 +4,7 @@
 	</a>
 
 	<div class="ml-3">
-		<a href="#" font-color = "red">[X]</a> <span><b>{{name}} (You)</b> {{created}}
+		{{#if isOwner}}<a href="#" font-color = "red">[X]</a>{{/if}} <span><b>{{name}} {{#if isOwner}}(You){{/if}}</b> {{created}}
 			<a href="javascript:;" class="thread-quote" onclick="showReply({{postNumber}})">
 				<u>No.{{postNumber}}</u>
 			</a>

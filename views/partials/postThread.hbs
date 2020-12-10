@@ -1,7 +1,7 @@
 <div class="post-thread" id="{{postNumber}}p">
 	<a href="javascript:;"><img src="/postimgs/{{image}}" onclick="toggleImage({{postNumber}})" id="{{postNumber}}" title="{{imageDisplayName}}" style="max-width: 300px;" class="mr-3 mb-2"></a>
 	<div>
-		<a href="#" style="text-align: right; color: red !important;">[X]</a> <span><b>{{name}} (You)</b> {{created}}
+		{{#if isOwner}}<a href="#" style="text-align: right; color: red !important;">[X]</a>{{/if}} <span><b>{{name}} {{#if isOwner}}(You){{/if}}</b> {{created}}
 			<a href="#" class="thread-quote" onclick="showReply({{postNumber}})">
 				<u>No.{{postNumber}}</u>
 			</a>
