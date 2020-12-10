@@ -24,7 +24,6 @@ h4 {
 
 a {
 	color: #20a06b !important;
-	text-decoration: none !important;
 }
 
 a:hover {
@@ -100,13 +99,13 @@ a:hover {
 	max-height: auto;
 	max-width: 200px;
 
-	transition: transform .2s; 
+	transition: transform .2s;
 	z-index: 2;
 }
 
 
 .post-zoom:hover {
-  transform: scale(1.3); 
+  transform: scale(1.3);
   z-index: 4;
 }
 

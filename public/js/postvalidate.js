@@ -2,7 +2,7 @@
 const name = document.getElementById('name');
 const text = document.getElementById('text');
 const img  = document.getElementById('postImageInput');
-const form = document.getElementById('post-form');
+const form = document.getElementById('postForm');
 
 const errorElement = document.getElementById('error');
 
@@ -16,6 +16,11 @@ $(document).ready(function() {
  		threadChecker = 0;
 	}
 });
+
+//Check Captcha
+function isCaptchaChecked() {
+	return grecaptcha && grecaptcha.getResponse().length !== 0;
+}
 
 form.addEventListener('submit', (e) => {
 	let messages = [];
@@ -38,6 +43,10 @@ form.addEventListener('submit', (e) => {
 
 	if (text.value === '' || text.value == null) {
 		messages.push('No text inputted');
+	}
+
+	if (!isCaptchaChecked()) {
+	  messages.push("Captcha Missing");
 	}
 
 	for(let i = 0; i < messages.length; i++) {

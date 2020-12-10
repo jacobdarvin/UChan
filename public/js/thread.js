@@ -10,7 +10,7 @@ $(document).ready(function(){
 });
 
 function showReply(quote) {
-    var x = document.getElementById("post-form");
+    var x = document.getElementById("postForm");
     if (x.style.display === "none") {
     	if(quote) {
     		var y = document.getElementById("text");

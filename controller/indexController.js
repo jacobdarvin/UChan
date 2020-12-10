@@ -1,4 +1,5 @@
 const Post = require('../model/post.js');
+const uid = require('uid-safe');
 
 const IndexController = {
 
@@ -8,7 +9,7 @@ const IndexController = {
                 let cookieValue = await uid(18);
                 res.cookie('local_user', cookieValue, {maxAge: 108000})
             }
-            
+
             let threads = await  Post.find({type: 'THREAD'})
                             .sort({bump: 'desc'})
                             .limit(8)
