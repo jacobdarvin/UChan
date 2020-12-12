@@ -11,7 +11,9 @@ const renameImageAndGetDbName = (id, file) => {
 }
 
 const deletePostImage = async function(imagename) {
-  
+    if (imagename === 'undefined' || imagename === "" || imagename === undefined) {
+        return;
+    }
     fs.unlink('./public/postimgs/' + imagename, error => {
         if (error) {
             console.log(error);

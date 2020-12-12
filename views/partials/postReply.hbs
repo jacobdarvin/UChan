@@ -9,9 +9,13 @@
 			<a href="javascript:;" id="d_{{postNumber}}" style="color: red !important;" onclick="deleteConfirmation({{postNumber}})">[X]</a> |
 
 			<span id="dc_{{postNumber}}" style="display: none;"><b>Delete?</b>
-				<a href="javascript:;" class="text-danger" style="color: red !important;">Yes</a>
+				<a href="javascript:;" onclick="document.getElementById('delete_{{postNumber}}_form').submit()" class="text-danger" style="color: red !important;">Yes</a>
 				<a href="javascript:;" onclick="deleteConfirmation({{postNumber}})">No</a> |
 			</span>
+
+			<form action="/deletePost" method="POST" id="delete_{{postNumber}}_form" name="delete_{{postNumber}}_form" style="display: none;">
+				<textarea id="postNumber" name="postNumber" cols="20" rows="20" style="display:none;">{{postNumber}}</textarea>
+			</form>
 		{{/if}}
 
 		<span><b>{{name}} {{#if isOwner}}(You){{/if}}</b> {{created}}

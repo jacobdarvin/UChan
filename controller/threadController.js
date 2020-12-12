@@ -146,7 +146,7 @@ const ThreadController = {
     deletePost: function (req, res) {
         async function deletePost() {
             await ThreadValidator.cookieValidation(req, res);
-            console.log('1')
+            
             let postNumber = sanitize(req.body.postNumber);
             try {
                 var post = await Post.findOne({postNumber: postNumber})
@@ -155,13 +155,13 @@ const ThreadController = {
                 res.render('404', {title: 'An error occured!'});
                 return;
             }
-            console.log('2')
+            
             if (!post) {
                 console.log(error);
                 res.render('404', {title: 'An error occured!'});
                 return;
             }
-            console.log('3')
+            
             let type = post.type;
             let board = post.board;
             fsHelper.deletePostImage(post.image);
@@ -169,7 +169,7 @@ const ThreadController = {
             if (type === 'THREAD') {
                 deleteReplies(post.postNumber);
             }
-            console.log('4')
+            
             try {
                 await post.remove();
             } catch (error) {
@@ -177,8 +177,13 @@ const ThreadController = {
                 res.render('404', {title: 'An error occured!'});
                 return;
             }
-            console.log('5')
-            res.redirect(`/${board}`);
+            
+            if (type === 'THREAD') {
+                res.redirect(`/${board}`);
+            } else if (type === 'REPLY') {
+                res.redirect(req.get('referer'))
+            }
+           
         }
         deletePost();
     }
@@ -204,9 +209,13 @@ async function processQuotes(text, postNumber) {
     }
 
     // TODO: Stack overflow for more efficienct updating
+    let promises = new Array();
     for (let item of quotes) {
-        await Post.updateOne({postNumber: item}, {$addToSet: {quotes: postNumber}});
+        let promise = Post.updateOne({postNumber: item}, {$addToSet: {quotes: postNumber}});
+        promises.push(promise);
     }
+
+    await Promise.all(promises);
 }
 
 async function deleteReplies(parentPost) {

@@ -27,7 +27,10 @@ const PostSchema = new mongoose.Schema({
     imageDisplayName: {
         type: String
     },
-    quotes: [Number],
+    quotes: [{
+        type: String,
+        ref: 'Post'
+    }],
 
     /* Invisible info */
     bump: {
@@ -84,5 +87,14 @@ PostSchema.plugin(autoincrement.plugin, {
     startAt: 1000000,
     incrementBy: 1
 });
+
+PostSchema.pre('remove', function(next) {
+    let post = this;
+    post.model('Post').updateMany(
+        {quotes: post.postNumber},
+        {$pull: {quotes: post.postNumber}},
+        {multi: true},
+        next);
+})
 
 module.exports = mongoose.model('Post', PostSchema);
