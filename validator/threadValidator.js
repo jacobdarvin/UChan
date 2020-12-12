@@ -110,6 +110,13 @@ const ThreadValidator = {
             return false;
         }
         return true;
+    },
+
+    cookieValidation: async function(req, res) {
+        if(!req.cookies.local_user){
+            let cookieValue = await uid(18);
+            res.cookie('local_user', cookieValue, {maxAge:  (1000 * 60 * 60 * 24) * 30})
+        }
     }
 }
 

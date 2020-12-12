@@ -21,7 +21,7 @@ const IndexController = require('../controller/indexController.js');
 const ThreadController = require('../controller/threadController.js');
 
 // DB Constants
-const database = require('../model/database.js');
+const {IMAGE_SIZE_LIMIT} = require('../model/constants.js');
 
 /*
 //Init Sessions
@@ -58,7 +58,7 @@ var storage = multer.diskStorage({
 }),
 
 
-upload = multer({ storage: storage, limits: {fileSize: database.IMAGE_SIZE_LIMIT} }).single('postImageInput');
+upload = multer({ storage: storage, limits: {fileSize: IMAGE_SIZE_LIMIT}, onError: function(err, next) {console.log('jfkld;sajfrrrrr'); next(err)}}).single('postImageInput');
 
 app.get('/', IndexController.getIndex);
 
@@ -90,10 +90,29 @@ app.get('/thread', function (req, res) {
 
 
 app.get('/:board', BoardController.getBoard);
-app.post('/createThread/:board', upload, BoardController.createThread);
+app.post('/createThread/:board', function(req, res) {
+    upload(req, res, function(err) {
+        if (err) {
+            res.render('404', {title: 'Image too large!'});
+            return;
+        }
+
+        BoardController.createThread(req, res);
+    })
+});
 app.post('/verifyCaptcha', BoardController.validateCaptcha);
 
 app.get('/thread/:postNumber', ThreadController.getThread);
-app.post('/replyThread/:postNumber', upload, ThreadController.replyThread);
+app.post('/replyThread/:postNumber', function(req, res) {
+    upload(req, res, function(err) {
+        if (err) {
+            res.render('404', {title: 'Image too large!'});
+            return;
+        }
+
+        ThreadController.replyThread(req, res);
+    });
+});
+app.post('/deletePost', ThreadController.deletePost);
 
 module.exports = app;

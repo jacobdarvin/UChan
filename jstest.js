@@ -1,18 +1,10 @@
-const regex =/[>]{2}[\d]{7}/gm;
+let Post = require('./model/post.js');
+function test() {
+    Post.findOne({postNumber: 21212121}).exec((err, res) => {
+        return;
+    });
 
-const text = `>>1234567 
->>6548789
- foo barr`;
-console.log(text)
+    console.log('reached');
+}
 
-const matches = text.match(regex);
-
-console.log(matches);
-return;
-var str = '>>1000099 \r\n ok bro',
-    delimiter = '>',
-    start = 2,
-    tokens = str.split(delimiter).slice(start),
-    result = tokens.join(delimiter); // those.that
-    
-console.log(parseInt(result))
+test();

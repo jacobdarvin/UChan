@@ -17,13 +17,9 @@ const BoardController = {
 
     getBoard: function(req, res) {
         async function getBoard() {
+            await ThreadValidator.cookieValidation(req, res);
+
             let board = sanitize(req.params.board);
-
-            if(!req.cookies.local_user){
-                let cookieValue = await uid(18);
-                res.cookie('local_user', cookieValue, {maxAge:  (1000 * 60 * 60 * 24) * 30})
-            }
-
             let noOfThreadLimit = 20; //for testing
             let [threads, boardResult] = await Promise.all([
 
@@ -67,10 +63,7 @@ const BoardController = {
                 return;
             }
 
-            if(!req.cookies.local_user){
-                let cookieValue = await uid(18);
-                res.cookie('local_user', cookieValue, {maxAge:  (1000 * 60 * 60 * 24) * 30})
-            }
+            await ThreadValidator.cookieValidation(req, res);
 
             let owner = sanitize(req.cookies.local_user);
             let ip = sanitize(req.ip) || sanitize(req.connection.remoteAddress);

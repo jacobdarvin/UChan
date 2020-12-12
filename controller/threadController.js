@@ -16,12 +16,8 @@ const ThreadController = {
 
     getThread: (req, res) => {
         async function getThread(){
+            await ThreadValidator.cookieValidation(req, res);
             let postNumber = sanitize(req.params.postNumber);
-
-            if(!req.cookies.local_user){
-                let cookieValue = await uid(18);
-                res.cookie('local_user', cookieValue, {maxAge:  (1000 * 60 * 60 * 24) * 30})
-            }
             let owner = sanitize(req.cookies.local_user);
 
             let [thread, replies] = await Promise.all([
@@ -42,8 +38,15 @@ const ThreadController = {
                 res.render('404', {title: 'Thread not found!'});
                 return;
             }
-            let board = await Board.findOne({name: thread.board}).select('displayName').lean();
 
+            try {
+                var board = await Board.findOne({name: thread.board}).select('displayName').lean();
+            } catch (err) {
+                console.log(error);
+                res.render('404', {title: 'An error occured!'});
+                return;
+            }
+            
             /* Format dates*/
             thread.created = dateHelper.formatDate(thread.created);
             for (let i = 0; i < replies.length; i++) {
@@ -72,7 +75,6 @@ const ThreadController = {
 
                 replies: replies
             });
-
         }
 
         getThread();
@@ -86,11 +88,7 @@ const ThreadController = {
                 return;
             }
 
-            if(!req.cookies.local_user){
-                let cookieValue = await uid(18);
-                res.cookie('local_user', cookieValue, {maxAge:  (1000 * 60 * 60 * 24) * 30})
-            }
-            console.log(req.cookies.local_user);
+            await ThreadValidator.cookieValidation(req, res);
 
             let owner = sanitize(req.cookies.local_user);
             let ip = sanitize(req.ip) || sanitize(req.connection.remoteAddress);
@@ -143,6 +141,46 @@ const ThreadController = {
         }
 
         replyThread();
+    },
+
+    deletePost: function (req, res) {
+        async function deletePost() {
+            await ThreadValidator.cookieValidation(req, res);
+            console.log('1')
+            let postNumber = sanitize(req.body.postNumber);
+            try {
+                var post = await Post.findOne({postNumber: postNumber})
+            } catch (error) {
+                console.log(error);
+                res.render('404', {title: 'An error occured!'});
+                return;
+            }
+            console.log('2')
+            if (!post) {
+                console.log(error);
+                res.render('404', {title: 'An error occured!'});
+                return;
+            }
+            console.log('3')
+            let type = post.type;
+            let board = post.board;
+            fsHelper.deletePostImage(post.image);
+
+            if (type === 'THREAD') {
+                deleteReplies(post.postNumber);
+            }
+            console.log('4')
+            try {
+                await post.remove();
+            } catch (error) {
+                console.log(error);
+                res.render('404', {title: 'An error occured!'});
+                return;
+            }
+            console.log('5')
+            res.redirect(`/${board}`);
+        }
+        deletePost();
     }
 
 }
@@ -170,5 +208,24 @@ async function processQuotes(text, postNumber) {
         await Post.updateOne({postNumber: item}, {$addToSet: {quotes: postNumber}});
     }
 }
+
+async function deleteReplies(parentPost) {
+    try {
+        var replies = await Post.find({parentPost: parentPost})
+    } catch (error){
+        console.log(error);
+        return;
+    }
+
+    console.log(replies)
+    for (let reply of replies) {
+        let image = reply.image;
+        fsHelper.deletePostImage(image);
+        
+        reply.remove();
+    }
+}
+    
+
 
 module.exports = ThreadController;

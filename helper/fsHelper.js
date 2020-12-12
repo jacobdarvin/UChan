@@ -10,6 +10,16 @@ const renameImageAndGetDbName = (id, file) => {
     return id + extension;
 }
 
+const deletePostImage = async function(imagename) {
+  
+    fs.unlink('./public/postimgs/' + imagename, error => {
+        if (error) {
+            console.log(error);
+        }
+    });
+}
+
 module.exports = {
-    renameImageAndGetDbName
+    renameImageAndGetDbName,
+    deletePostImage
 }
