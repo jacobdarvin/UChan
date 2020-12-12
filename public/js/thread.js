@@ -34,6 +34,16 @@ function toggleImage(img) {
     }
 }
 
+function deleteConfirmation(deleteId) {
+  if(document.getElementById("dc_" + deleteId).style.display == "none") {
+    document.getElementById("d_" + deleteId).style.display = "none";
+    document.getElementById("dc_" + deleteId).style.display = "unset";
+  } else {
+    document.getElementById("d_" + deleteId).style.display = "unset";
+    document.getElementById("dc_" + deleteId).style.display = "none";
+  }
+}
+
 /* Reply Highlighting */
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
