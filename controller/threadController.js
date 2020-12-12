@@ -43,7 +43,7 @@ const ThreadController = {
                 return;
             }
             let board = await Board.findOne({name: thread.board}).select('displayName').lean();
-            
+
             /* Format dates*/
             thread.created = dateHelper.formatDate(thread.created);
             for (let i = 0; i < replies.length; i++) {
@@ -55,6 +55,8 @@ const ThreadController = {
                 title: board.displayName + ' - ' + thread.text,
                 postNumber: thread.postNumber,
                 displayName: board.displayName,
+                boardName:   thread.board, //PENIS
+
                 action: `/replyThread/${thread.postNumber}`,
 
                 image: thread.image,
@@ -68,9 +70,9 @@ const ThreadController = {
                 imageDisplayName: thread.imageDisplayName,
                 isOwner: owner === thread.ownerCookie,
 
-                replies: replies 
+                replies: replies
             });
-            
+
         }
 
         getThread();
@@ -132,14 +134,14 @@ const ThreadController = {
                 parentPost.noOfImages = parentPost.noOfImages + 1;
             }
             parentPost.noOfPosts++;
-        
+
             parentPost.bump = Date.now();
             await parentPost.save();
 
 
             res.redirect(req.get('referer'));
         }
-        
+
         replyThread();
     }
 
@@ -152,14 +154,14 @@ async function processQuotes(text, postNumber) {
         return;
     }
     let quotes = new Set();
-    
+
     for (let i = 0; i < matches.length; i++) {
         var str = matches[i],
         delimiter = '>',
         start = 2,
         tokens = str.split(delimiter).slice(start),
         result = tokens.join(delimiter); // those.that
-        
+
         quotes.add(parseInt(result));
     }
 

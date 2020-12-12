@@ -17,7 +17,8 @@ const IndexController = {
 
             res.render('index', {
                 title: 'UChan',
-                threads: threads
+                threads: threads,
+                home_active: true,
             });
         }
 

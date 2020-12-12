@@ -68,6 +68,7 @@ app.get('/about', function (req, res) {
 	res.render('about', {
 		title: 'About',
 		thread: false,
+    about_active: true,
 	});
 });
 
@@ -75,6 +76,7 @@ app.get('/rules', function (req, res) {
 	res.render('rules', {
 		title: 'Rules',
 		thread: false,
+    rules_active: true,
 	});
 });
 

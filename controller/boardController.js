@@ -18,7 +18,7 @@ const BoardController = {
     getBoard: function(req, res) {
         async function getBoard() {
             let board = sanitize(req.params.board);
-            
+
             if(!req.cookies.local_user){
                 let cookieValue = await uid(18);
                 res.cookie('local_user', cookieValue, {maxAge:  (1000 * 60 * 60 * 24) * 30})
@@ -47,10 +47,12 @@ const BoardController = {
             }
 
             res.render('board', {
-                title: boardResult.displayName,
-                threads: threads,
-                displayName: boardResult.displayName,
-                action: `/createThread/${board}`
+                title:        boardResult.displayName,
+                displayName:  boardResult.displayName,
+
+                threads:      threads,
+                boardName:    board, //PENIS
+                action:       `/createThread/${board}`
             });
         }
 
@@ -69,7 +71,7 @@ const BoardController = {
                 let cookieValue = await uid(18);
                 res.cookie('local_user', cookieValue, {maxAge:  (1000 * 60 * 60 * 24) * 30})
             }
-            
+
             let owner = sanitize(req.cookies.local_user);
             let ip = sanitize(req.ip) || sanitize(req.connection.remoteAddress);
             let text = sanitize(req.body.text);

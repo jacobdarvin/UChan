@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $("#thread").html(function(_, html){
-        return html.replace(/(&gt;.*)/g, '<span style="color: grey">$1</span>');
+        return html.replace(/(&gt;.*)/g, '<span style="color: grey">$1</span>'); //&gt; = '>'
 
         //return html.replace(/(&gt;&gt;\w+)/g, '<span style="color: red">$1</span>');
         //To DO: Figure out how to extract quotes.
