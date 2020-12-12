@@ -9,12 +9,13 @@ $(document).ready(function(){
     });
 });
 
+//Click a quote to reveal post form. Automatically adds >> quote number to post form text
 function showReply(quote) {
     var x = document.getElementById("postForm");
     if (x.style.display === "none") {
     	if(quote) {
     		var y = document.getElementById("text");
-    		y.innerHTML = ">>" + quote + " ";
+    		y.innerHTML = ">>" + quote + "\r\n";
     	}
         x.style.display = "block";
     } else {
