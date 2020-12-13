@@ -37,8 +37,10 @@ form.addEventListener('submit', (e) => {
 		messages.push('No image uploaded');
 	}
 
-	if (img.files.size > 1048576 * 2) {
-		messages.push('Image exceeds 2MB');
+	if (img.files.length == 1) {
+		if (img.files[0].size > (1024 * 1024) * 2) { //2 MB
+			messages.push('Image exceeds 2MB');
+		}
 	}
 
 	if (text.value === '' || text.value == null) {
