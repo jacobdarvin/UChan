@@ -1,9 +1,9 @@
 <div id="{{postNumber}}p" class="card post-thread shadow-sm p-0 mt-3 p-3" aria-expanded="true">
 	<a href="javascript:;">
-		<img src="/postimgs/{{image}}" title="{{imageDisplayName}}" onclick="toggleImage({{postNumber}})" id="{{postNumber}}" title="{{imageDisplayName}}" style="max-width: 300px;">
+		<img class="mr-3 mb-2" src="/postimgs/{{image}}" title="{{imageDisplayName}}" onclick="toggleImage({{postNumber}})" id="{{postNumber}}" title="{{imageDisplayName}}" style="max-width: 300px;">
 	</a>
 
-	<div class="ml-3">
+	<div>
 
 		{{#if isOwner}}
 			<a href="javascript:;" id="d_{{postNumber}}" style="color: red !important;" onclick="deleteConfirmation({{postNumber}})">[X]</a> |
