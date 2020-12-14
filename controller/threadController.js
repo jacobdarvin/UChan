@@ -164,12 +164,14 @@ const ThreadController = {
             
             let type = post.type;
             let board = post.board;
-            fsHelper.deletePostImage(post.image);
 
             if (type === 'THREAD') {
                 deleteReplies(post.postNumber);
+            } else if (type === 'REPLY') {
+                await updateParentPost(post);
             }
-            
+
+            fsHelper.deletePostImage(post.image);
             try {
                 await post.remove();
             } catch (error) {
@@ -233,6 +235,25 @@ async function deleteReplies(parentPost) {
         
         reply.remove();
     }
+}
+
+async function updateParentPost(reply) {
+    try {
+        var post = await Post.findOne({postNumber: reply.parentPost});
+    } catch (error) {
+        console.log(error);
+        return;
+    }
+    
+    let subtrahend = 0;
+    if (reply.image !== 'undefined' && reply.image !== "" && reply.image !== undefined) {
+        subtrahend = 1;
+    }
+
+    post.noOfImages = post.noOfImages - subtrahend;
+    post.noOfPosts--;
+    await post.save();
+    return;
 }
     
 
