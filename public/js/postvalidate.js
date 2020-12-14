@@ -43,9 +43,8 @@ form.addEventListener('submit', (e) => {
 		}
 	}
 
-	if (text.value === '' || text.value == null) {
-		messages.push('No text inputted');
-	}
+	if ( $.trim( $('[name=text]').val() ) == '' )
+	  messages.push('No text inputted');
 
 	if (!isCaptchaChecked()) {
 	  messages.push("Captcha Missing");
