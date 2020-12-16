@@ -1,9 +1,5 @@
 // Import
 const express 	 = require('express');
-const fs 		     = require('fs');
-const hbs 		   = require('hbs');
-const mongoose 	 = require('mongoose');
-const path 		   = require('path');
 
 // Sessions and Cookies
 const cookieParser   = require('cookie-parser');
@@ -22,31 +18,6 @@ const ThreadController = require('../controller/threadController.js');
 
 // DB Constants
 const {IMAGE_SIZE_LIMIT} = require('../model/constants.js');
-
-/*
-//Init Sessions
-app.use(
-    session({
-        key: 'local_user', //user session id
-        secret: 'toptenpspgames',
-        resave: true,
-        saveUninitialized: true,
-        store: database.sessionStore,
-        cookie: {
-            maxAge: 1000 * 60 * 60 * 24, // 1 Day.
-        },
-    }),
-);
-*/
-
-/*
-app.use((req, res, next) => {
-    if (req.cookies.local_user && !req.session.user) {
-        res.clearCookie('local_user');
-    }
-    next();
-});
-*/
 
 // Multer Image Processing
 var multer = require('multer');
