@@ -10,6 +10,7 @@ const { exists } = require('../model/board.js');
 /* Others */
 const axios = require('axios').default;
 const fs = require('fs');
+const uid = require('uid-safe');
 
 const THREAD = 0;
 const REPLY = 1;

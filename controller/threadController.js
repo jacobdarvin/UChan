@@ -1,3 +1,8 @@
+
+//======================================================================
+// Imports
+//======================================================================
+
 const Board = require('../model/board.js');
 const Post = require('../model/post.js');
 
@@ -12,185 +17,182 @@ const {ThreadValidator} = require('../validator/threadValidator.js');
 //cookies
 const uid = require('uid-safe');
 
-const ThreadController = {
+//======================================================================
+// Controller Functions
+//======================================================================
 
-    getThread: (req, res) => {
-        async function getThread(){
-            await ThreadValidator.cookieValidation(req, res);
-            let postNumber = sanitize(req.params.postNumber);
-            let owner = sanitize(req.cookies.local_user);
+const getThread = async(req, res) => {
+    await ThreadValidator.cookieValidation(req, res);
+    let postNumber = sanitize(req.params.postNumber);
+    let owner = sanitize(req.cookies.local_user);
 
-            let [thread, replies] = await Promise.all([
+    let [thread, replies] = await Promise.all([
 
-                Post.findOne({postNumber: postNumber, type: 'THREAD'}).lean(),
+        Post.findOne({postNumber: postNumber, type: 'THREAD'}).lean(),
 
-                Post.find({parentPost: postNumber, type: 'REPLY'})
-                        .sort({created: 'asc'})
-                        .lean()
+        Post.find({parentPost: postNumber, type: 'REPLY'})
+                .sort({created: 'asc'})
+                .lean()
 
-            ]).catch(error => {
-                console.log(error);
-                res.render('404', {title: 'An error occured!'});
-                return;
-            });
+    ]).catch(error => {
+        console.log(error);
+        res.render('404', {title: 'An error occured!'});
+        return;
+    });
 
-            if (!thread) {
-                res.render('404', {title: 'Thread not found!'});
-                return;
-            }
-
-            try {
-                var board = await Board.findOne({name: thread.board}).select('displayName').lean();
-            } catch (err) {
-                console.log(error);
-                res.render('404', {title: 'An error occured!'});
-                return;
-            }
-            
-            /* Format dates*/
-            thread.created = dateHelper.formatDate(thread.created);
-            for (let i = 0; i < replies.length; i++) {
-                replies[i].created = dateHelper.formatDate(replies[i].created);
-                replies[i].isOwner = owner === replies[i].ownerCookie;
-            }
-
-            res.render('thread', {
-                title: board.displayName + ' - ' + thread.text,
-                postNumber: thread.postNumber,
-                displayName: board.displayName,
-                boardName:   thread.board, //PENIS
-
-                action: `/replyThread/${thread.postNumber}`,
-
-                image: thread.image,
-                name: thread.name,
-                created: thread.created,
-                text: thread.text,
-                nofOfPosts: thread.nofOfPosts,
-                noOfImages: thread.noOfImages,
-                uniqueIps: thread.uniqueIps,
-                quotes: thread.quotes,
-                imageDisplayName: thread.imageDisplayName,
-                isOwner: owner === thread.ownerCookie,
-
-                replies: replies
-            });
-        }
-
-        getThread();
-    },
-
-    replyThread: (req, res) => {
-        async function replyThread() {
-            let isValid =  await ThreadValidator.createPostValidation(req, REPLY);
-            if (!isValid) {
-                res.render('404', {title: '404'});
-                return;
-            }
-
-            await ThreadValidator.cookieValidation(req, res);
-
-            let owner = sanitize(req.cookies.local_user);
-            let ip = sanitize(req.ip) || sanitize(req.connection.remoteAddress);
-            let text = sanitize(req.body.text);
-            let name = sanitize(req.body.name);
-            let file = sanitize(req.file);
-            let parentPostNumber = sanitize(req.params.postNumber);
-
-            let parentPost = await Post.findOne({postNumber: parentPostNumber});
-            if (!parentPost) {
-                res.render('404', {title: '404'});
-                return;
-            }
-
-            let reply = new Post({
-                text: text,
-                name: name,
-                type: 'REPLY',
-                board: parentPost.board,
-                ip: ip,
-                parentPost: parentPostNumber,
-                ownerCookie: owner
-            });
-            await reply.save();
-            await processQuotes(text, reply.postNumber);
-
-            if (req.file) {
-                console.log('hasimage')
-                let imageDbName = fsHelper.renameImageAndGetDbName(reply._id, req.file);
-                reply.image = imageDbName;
-                reply.imageDisplayName = req.file.originalName;
-                await reply.save();
-            }
-
-            //parent post
-            if (!parentPost.uniqueIps.includes(ip)) {
-                parentPost.uniqueIps.push(ip);
-            }
-
-            if (req.file) {
-                parentPost.noOfImages = parentPost.noOfImages + 1;
-            }
-            parentPost.noOfPosts++;
-
-            parentPost.bump = Date.now();
-            await parentPost.save();
-
-
-            res.redirect(req.get('referer'));
-        }
-
-        replyThread();
-    },
-
-    deletePost: function (req, res) {
-        async function deletePost() {
-            await ThreadValidator.cookieValidation(req, res);
-            
-            let postNumber = sanitize(req.body.postNumber);
-            try {
-                var post = await Post.findOne({postNumber: postNumber})
-            } catch (error) {
-                console.log(error);
-                res.render('404', {title: 'An error occured!'});
-                return;
-            }
-            
-            if (!post) {
-                console.log(error);
-                res.render('404', {title: 'An error occured!'});
-                return;
-            }
-            
-            let type = post.type;
-            let board = post.board;
-
-            if (type === 'THREAD') {
-                deleteReplies(post.postNumber);
-            } else if (type === 'REPLY') {
-                await updateParentPost(post);
-            }
-
-            fsHelper.deletePostImage(post.image);
-            try {
-                await post.remove();
-            } catch (error) {
-                console.log(error);
-                res.render('404', {title: 'An error occured!'});
-                return;
-            }
-            
-            if (type === 'THREAD') {
-                res.redirect(`/${board}`);
-            } else if (type === 'REPLY') {
-                res.redirect(req.get('referer'))
-            }
-           
-        }
-        deletePost();
+    if (!thread) {
+        res.render('404', {title: 'Thread not found!'});
+        return;
     }
 
+    try {
+        var board = await Board.findOne({name: thread.board}).select('displayName').lean();
+    } catch (err) {
+        console.log(error);
+        res.render('404', {title: 'An error occured!'});
+        return;
+    }
+    
+    /* Format dates*/
+    thread.created = dateHelper.formatDate(thread.created);
+    for (let i = 0; i < replies.length; i++) {
+        replies[i].created = dateHelper.formatDate(replies[i].created);
+        replies[i].isOwner = owner === replies[i].ownerCookie;
+    }
+
+    res.render('thread', {
+        title: board.displayName + ' - ' + thread.text,
+        postNumber: thread.postNumber,
+        displayName: board.displayName,
+        boardName:   thread.board, //PENIS
+
+        action: `/replyThread/${thread.postNumber}`,
+
+        image: thread.image,
+        name: thread.name,
+        created: thread.created,
+        text: thread.text,
+        nofOfPosts: thread.nofOfPosts,
+        noOfImages: thread.noOfImages,
+        uniqueIps: thread.uniqueIps,
+        quotes: thread.quotes,
+        imageDisplayName: thread.imageDisplayName,
+        isOwner: owner === thread.ownerCookie,
+
+        replies: replies
+    });
+
+    return;
 }
+
+const replyThread = async(req, res) => {
+    let isValid =  await ThreadValidator.createPostValidation(req, REPLY);
+    if (!isValid) {
+        res.render('404', {title: '404'});
+        return;
+    }
+
+    await ThreadValidator.cookieValidation(req, res);
+
+    let owner = sanitize(req.cookies.local_user);
+    let ip = sanitize(req.ip) || sanitize(req.connection.remoteAddress);
+    let text = sanitize(req.body.text);
+    let name = sanitize(req.body.name);
+    let file = sanitize(req.file);
+    let parentPostNumber = sanitize(req.params.postNumber);
+
+    let parentPost = await Post.findOne({postNumber: parentPostNumber});
+    if (!parentPost) {
+        res.render('404', {title: '404'});
+        return;
+    }
+
+    let reply = new Post({
+        text: text,
+        name: name,
+        type: 'REPLY',
+        board: parentPost.board,
+        ip: ip,
+        parentPost: parentPostNumber,
+        ownerCookie: owner
+    });
+    await reply.save();
+    await processQuotes(text, reply.postNumber);
+
+    if (req.file) {
+        console.log('hasimage')
+        let imageDbName = fsHelper.renameImageAndGetDbName(reply._id, req.file);
+        reply.image = imageDbName;
+        reply.imageDisplayName = req.file.originalName;
+        await reply.save();
+    }
+
+    //parent post
+    if (!parentPost.uniqueIps.includes(ip)) {
+        parentPost.uniqueIps.push(ip);
+    }
+
+    if (req.file) {
+        parentPost.noOfImages = parentPost.noOfImages + 1;
+    }
+    parentPost.noOfPosts++;
+
+    parentPost.bump = Date.now();
+    await parentPost.save();
+
+
+    res.redirect(req.get('referer'));
+
+    return;
+}
+
+const deletePost = async(req, res) => {
+    await ThreadValidator.cookieValidation(req, res);
+            
+    let postNumber = sanitize(req.body.postNumber);
+    try {
+        var post = await Post.findOne({postNumber: postNumber})
+    } catch (error) {
+        console.log(error);
+        res.render('404', {title: 'An error occured!'});
+        return;
+    }
+    
+    if (!post) {
+        console.log(error);
+        res.render('404', {title: 'An error occured!'});
+        return;
+    }
+    
+    let type = post.type;
+    let board = post.board;
+
+    if (type === 'THREAD') {
+        deleteReplies(post.postNumber);
+    } else if (type === 'REPLY') {
+        await updateParentPost(post);
+    }
+
+    fsHelper.deletePostImage(post.image);
+    try {
+        await post.remove();
+    } catch (error) {
+        console.log(error);
+        res.render('404', {title: 'An error occured!'});
+        return;
+    }
+    
+    if (type === 'THREAD') {
+        res.redirect(`/${board}`);
+    } else if (type === 'REPLY') {
+        res.redirect(req.get('referer'))
+    }
+   
+}
+
+//======================================================================
+// Inner Functions
+//======================================================================
 
 async function processQuotes(text, postNumber) {
     //TODO: change to @
@@ -256,6 +258,7 @@ async function updateParentPost(reply) {
     return;
 }
     
-
-
-module.exports = ThreadController;
+module.exports = {
+    getThread,
+    replyThread,
+    deletePost };

@@ -1,29 +1,32 @@
+
+//======================================================================
+// Imports
+//======================================================================
+
 const Post = require('../model/post.js');
 const uid = require('uid-safe');
 
-const IndexController = {
+const {ThreadValidator} = require('../validator/threadValidator.js');
 
-    getIndex: (req, res) => {
-        async function getIndex() {
-            if(!req.cookies.local_user){
-                let cookieValue = await uid(18);
-                res.cookie('local_user', cookieValue, {maxAge:  (1000 * 60 * 60 * 24) * 30})
-            }
+//======================================================================
+// Controller Functions
+//======================================================================
 
-            let threads = await  Post.find({type: 'THREAD'})
-                            .sort({bump: 'desc'})
-                            .limit(8)
-                            .lean();
+const getIndex = async (req, res) => {
+    await ThreadValidator.cookieValidation(req, res);
 
-            res.render('index', {
-                title: 'UChan',
-                threads: threads,
-                home_active: true,
-            });
-        }
+    let threads = await  Post.find({type: 'THREAD'})
+                    .sort({bump: 'desc'})
+                    .limit(8)
+                    .lean();
 
-        getIndex();
-    }
+    res.render('index', {
+        title: 'UChan',
+        threads: threads,
+        home_active: true,
+    });
+
+    return;
 }
 
-module.exports = IndexController;
+module.exports = {getIndex};
