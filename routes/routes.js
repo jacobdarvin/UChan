@@ -33,8 +33,24 @@ upload = multer({ storage: storage, limits: {fileSize: IMAGE_SIZE_LIMIT}, onErro
 
 app.get('/', IndexController.getIndex);
 
-/* Static Pages */
+/* Moderator Pages //To move in unique controllers */
+app.get('/xeroxthis', function (req, res) {
+	res.render('xeroxthis', {
+		title: 'XeroxThis',
+		thread: false,
+    about_active: true,
+	});
+});
 
+app.get('/modview', function (req, res) {
+	res.render('modview', {
+		title: 'Moderator View',
+		thread: false,
+    about_active: true,
+	});
+});
+
+/* Static Pages */
 app.get('/about', function (req, res) {
 	res.render('about', {
 		title: 'About',
