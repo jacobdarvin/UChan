@@ -1,5 +1,54 @@
 <!-- Moderator View -->
+<div class="row p-2 mt-2" style="margin: auto">
 
-<div class="container">
-  <h1>Testin!</h1>
+  <nav class="col-sm-1 card mod-nav shadow-sm">
+    <div class="card-body">
+      <h3><b>MODChan</b></h3> <hr>
+      <div class="">
+        <a href="#" class="select mod-items"> Boards </a> <br>
+        <a href="#" class="select mod-items"> Reported Posts </a> <br>
+        <a href="#" class="select mod-items"> Moderators </a> <br>
+        <a href="#" class="select mod-items"> Banned IPs </a> <br>
+      </div>
+    </div>
+  </nav>
+
+  <div class="col">
+
+    <h2>Boards</h2>
+    <div class="mod-content-boards">
+      {{> modBoards}}
+      {{> modBoards}}
+      {{> modBoards}}
+    </div>
+
+    <hr>
+
+    <h2>Reported Posts</h2>
+    <div class="mod-content-reported">
+      <div class="card post-thread shadow-sm p-0 mt-3 p-3">
+        FUCK<br>FUCK<br>FUCK<br>FUCK<br>
+      </div>
+    </div>
+    <div class="mod-content-reported">
+      <div class="card post-thread shadow-sm p-0 mt-3 p-3">
+        FUCK<br>FUCK<br>FUCK<br>FUCK<br>
+      </div>
+    </div>
+    <div class="mod-content-reported">
+      <div class="card post-thread shadow-sm p-0 mt-3 p-3">
+        FUCK<br>FUCK<br>FUCK<br>FUCK<br>
+      </div>
+    </div>
+
+    <hr>
+
+    <h2>Moderators</h2>
+    <hr>
+
+    <h2>Banned IPs</h2>
+    <hr>
+    
+  </div>
+
 </div>
