@@ -196,7 +196,7 @@ const deletePost = async(req, res) => {
 
 async function processQuotes(text, postNumber) {
     //TODO: change to @
-    let matches = text.match(/[>]{2}[\d]{7}/gm);
+    let matches = text.match(/[@][\d]{7}/gm);
     if (!matches) {
         return;
     }
@@ -204,10 +204,10 @@ async function processQuotes(text, postNumber) {
 
     for (let i = 0; i < matches.length; i++) {
         var str = matches[i],
-        delimiter = '>',
-        start = 2,
+        delimiter = '@',
+        start = 1,
         tokens = str.split(delimiter).slice(start),
-        result = tokens.join(delimiter); // those.that
+        result = tokens.join(delimiter);
 
         quotes.add(parseInt(result));
     }
