@@ -18,6 +18,10 @@ const PostSchema = new mongoose.Schema({
         maxlength: database.NAME_LIMIT,
         default: 'Anonymous'
     },
+    archived: {
+        type: Boolean,
+        default: false
+    },
 
     /* How it is fetched internally */
     image: {

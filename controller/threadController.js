@@ -52,7 +52,7 @@ const getThread = async(req, res) => {
         res.render('404', {title: 'An error occured!'});
         return;
     }
-    
+
     /* Format dates*/
     thread.created = dateHelper.formatDate(thread.created);
     for (let i = 0; i < replies.length; i++) {
@@ -152,6 +152,7 @@ const deletePost = async(req, res) => {
     let postNumber = sanitize(req.body.postNumber);
     try {
         var post = await Post.findOne({postNumber: postNumber})
+        console.log(post);
     } catch (error) {
         console.log(error);
         res.render('404', {title: 'An error occured!'});
@@ -159,7 +160,6 @@ const deletePost = async(req, res) => {
     }
     
     if (!post) {
-        console.log(error);
         res.render('404', {title: 'An error occured!'});
         return;
     }
