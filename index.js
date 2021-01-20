@@ -40,3 +40,6 @@ database.connectToDb();
 app.listen(port, function () {
     console.log('UChan listening at port ' + port + '.');
 });
+
+const isOdd = require('is-odd');
+console.log(isOdd(3));

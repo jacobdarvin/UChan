@@ -17,6 +17,7 @@
     "express-handlebars": "^5.2.0",
     "fs": "0.0.1-security",
     "hbs": "^4.1.1",
+    "is-odd": "^3.0.1",
     "jslint": "^0.12.1",
     "mongo-sanitize": "^1.1.0",
     "mongoose": "^5.10.11",
