@@ -17,6 +17,11 @@ h1 {
 
 }
 
+h2 {
+	font-weight: 800;
+	font-size: 28pt;
+}
+
 h4 {
 	margin: 0;
 	padding: 0;

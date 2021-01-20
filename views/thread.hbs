@@ -1,12 +1,13 @@
 <h1 class="pt-3 mb-0" style="text-align: center;">{{displayName}}</h1>
 
 <div class="container">
-	⚠️ <a href="#" class="select" title="Report Thread">Report Thread</a> <br>
+	⚠️ <a href="javascript:;" class="select" onclick="showReport();">Report Thread</a> <br>
 	🗨️ <a href="javascript:;" class="select" onclick="showReply();" style="font-size: 16pt;">Reply To Thread</a>
 <hr>
 
 <div id="thread">
 	{{> postThread}}
+	{{> postReport}}
 
 	{{#each replies}}
 		{{> postReply}}
