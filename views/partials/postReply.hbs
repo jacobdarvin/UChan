@@ -5,33 +5,41 @@
 
 	<div>
 
-		{{#if isOwner}}
-			<a href="javascript:;" id="d_{{postNumber}}" style="color: red !important;" onclick="deleteConfirmation({{postNumber}})">[X]</a> |
 
-			<span id="dc_{{postNumber}}" style="display: none;"><b>Delete?</b>
-				<a href="javascript:;" onclick="document.getElementById('delete_{{postNumber}}_form').submit()" class="text-danger" style="color: red !important;">Yes</a>
-				<a href="javascript:;" onclick="deleteConfirmation({{postNumber}})">No</a> |
-			</span>
-
-			<form action="/deletePost" method="POST" id="delete_{{postNumber}}_form" name="delete_{{postNumber}}_form" style="display: none;">
-				<textarea id="postNumber" name="postNumber" cols="20" rows="20" style="display:none;">{{postNumber}}</textarea>
-			</form>
-		{{/if}}
 
 		<span><b>{{name}} {{#if isOwner}}(You){{/if}}</b> {{created}}
 			<a href="javascript:;" class="thread-quote" onclick="showReply({{postNumber}})">
 				<u>No.{{postNumber}}</u>
 			</a>
-			|
-			{{#each quotes}}
-				<a href="#{{this}}p" onmouseover="highlightReply({{this}})" onmouseout="exitHighlight({{this}})">
-				@{{this}}
+
+			<span>
+				<a href="javascript:;" id="dropdown_{{postNumber}}" onclick="displayDropDown({{postNumber}})">
+					<i id="dropdown_icon_{{postNumber}}" class="fa fa-angle-down"></i>
 				</a>
+
+				<div id="dropdown_options_{{postNumber}}" class="card post-options shadow-sm menu">
+						<i class="fas fa-bullhorn"></i> <a href="#">Report</a> <br>
+						{{#if isOwner}}
+							<i class="fas fa-trash" style="color:red;"></i> <a href="javascript:;" id="d_{{postNumber}}" style="color: red !important;" onclick="deleteConfirmation({{postNumber}})">Delete</a>
+
+							<span id="dc_{{postNumber}}" style="display: none;">Delete?<br>
+								<a href="javascript:;" onclick="document.getElementById('delete_{{postNumber}}_form').submit()" class="text-danger" style="color: red !important;">Yes</a>
+								<a href="javascript:;" onclick="deleteConfirmation({{postNumber}})">No</a>
+							</span>
+
+							<form action="/deletePost" method="POST" id="delete_{{postNumber}}_form" name="delete_{{postNumber}}_form" style="display: none;">
+								<textarea id="postNumber" name="postNumber" cols="20" rows="20" style="display:none;">{{postNumber}}</textarea>
+							</form>
+						{{/if}}
+				</div>
+			</span>
+
+			{{#each quotes}}
+				<a href="#{{this}}p" onmouseover="highlightReply({{this}})" onmouseout="exitHighlight({{this}})">@{{this}}</a>
 			{{/each}}
 
 		</span> <a href="#" style="right: 20px; position: absolute;">-</a> <br>
 		<span style="white-space: pre-line;">{{text}}</span> <br>
-
 	</div>
 </div>
 

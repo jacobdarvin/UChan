@@ -29,12 +29,34 @@ function showReply(quote) {
 }
 
 function showReport() {
-    var x = document.getElementById("postReport");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
+  var x = document.getElementById("postReport");
+
+  if (x.style.display === "none") {
+      x.style.display = "block";
+  } else {
+      x.style.display = "none";
+  }
+}
+
+function displayDropDown(postId) {
+  id = "dropdown_" + postId;
+  var position = $("#" + id).position()
+  console.log(id)
+  console.log(position.left);
+
+  idDropdown      = "dropdown_options_" + postId;
+  idDropdownIcon  = "dropdown_icon_" + postId;
+
+  if( $("#" + idDropdown).css('display') == 'none') {
+    $("#" + idDropdown).css( {"display":"block", "left" : position.left,} );
+    $("#" + idDropdownIcon).removeClass("fa-angle-down");
+    $("#" + idDropdownIcon).addClass("fa-angle-up");
+
+  } else {
+    $("#" + idDropdown).css( {"display": "none", "left" : position.left,} );
+    $("#" + idDropdownIcon).removeClass("fa-angle-up");
+    $("#" + idDropdownIcon).addClass("fa-angle-down");
+  }
 }
 
 function toggleImage(img) {

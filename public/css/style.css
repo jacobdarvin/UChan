@@ -113,6 +113,13 @@ a {
   z-index: 4;
 }
 
+.post-options {
+  width: 90px;
+  position: absolute;
+  background-color: #f7f7f7;
+  display: none;
+}
+
 /* THREAD */
 .thread-quote{
 
@@ -128,6 +135,11 @@ a {
 }
 #logo:hover {
   	transform: scale(1.02);
+}
+
+.intro {
+  text-align: center;
+  font-size: 32pt;
 }
 
 /* DARK MODE BUTTON */
