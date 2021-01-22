@@ -28,14 +28,9 @@ function showReply(quote) {
     }
 }
 
-function showReport() {
-  var x = document.getElementById("postReport");
-
-  if (x.style.display === "none") {
-      x.style.display = "block";
-  } else {
-      x.style.display = "none";
-  }
+function reportId(id) {
+  console.log("reporting " + id);
+  $("#reportModal").val(id)
 }
 
 function displayDropDown(postId) {
