@@ -12,7 +12,7 @@
 				</a>
 
 				<div id="dropdown_options_{{postNumber}}" class="card post-options shadow-sm menu">
-						<i class="fas fa-bullhorn"></i> <a href="#">Report</a> <br>
+						<i class="fas fa-bullhorn"></i> <a href="#" data-toggle="modal" data-target="#reportModalCenter" onclick="reportId({{postNumber}})">Report</a> <br>
 						{{#if isOwner}}
 							<i class="fas fa-trash" style="color:red;"></i> <a href="javascript:;" id="d_{{postNumber}}" style="color: red !important;" onclick="deleteConfirmation({{postNumber}})">Delete</a>
 

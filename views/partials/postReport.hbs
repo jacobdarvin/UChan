@@ -1,21 +1,24 @@
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="reportModalCenter" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
+
     <div class="modal-content">
+
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Report Thread</h5>
+        <h5 class="modal-title">Report Thread</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
       <form>
+
       <div class="modal-body">
-        <label for="exampleInputEmail1">Post #</label>
-        <input type="text" class="form-control" id="reportModal" aria-describedby="emailHelp" placeholder="Enter email">
+        <label for="reportModal">Post #</label>
+        <input type="text" class="form-control" id="reportModal" placeholder="Enter post number" readonly>
 
         <div class="form-group">
-          <label for="exampleFormControlSelect1">What rule did this post break?</label>
-          <select class="form-control" id="exampleFormControlSelect1">
+          <label for="ruleSelect">What rule did this post break?</label>
+          <select class="form-control" id="ruleSelect">
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -26,6 +29,7 @@
         <button type="button" class="btn btn-custom select" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-custom select">Report</button>
       </div>
+
       </form>
 
     </div>
