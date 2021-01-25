@@ -1,4 +1,7 @@
 <!-- Moderator View -->
+
+<script type="text/javascript" src="/js/uchan.datatables.js"></script>
+
 <div class="row p-2 mt-2" style="margin: auto">
 
   <nav class="col-sm-1 card mod-nav shadow-sm">
@@ -6,9 +9,9 @@
       <h3><b>MODChan</b></h3> <hr>
       <div class="">
         <a href="#" class="select mod-items"> Boards </a> <br>
-        <a href="#" class="select mod-items"> Reported Posts </a> <br>
-        <a href="#" class="select mod-items"> Moderators </a> <br>
-        <a href="#" class="select mod-items"> Banned IPs </a> <br>
+        <a href="#reports" class="select mod-items"> Reported Posts </a> <br>
+        <a href="#moderator" class="select mod-items"> Moderators </a> <br>
+        <a href="#banned" class="select mod-items"> Banned IPs </a> <br>
       </div>
     </div>
   </nav>
@@ -24,31 +27,69 @@
 
     <hr>
 
-    <h2>Reported Posts</h2>
-    <div class="mod-content-reported">
-      <div class="card post-thread shadow-sm p-0 mt-3 p-3">
-        FUCK<br>FUCK<br>FUCK<br>FUCK<br>
-      </div>
-    </div>
-    <div class="mod-content-reported">
-      <div class="card post-thread shadow-sm p-0 mt-3 p-3">
-        FUCK<br>FUCK<br>FUCK<br>FUCK<br>
-      </div>
-    </div>
-    <div class="mod-content-reported">
-      <div class="card post-thread shadow-sm p-0 mt-3 p-3">
-        FUCK<br>FUCK<br>FUCK<br>FUCK<br>
-      </div>
-    </div>
+    <h2 id="reports">Reported Posts</h2>
+    <table id="reportTable" class="display">
+      <thead>
+          <tr>
+              <th>Column 1</th>
+              <th>Column 2</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>Row 1 Data 1</td>
+              <td>Row 1 Data 2</td>
+          </tr>
+          <tr>
+              <td>Row 2 Data 1</td>
+              <td>Row 2 Data 2</td>
+          </tr>
+      </tbody>
+    </table>
 
     <hr>
 
-    <h2>Moderators</h2>
+    <h2 id="moderator">Moderators</h2>
+    <table id="moderatorTable" class="display">
+      <thead>
+          <tr>
+              <th>Column 1</th>
+              <th>Column 2</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>Row 1 Data 1</td>
+              <td>Row 1 Data 2</td>
+          </tr>
+          <tr>
+              <td>Row 2 Data 1</td>
+              <td>Row 2 Data 2</td>
+          </tr>
+      </tbody>
+    </table>
     <hr>
 
-    <h2>Banned IPs</h2>
+    <h2 id="banned">Banned IPs</h2>
+    <table id="bannedTable" class="display">
+      <thead>
+          <tr>
+              <th>Column 1</th>
+              <th>Column 2</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>Row 1 Data 1</td>
+              <td>Row 1 Data 2</td>
+          </tr>
+          <tr>
+              <td>Row 2 Data 1</td>
+              <td>Row 2 Data 2</td>
+          </tr>
+      </tbody>
+    </table>
     <hr>
 
   </div>
-
 </div>
