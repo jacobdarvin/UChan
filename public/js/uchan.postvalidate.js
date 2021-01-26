@@ -17,9 +17,13 @@ $(document).ready(function() {
 	}
 });
 
+function initCaptcha() {
+	grecaptcha.render('post-form-captcha', {'sitekey': '6Lff6eQZAAAAACLF0onsK7F-oXM95R0-RvZKQ99s'});
+	grecaptcha.render('report-captcha', {'sitekey': '6Lff6eQZAAAAACLF0onsK7F-oXM95R0-RvZKQ99s'});
+}
 //Check Captcha
 function isCaptchaChecked() {
-	return grecaptcha && grecaptcha.getResponse().length !== 0;
+	return grecaptcha && grecaptcha.getResponse(0).length !== 0;
 }
 
 form.addEventListener('submit', (e) => {

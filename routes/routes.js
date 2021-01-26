@@ -102,4 +102,6 @@ app.post('/replyThread/:postNumber', function(req, res) {
 });
 app.post('/deletePost', ThreadController.deletePost);
 
+app.put('/reportpost', ThreadController.reportPost);
+
 module.exports = app;

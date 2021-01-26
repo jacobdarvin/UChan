@@ -5,10 +5,24 @@ const ReportedPost = new mongoose.Schema({
         type: Number,
         unique: true
     },
+    text: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    ip: {
+        type: String,
+        required: true
+    },
+    file: {
+        type: String
+    },
+
     reports: [{
         reason: {
-            enum: ['OFF TOPIC', 'LAW'],
-            require: true
+            type: String,
+            enum: ['OFF TOPIC', 'LAW', 'SPAM'],
+            required: true
         },
         ip: {
             type: String,
@@ -17,4 +31,4 @@ const ReportedPost = new mongoose.Schema({
     }]
 });
 
-module.exports = ReportedPost;
+module.exports = mongoose.model('ReportedPost', ReportedPost);
