@@ -15,11 +15,6 @@ h1 {
 	font-weight: 800;
 	font-size: 62pt;
 	color: #ffffff;
-
-	/*background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(139,255,144,1) 100%);
-  	-webkit-background-clip: text;
-  	-webkit-text-fill-color: transparent;
-  	*/
 }
 
 h2 {
@@ -30,6 +25,12 @@ h2 {
 h4 {
 	margin: 0;
 	padding: 0;
+}
+
+hr {
+	display: block; height: 1px;
+    border: 0; border-top: 1px solid #2f3336;
+    margin: 1em 0; padding: 0;
 }
 
 a {
@@ -64,10 +65,9 @@ a:hover {
 	border-color: #2f3336;
 }
 
-hr {
-	display: block; height: 1px;
-    border: 0; border-top: 1px solid #2f3336;
-    margin: 1em 0; padding: 0;
+/* REPORT MODALS */
+.modal-content {
+  background-color: black !important;
 }
 
 /* LINKS */

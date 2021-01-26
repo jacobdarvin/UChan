@@ -24,7 +24,6 @@ const uid = require('uid-safe');
 
 const getBoard = async(req, res) => {
     await ThreadValidator.cookieValidation(req, res);
-
     let board = sanitize(req.params.board);
     let noOfThreadLimit = 20; //for testing
     let [threads, boardResult] = await Promise.all([
