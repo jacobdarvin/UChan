@@ -101,3 +101,34 @@ async function exitHighlight(id) {
     else
       x.style.border = "none";
 }
+
+/*Report Post*/
+function reportPost() {
+    let id = $('#reportModal').val();
+    let reason = $('#report-reason').val();
+    let captcha = grecaptcha.getResponse(1);
+
+    if (grecaptcha.getResponse(1).length === 0) {
+        alert('captcha required.')          //change to message text or something
+        return;
+    }
+
+    $('#report-form-button').prop('disabled', true);
+    $.ajax({
+        url: '/reportpost',
+        type: 'PUT',
+        data: {id: id, reason: reason, 'g-recaptcha-response': captcha}
+    }).done((result) => {
+        alert(result.message);     //replace with message
+
+        $('#report-form-button').prop('disabled', false);
+        grecaptcha.reset(1);
+    }).fail(() => {
+        //message that something wrong happened with the request itself. Do not use 'result' object
+        $('#report-form-button').prop('disabled', false);
+        grecaptcha.reset(1);
+    });
+
+}
+
+

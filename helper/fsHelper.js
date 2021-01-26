@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 
 
 const renameImageAndGetDbName = (id, file) => {
@@ -21,7 +21,20 @@ const deletePostImage = async function(imagename) {
     });
 }
 
+const makeReportCopy = async(imagename) => {
+    if (imagename === 'undefined' || imagename === "" || imagename === undefined) {
+        return;
+    }
+
+    fs.copyFile('./public/postimgs/' + imagename, './admin/reportedimgs/' + imagename, error => {
+        if (error) {
+            console.log(error);
+        }
+    });
+}
+
 module.exports = {
     renameImageAndGetDbName,
-    deletePostImage
+    deletePostImage,
+    makeReportCopy
 }

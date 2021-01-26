@@ -8,6 +8,7 @@ const Post = require('../model/post.js');
 
 const dateHelper = require('../helper/dateHelper.js');
 const fsHelper = require('../helper/fsHelper.js');
+const postTransactor = require('../helper/post-transactor.js');
 const sanitize = require('mongo-sanitize');
 const { REPLY } = require('../validator/threadValidator.js');
 
@@ -53,12 +54,12 @@ const getThread = async(req, res) => {
         return;
     }
 
-    /* Format dates*/
+    /*/* Format dates
     thread.created = dateHelper.formatDate(thread.created);
     for (let i = 0; i < replies.length; i++) {
         replies[i].created = dateHelper.formatDate(replies[i].created);
         replies[i].isOwner = owner === replies[i].ownerCookie;
-    }
+    } */
 
     res.render('thread', {
         title: board.displayName + ' - ' + thread.text,
@@ -81,8 +82,6 @@ const getThread = async(req, res) => {
 
         replies: replies
     });
-
-    return;
 }
 
 const replyThread = async(req, res) => {
@@ -190,6 +189,21 @@ const deletePost = async(req, res) => {
    
 }
 
+const reportPost = async(req, res) => {
+    let captchaResult = await ThreadValidator.captchaValidation(req.body['g-recaptcha-response'], req.connection.remoteAddress);
+    if (!captchaResult) {
+        res.send({result: false, message: 'Captcha failed'});
+        return;
+    }
+
+    let id = sanitize(req.body['id']);
+    let reason = sanitize(req.body['reason']);
+
+    let result = await postTransactor.reportThread(id, reason, req.connection.remoteAddress);
+
+    res.send(result);
+}
+
 //======================================================================
 // Inner Functions
 //======================================================================
@@ -261,4 +275,6 @@ async function updateParentPost(reply) {
 module.exports = {
     getThread,
     replyThread,
-    deletePost };
+    deletePost,
+    reportPost
+};

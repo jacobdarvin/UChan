@@ -15,19 +15,20 @@
       <div class="modal-body">
         <label for="reportModal">Post #</label>
         <input type="text" class="form-control" id="reportModal" placeholder="Enter post number" readonly>
-
         <div class="form-group">
           <label for="ruleSelect">What rule did this post break?</label>
-          <select class="form-control" id="ruleSelect">
-            <option>Illegal Posts</option>
-            <option>2</option>
-            <option>3</option>
+          <select class="form-control" id="report-reason" name="report-reason">
+            <option value="LAW">Illegal Posts</option>
+            <option value="OFF TOPIC">Off Topic</option>
+            <option value="SPAM">Spam</option>
           </select>
         </div>
+          <div id="report-captcha">
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-custom select" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success select">Report</button>
+        <button type="button" class="btn btn-success select" id="report-form-button" name="report-form-button" onclick="reportPost()">Report</button>
       </div>
 
       </form>
