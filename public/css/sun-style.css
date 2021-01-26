@@ -115,11 +115,14 @@ a:hover {
   z-index: 4;
 }
 
-/* THREAD */
-.thread-quote{
-
+.post-options {
+  width: 90px;
+  position: absolute;
+  background-color: #f7f7f7;
+  display: none;
 }
 
+/* THREAD */
 .thread-quote:hover{
 	color: red !important;
 }
@@ -157,4 +160,28 @@ a:hover {
 
 .theme-toggle:hover {
 	color: #9c6f00;
+}
+
+/* MODERATOR */
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+.mod-items {
+  font-size: 16pt;
+}
+
+.mod-nav {
+  min-width: 250px;
+  display: block;
+}
+
+.mod-content-boards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-auto-rows: 200px;
+  grid-gap: 20px;
 }
