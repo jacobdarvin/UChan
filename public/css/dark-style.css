@@ -129,6 +129,14 @@ hr {
   z-index: 4;
 }
 
+.post-options {
+  width: 90px;
+  position: absolute;
+  background-color: black;
+  display: none;
+}
+
+
 /* THREAD */
 .thread-quote{
 
@@ -166,4 +174,28 @@ hr {
 
 .theme-toggle:hover {
 	color: grey;
+}
+
+/* MODERATOR */
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+.mod-items {
+  font-size: 16pt;
+}
+
+.mod-nav {
+  min-width: 250px;
+  display: block;
+}
+
+.mod-content-boards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-auto-rows: 200px;
+  grid-gap: 20px;
 }

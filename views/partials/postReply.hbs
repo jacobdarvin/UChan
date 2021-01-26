@@ -4,10 +4,7 @@
 	</a>
 
 	<div>
-
-
-
-		<span><b>{{name}} {{#if isOwner}}(You){{/if}}</b> {{created}}
+		<span style="white-space: pre-line; display: inline-block; word-break: break-word;"><b>{{name}} {{#if isOwner}}(You){{/if}}</b> {{created}}
 			<a href="javascript:;" class="thread-quote" onclick="showReply({{postNumber}})">
 				<u>No.{{postNumber}}</u>
 			</a>
@@ -39,7 +36,7 @@
 			{{/each}}
 
 		</span> <a href="#" style="right: 20px; position: absolute;">-</a> <br>
-		<span style="white-space: pre-line;">{{text}}</span> <br>
+		<span style="white-space: pre-line; display: inline-block; word-break: break-word;">{{text}}</span> <br>
 	</div>
 </div>
 
