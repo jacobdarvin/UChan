@@ -15,6 +15,7 @@ app.use(cookieParser());
 const BoardController = require('../controller/boardController.js');
 const IndexController = require('../controller/indexController.js');
 const ThreadController = require('../controller/threadController.js');
+const LoginController = require('../controller/loginController.js');
 
 // DB Constants
 const {IMAGE_SIZE_LIMIT} = require('../model/constants.js');
@@ -34,14 +35,6 @@ upload = multer({ storage: storage, limits: {fileSize: IMAGE_SIZE_LIMIT}, onErro
 app.get('/', IndexController.getIndex);
 
 /* Moderator Pages //To move in unique controllers */
-app.get('/xeroxthis', function (req, res) {
-	res.render('xeroxthis', {
-		title: 'XeroxThis',
-		thread: false,
-    about_active: true,
-	});
-});
-
 app.get('/modview', function (req, res) {
 	res.render('modview', {
 		title: 'Moderator View',
@@ -75,6 +68,8 @@ app.get('/thread', function (req, res) {
 	});
 });
 
+/* Dynamic Pages */
+app.get('/xeroxthis', LoginController.getLogin);
 
 app.get('/:board', BoardController.getBoard);
 app.post('/createThread/:board', function(req, res) {
