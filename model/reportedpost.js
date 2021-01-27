@@ -5,6 +5,11 @@ const ReportedPost = new mongoose.Schema({
         type: Number,
         unique: true
     },
+    board: {
+        type: String,
+        required: true,
+        maxlength: 3
+    },
     text: {
         type: String,
         required: true,

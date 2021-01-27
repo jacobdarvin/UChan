@@ -56,7 +56,8 @@ const reportThread = async(postNumber, reason, ip) => {
                 postNumber: postNumber,
                 text: postToReport['text'],
                 ip: postToReport['ip'],
-                file: postToReport['image']
+                file: postToReport['image'],
+                board: postToReport['board']
             });
             await reportedPost.save();
         } catch (e) {

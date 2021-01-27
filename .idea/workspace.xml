@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64cbb538-6b49-4346-805a-9e0b83d344f6" name="Default Changelist" comment="" />
+    <list default="true" id="64cbb538-6b49-4346-805a-9e0b83d344f6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/fsHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/helper/fsHelper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/post-transactor.js" beforeDir="false" afterPath="$PROJECT_DIR$/helper/post-transactor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/reportedpost.js" beforeDir="false" afterPath="$PROJECT_DIR$/model/reportedpost.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,6 +57,7 @@
       <workItem from="1611141901574" duration="695000" />
       <workItem from="1611142833737" duration="13402000" />
       <workItem from="1611662635966" duration="23322000" />
+      <workItem from="1611749672228" duration="525000" />
     </task>
     <servers />
   </component>

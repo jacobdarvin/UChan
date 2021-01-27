@@ -1,6 +1,5 @@
 const fs = require('fs-extra');
 
-
 const renameImageAndGetDbName = (id, file) => {
     let ogName = file.originalname;
     let extension = ogName.substring(ogName.lastIndexOf("."));
