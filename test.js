@@ -30,11 +30,17 @@ async function test() {
     post.quotes.push(reply.postNumber);
     await post.save();
     
-    let board = new Board({
+    let ufo = new Board({
         name: 'ufo',
         displayName: '🛸/UFO'
     });
-    await board.save();
+
+    await Promise.all([
+        ufo.save(),
+        //save added boards here
+
+    ]);
+
     
 }
 
