@@ -54,12 +54,11 @@ const getThread = async(req, res) => {
         return;
     }
 
-    /*/* Format dates
     thread.created = dateHelper.formatDate(thread.created);
     for (let i = 0; i < replies.length; i++) {
-        replies[i].created = dateHelper.formatDate(replies[i].created);
+        //replies[i].created = dateHelper.formatDate(replies[i].created);
         replies[i].isOwner = owner === replies[i].ownerCookie;
-    } */
+    }
 
     res.render('thread', {
         title: board.displayName + ' - ' + thread.text,
@@ -147,7 +146,7 @@ const replyThread = async(req, res) => {
 
 const deletePost = async(req, res) => {
     await ThreadValidator.cookieValidation(req, res);
-            
+
     let postNumber = sanitize(req.body.postNumber);
     try {
         var post = await Post.findOne({postNumber: postNumber})
@@ -157,12 +156,12 @@ const deletePost = async(req, res) => {
         res.render('404', {title: 'An error occured!'});
         return;
     }
-    
+
     if (!post) {
         res.render('404', {title: 'An error occured!'});
         return;
     }
-    
+
     let type = post.type;
     let board = post.board;
 
@@ -180,13 +179,13 @@ const deletePost = async(req, res) => {
         res.render('404', {title: 'An error occured!'});
         return;
     }
-    
+
     if (type === 'THREAD') {
         res.redirect(`/${board}`);
     } else if (type === 'REPLY') {
         res.redirect(req.get('referer'))
     }
-   
+
 }
 
 const reportPost = async(req, res) => {
@@ -248,7 +247,7 @@ async function deleteReplies(parentPost) {
     for (let reply of replies) {
         let image = reply.image;
         fsHelper.deletePostImage(image);
-        
+
         reply.remove();
     }
 }
@@ -260,7 +259,7 @@ async function updateParentPost(reply) {
         console.log(error);
         return;
     }
-    
+
     let subtrahend = 0;
     if (reply.image !== 'undefined' && reply.image !== "" && reply.image !== undefined) {
         subtrahend = 1;
@@ -271,7 +270,7 @@ async function updateParentPost(reply) {
     await post.save();
     return;
 }
-    
+
 module.exports = {
     getThread,
     replyThread,
