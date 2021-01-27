@@ -24,7 +24,20 @@ const ReportedPost = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: Date.now
+        required: true
+    },
+
+    offTopicCounter: {
+        type: Number,
+        default: 0
+    },
+    lawCounter: {
+        type: Number,
+        default: 0
+    },
+    spamCounter: {
+        type: Number,
+        default: 0
     },
 
     reports: [{

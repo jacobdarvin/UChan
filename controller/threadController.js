@@ -54,7 +54,7 @@ const getThread = async(req, res) => {
         return;
     }
 
-    thread.created = dateHelper.formatDate(thread.created);
+    //thread.created = dateHelper.formatDate(thread.created);
     for (let i = 0; i < replies.length; i++) {
         //replies[i].created = dateHelper.formatDate(replies[i].created);
         replies[i].isOwner = owner === replies[i].ownerCookie;

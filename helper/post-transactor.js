@@ -57,7 +57,8 @@ const reportThread = async(postNumber, reason, ip) => {
                 text: postToReport['text'],
                 ip: postToReport['ip'],
                 file: postToReport['image'],
-                board: postToReport['board']
+                board: postToReport['board'],
+                date: postToReport['created']
             });
             await reportedPost.save();
         } catch (e) {
@@ -82,6 +83,22 @@ const reportThread = async(postNumber, reason, ip) => {
             reason: reason,
             ip: ip
         };
+
+        switch (reason) {
+            case 'OFF TOPIC':
+                reportedPost.offTopicCounter++;
+                break;
+            case 'LAW':
+                reportedPost.lawCounter++;
+                break;
+            case 'SPAM':
+                reportedPost.spamCounter++;
+                break;
+            default:
+                //defaults to offtopic
+                reportedPost.offTopicCounter++;
+                break;
+        }
 
         reportedPost['reports'].push(report);
         await reportedPost.save();
