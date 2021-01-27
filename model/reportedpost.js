@@ -22,6 +22,10 @@ const ReportedPost = new mongoose.Schema({
     file: {
         type: String
     },
+    date: {
+        type: Date,
+        default: Date.now
+    },
 
     reports: [{
         reason: {
@@ -35,5 +39,17 @@ const ReportedPost = new mongoose.Schema({
         }
     }]
 });
+
+/* Post: 113244 Board: Ufo Comment: kys File: alien.jpg
+
+        Reports
+            Reason: lAW, IP
+            Reason: OFFTOPIC, IP
+
+      Post: 113244 LAW Board
+      Post: 113444 OFFTOPIC Board
+      Post: 113444
+      ...n
+ */
 
 module.exports = mongoose.model('ReportedPost', ReportedPost);

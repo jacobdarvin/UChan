@@ -16,6 +16,7 @@ const BoardController = require('../controller/boardController.js');
 const IndexController = require('../controller/indexController.js');
 const ThreadController = require('../controller/threadController.js');
 const LoginController = require('../controller/loginController.js');
+const ModController = require('../controller/modController.js');
 
 // DB Constants
 const {IMAGE_SIZE_LIMIT} = require('../model/constants.js');
@@ -35,13 +36,7 @@ upload = multer({ storage: storage, limits: {fileSize: IMAGE_SIZE_LIMIT}, onErro
 app.get('/', IndexController.getIndex);
 
 /* Moderator Pages //To move in unique controllers */
-app.get('/modview', function (req, res) {
-	res.render('modview', {
-		title: 'Moderator View',
-		thread: false,
-    about_active: true,
-	});
-});
+app.get('/modview', ModController.getModView);
 
 /* Static Pages */
 app.get('/about', function (req, res) {
