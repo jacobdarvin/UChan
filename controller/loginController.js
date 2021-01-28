@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 
 const db = require('../model/database.js');
-//const Account = require('../model/user.js');
 
 const loginController = {
     getLogin: function (req, res) {
