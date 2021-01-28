@@ -104,12 +104,15 @@ async function exitHighlight(id) {
 
 /*Report Post*/
 function reportPost() {
+    const reportMessage = document.getElementById('reportMessage');
+
     let id = $('#reportModal').val();
     let reason = $('#report-reason').val();
     let captcha = grecaptcha.getResponse(1);
 
     if (grecaptcha.getResponse(1).length === 0) {
-        alert('captcha required.')          //change to message text or something
+        //alert('captcha required.')          //change to message text or something
+        reportMessage.innerText = 'Captcha Required.'
         return;
     }
 
@@ -119,8 +122,13 @@ function reportPost() {
         type: 'PUT',
         data: {id: id, reason: reason, 'g-recaptcha-response': captcha}
     }).done((result) => {
-        alert(result.message);     //replace with message
+      const modalMessage = document.getElementById('reportResultMessage');
 
+        $("#reportModalCenter").modal('hide');
+        $("#reportModalMessage").modal('show');
+        modalMessage.innerText  = result.message;
+
+        //alert(result.message);     //replace with message
         $('#report-form-button').prop('disabled', false);
         grecaptcha.reset(1);
     }).fail(() => {
@@ -130,5 +138,3 @@ function reportPost() {
     });
 
 }
-
-
