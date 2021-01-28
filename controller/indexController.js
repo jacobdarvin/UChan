@@ -4,7 +4,6 @@
 //======================================================================
 
 const Post = require('../model/post.js');
-const uid = require('uid-safe');
 
 const {ThreadValidator} = require('../validator/threadValidator.js');
 
