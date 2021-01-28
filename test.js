@@ -16,7 +16,7 @@ async function test() {
         ownerCookie: 'test'
     });
     await post.save();
-    
+
     let number = post.postNumber;
     let reply = new Post({
         text: `>>${number}\n kys`,
@@ -29,30 +29,53 @@ async function test() {
     await reply.save();
     post.quotes.push(reply.postNumber);
     await post.save();
-    
+
+    /* BOARD LIST */
+    let casual = new Board({
+        name: 'cas',
+        displayName: '💬/Casual'
+    });
+
     let ufo = new Board({
         name: 'ufo',
         displayName: '🛸/UFO'
     });
 
+    let games = new Board({
+        name: 'vgs',
+        displayName: '🕹️/Games'
+    });
+
+    let fashion = new Board({
+        name: 'fas',
+        displayName: '👕/Fashion'
+    });
+
+    let ccs = new Board({
+        name: 'ccs',
+        displayName: '💻/CCS'
+    });
+
+    let dlsu = new Board({
+        name: 'dls',
+        displayName: '💚/DLSU'
+    });
+
+    let investments = new Board({
+        name: 'inv',
+        displayName: '💸/Investments'
+    });
+
     await Promise.all([
-        ufo.save(),
-        //save added boards here
-
+      casual.save(),
+      ufo.save(),
+      games.save(),
+      fashion.save(),
+      ccs.save(),
+      dlsu.save(),
+      investments.save(),
+      //save added boards here
     ]);
-
-    
 }
 
 test();
-
-
-
-
-
-
-
-
-
-
-

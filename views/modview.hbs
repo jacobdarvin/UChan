@@ -42,13 +42,15 @@
           </tr>
       </thead>
       <tbody>
+        {{#each reportedPosts}}
           <tr>
-              <td>Row 1 Data 1</td>
-              <td>Row 1 Data 2</td>
-              <td>Row 1 Data 3</td>
-              <td>Row 1 Data 4</td>
-              <td>Row 1 Data 5</td>
+              <td>{{postNumber}}</td>
+              <td>{{board}}</td>
+              <td>{{lawCounter}}</td>
+              <td>{{offTopicCounter}}</td>
+              <td>{{spamCounter}}</td>
           </tr>
+        {{/each}}
       </tbody>
     </table>
 
