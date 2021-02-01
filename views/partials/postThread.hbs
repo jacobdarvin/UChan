@@ -25,7 +25,7 @@
         </div>
       </span>
       {{#each quotes}}
-       @{{this}}</a>
+      <a href="#{{this}}p" onmouseover="highlightReply({{this}})" onmouseout="exitHighlight({{this}})"> @{{this}}</a>
       {{/each}}
     </span>
     <br>

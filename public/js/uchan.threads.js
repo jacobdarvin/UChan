@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $("#thread").html(function(_, html){
-        return html.replace(/@(.*)/g, '<a href="#$1p" onmouseover="highlightReply($1)" onmouseout="exitHighlight($1)"><span style="color: grey">@$1</span></a>'); //&gt; = '>'
+        return html.replace(/(@.*)/g, '<span style="color: grey">$1</span>'); //&gt; = '>'
         //return html.replace(/(&gt;&gt;\w+)/g, '<span style="color: red">$1</span>');
         //To DO: Figure out how to extract quotes.
 

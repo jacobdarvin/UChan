@@ -29,7 +29,7 @@
         </div>
       </span>
       {{#each quotes}}
-       @{{this}}
+      <a href="#{{this}}p" onmouseover="highlightReply({{this}})" onmouseout="exitHighlight({{this}})"> @{{this}}</a>
       {{/each}}
     </span>
     <a href="#" style="right: 20px; position: absolute;">-</a> <br>
