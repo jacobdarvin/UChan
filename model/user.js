@@ -19,10 +19,7 @@ const User = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    boards: {
-
-    }
-
+    boards: [String]
 });
 
-module.exports = User;
+module.exports = mongoose.model('User', User);
