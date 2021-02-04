@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64cbb538-6b49-4346-805a-9e0b83d344f6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/helper/user-transactor.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/registerKey.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registerkeytest.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/regtest.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/viewuser.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/registerController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/registerController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/user-transactor.js" beforeDir="false" afterPath="$PROJECT_DIR$/helper/user-transactor.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/model/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/validator/threadValidator.js" beforeDir="false" afterPath="$PROJECT_DIR$/validator/threadValidator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/xeroxthat.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/xeroxthat.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

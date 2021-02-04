@@ -48,7 +48,7 @@ const ThreadValidator = {
         }
         let file = req.file;
         
-        if (type == THREAD) {
+        if (type === THREAD) {
             req.params.board = sanitize(req.params.board.trim());
             let board = req.params.board;
 
@@ -57,7 +57,7 @@ const ThreadValidator = {
                 console.error("Board user is posting to does not exist.");
                 return false;
             }
-        } else if (type == REPLY) {
+        } else if (type === REPLY) {
             req.params.postNumber = sanitize(req.params.postNumber.trim());
             let postNumber = req.params.postNumber;
 

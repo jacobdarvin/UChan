@@ -11,7 +11,8 @@ const User = new mongoose.Schema({
         required: true,
         maxlength: 128
     },
-    type: {
+    rank: {
+        type: String,
         enum: ['ADMIN', 'MODERATOR'],
         default: 'MODERATOR'
     },

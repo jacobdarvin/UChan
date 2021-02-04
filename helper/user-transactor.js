@@ -30,14 +30,13 @@ const RegisterKey = require('../model/registerKey.js');
  */
 const createUser = async(username, password, registerKey) => {
     try {
-        let registerKey = await RegisterKey.findOne({key: registerKey});
+        var key = await RegisterKey.findOne({key: registerKey});
+        if (!key) {
+            return {result: false, message: 'Invalid Register Key.'};
+        }
     } catch (e) {
         console.log(e);
         return {result: false, message: 'An unexpected error occured.'};
-    }
-
-    if (!registerKey) {
-        return {result: false, message: 'Invalid Register Key.'};
     }
 
     password = await bcrypt.hash(password, 10);
@@ -49,8 +48,10 @@ const createUser = async(username, password, registerKey) => {
 
         await Promise.all([
             await user.save(),
-            await registerKey.remove()
+            await key.remove()
         ]);
+
+        console.log(user);
     } catch (e) {
         console.log(e);
         return {result: false, message: 'An unexpected error occured with account creation'};

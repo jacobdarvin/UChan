@@ -68,7 +68,9 @@ app.get('/thread', function (req, res) {
 
 /* Dynamic Pages */
 app.get('/xeroxthis', LoginController.getLogin);
+
 app.get('/xeroxthat', RegisterController.getRegister);
+app.post('/xeroxed', RegisterController.postRegister);
 
 app.get('/:board', BoardController.getBoard);
 app.post('/createThread/:board', function(req, res) {
