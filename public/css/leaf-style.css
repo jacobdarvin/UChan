@@ -184,3 +184,11 @@ a:hover {
   grid-auto-rows: 200px;
   grid-gap: 20px;
 }
+
+.catalogue-view {
+  text-align: center;
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

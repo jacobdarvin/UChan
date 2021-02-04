@@ -15,7 +15,10 @@ app.use(cookieParser());
 const BoardController = require('../controller/boardController.js');
 const IndexController = require('../controller/indexController.js');
 const ThreadController = require('../controller/threadController.js');
+
 const LoginController = require('../controller/loginController.js');
+const RegisterController = require('../controller/registerController.js');
+
 const ModController = require('../controller/modController.js');
 
 // DB Constants
@@ -65,6 +68,7 @@ app.get('/thread', function (req, res) {
 
 /* Dynamic Pages */
 app.get('/xeroxthis', LoginController.getLogin);
+app.get('/xeroxthat', RegisterController.getRegister);
 
 app.get('/:board', BoardController.getBoard);
 app.post('/createThread/:board', function(req, res) {

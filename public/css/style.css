@@ -107,7 +107,6 @@ a {
 	z-index: 2;
 }
 
-
 .post-zoom:hover {
   transform: scale(1.1);
   z-index: 4;
@@ -180,4 +179,19 @@ a {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-auto-rows: 200px;
   grid-gap: 20px;
+}
+
+.catalogue-view {
+  text-align: center;
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.list-view {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
