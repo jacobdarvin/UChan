@@ -25,6 +25,8 @@ const uid = require('uid-safe');
 const getBoard = async(req, res) => {
     await ThreadValidator.cookieValidation(req, res);
     let board = sanitize(req.params.board);
+    let view = sanitize(req.query['view']);
+
     let noOfThreadLimit = 20; //for testing
     let [threads, boardResult] = await Promise.all([
 
@@ -53,10 +55,10 @@ const getBoard = async(req, res) => {
 
         threads:      threads,
         boardName:    board, //PENIS
-        action:       `/createThread/${board}`
-    });
+        action:       `/createThread/${board}`,
 
-    return;
+        list: view === 'list'
+    });
 };
 
 const createThread = async(req, res) => {

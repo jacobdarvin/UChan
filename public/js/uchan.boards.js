@@ -30,7 +30,7 @@ $('#view-selector').change(function(){
 
   if($(this).val() == 'list') {
     localStorage.setItem('viewChoice', 'list');
-    k = v + '?' + 'list=true';
+    k = v + '?' + 'view=list';
 
     window.location.replace(k);
 
