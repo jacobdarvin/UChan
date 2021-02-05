@@ -59,6 +59,7 @@ const getThread = async(req, res) => {
         replies[i].created = dateHelper.formatDate(replies[i].created);
         replies[i].isOwner = owner === replies[i].ownerCookie;
         replies[i].active_session = req.session.user && req.cookies.user_sid; //BEING CALLED
+        replies[i].stickied = thread.stickied; //check if parent post is stickied
     }
 
     res.render('thread', {
@@ -232,7 +233,24 @@ const stickyPost = async(req, res) => {
     }
 
     let postNumber = sanitize(req.body['stickyId']);
-    let result = await postTransactor.stickyPost(postNumber);
+    let result = await postTransactor.setSticky(postNumber, true);
+    if (!result) {
+        res.render('404', {title: result.message});
+        return;
+    }
+
+    res.redirect(req.get('referer'));
+};
+
+//TODO: ajax this shit
+const unstickyPost = async(req, res) => {
+    if (!(req.session.user && req.cookies.user_sid)) {
+        res.render('404', {title: 'Cannot unsticky post as a non-moderator.'});
+        return;
+    }
+
+    let postNumber = sanitize(req.body['stickyId']);
+    let result = await postTransactor.setSticky(postNumber, false);
     if (!result) {
         res.render('404', {title: result.message});
         return;
@@ -314,5 +332,6 @@ module.exports = {
     replyThread,
     deletePost,
     reportPost,
-    stickyPost
+    stickyPost,
+    unstickyPost,
 };

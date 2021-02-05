@@ -112,5 +112,5 @@ app.post('/deletePost', ThreadController.deletePost);
 
 app.put('/reportpost', ThreadController.reportPost);
 app.post('/stickypost', ThreadController.stickyPost);
-
+app.post('/unstickypost', ThreadController.unstickyPost);
 module.exports = app;

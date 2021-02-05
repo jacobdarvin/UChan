@@ -115,11 +115,12 @@ const reportThread = async(postNumber, reason, ip) => {
     Stickies a post. Posts can only be stickied if they're of the type 'THREAD'.
 
     @param postNumber: The post number to be stickied.
+    @param flag: What to set the sticky status
 
     @return result (boolean): Whether the sticky operation is successful.
     @return message (String): Message associated with the result.
  */
-const stickyPost = async(postNumber) => {
+const setSticky = async(postNumber, flag) => {
     try {
         let post = await Post.findOne({postNumber: postNumber});
         if (!post) {
@@ -130,17 +131,17 @@ const stickyPost = async(postNumber) => {
             return {result: false, message: 'stickyPost: post is not a thread.'};
         }
 
-        post['stickied'] = true;
+        post['stickied'] = flag;
         await post.save();
     } catch (e) {
         console.log(e);
         return {result: false, message: 'stickyPost: An unexpected error occured.'};
     }
 
-    return {result: true, message: 'stickyPost: Successfully stickied post.'};
+    return {result: true, message: `stickyPost: succesfully set post's sticky to ${flag}`};
 }
 
 module.exports = {
     reportThread,
-    stickyPost
+    setSticky
 }
