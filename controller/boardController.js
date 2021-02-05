@@ -71,7 +71,15 @@ const createThread = async(req, res) => {
     await ThreadValidator.cookieValidation(req, res);
 
     let owner = sanitize(req.cookies.local_user);
-    let ip = sanitize(req.ip);
+
+    let ip = req.headers["x-forwarded-for"];
+    if (ip){
+        let list = ip.split(",");
+        ip = list[list.length-1];
+    } else {
+        ip = req.connection.remoteAddress;
+    }
+
     let text = sanitize(req.body.text);
     let name = sanitize(req.body.name);
     let file = sanitize(req.file);
