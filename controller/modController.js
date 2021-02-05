@@ -12,12 +12,16 @@ const getModView = async(req ,res) => {
         return;
     }
 
-    res.render('modview', {
-        title: 'Moderator View',
-        thread: false,
-        about_active: true,
-        reportedPosts: reportedPosts
-    });
+    if(req.session.user && req.cookies.user_sid) {
+      res.render('modview', {
+          title: 'Moderator View',
+          thread: false,
+          about_active: true,
+          reportedPosts: reportedPosts
+      });
+    } else {
+      res.render('404', {title: 'Bad Login!'});
+    }
 }
 
 module.exports = {

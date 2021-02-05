@@ -58,9 +58,11 @@ const getThread = async(req, res) => {
     for (let i = 0; i < replies.length; i++) {
         replies[i].created = dateHelper.formatDate(replies[i].created);
         replies[i].isOwner = owner === replies[i].ownerCookie;
+        replies[i].active_session = req.session.user && req.cookies.user_sid; //BEING CALLED
     }
 
     res.render('thread', {
+        active_session : req.session.user && req.cookies.user_sid,
         title: board.displayName + ' - ' + thread.text,
         postNumber: thread.postNumber,
         displayName: board.displayName,
