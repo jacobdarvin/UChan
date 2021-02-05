@@ -41,6 +41,12 @@
     </span>
     <br>
     <span style="white-space: pre-line; display: inline-block; word-break: break-word;">{{text}}</span>
+    {{#if active_session}}
+    <form>
+      <input type="hidden" id="stickyId" name="stickyId" value="{{postNumber}}">
+      <button href="#" type="submit" class="btn btn-success"><i class="fas fa-thumbtack"></i> Sticky Post</b></button>
+    </form>
+    {{/if}}
   </div>
 </div>
 <hr>
