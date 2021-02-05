@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const BannedIP = new mongoose.Schema({
     ip: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     startDate: {
         type: Date,
@@ -22,4 +23,4 @@ const BannedIP = new mongoose.Schema({
     }
 });
 
-module.exports = BannedIP;
+module.exports = mongoose.model('BannedIP', BannedIP);

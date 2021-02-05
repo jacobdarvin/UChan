@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64cbb538-6b49-4346-805a-9e0b83d344f6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/controller/boardController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/boardController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/threadController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/threadController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/user-transactor.js" beforeDir="false" afterPath="$PROJECT_DIR$/helper/user-transactor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/bannedip.js" beforeDir="false" afterPath="$PROJECT_DIR$/model/bannedip.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +46,9 @@
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="64cbb538-6b49-4346-805a-9e0b83d344f6" name="Default Changelist" comment="" />

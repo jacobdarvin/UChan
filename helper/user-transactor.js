@@ -11,6 +11,7 @@
 const bcrypt = require('bcrypt');
 const User = require('../model/user.js');
 const RegisterKey = require('../model/registerKey.js');
+const BannedIP = require('../model/bannedip.js');
 
 //======================================================================
 // Exports
@@ -60,6 +61,57 @@ const createUser = async(username, password, registerKey) => {
     return {result: true, message: `Account ${username} created!`};
 }
 
+//TODO: start and end date
+const banIp = async(ip, startDate, endDate, reason, remarks) => {
+    /*
+    if (startDate.getTime() >= endDate.getTime()) {
+        return {result: false, message: 'Start date should be earlier than end date.'};
+    }
+
+    let bannedIP = await BannedIP.findOne({ip: ip});
+    if (bannedIP) {
+
+    }
+     */
+
+    let bannedip = await BannedIP.exists();
+    if (bannedip) {
+        return {result: false, message: 'A ban on the IP already exists.'};
+    }
+
+    try {
+        bannedip = new BannedIP({
+            ip: ip,
+            reason: reason,
+            remarks: remarks
+        });
+        bannedip.save();
+    } catch (e) {
+        console.log(e);
+        return {result: false, message: 'An unexpected error occured.'};
+    }
+
+    return {result: true, message: 'User succesfully banned.'};
+}
+
+const unbanIp = async (ip) => {
+
+    try {
+        let bannedip = await BannedIP.findOne({ip: ip});
+        if (!bannedip) {
+            return {result: false, message: 'UnbanIp: IP does not exist.'};
+        }
+
+        await bannedip.remove();
+    } catch (e) {
+        console.log(e);
+        return {result: false, message: 'An unexpected error occured in unbanning a post.'}
+    }
+
+    return {result: true, message: 'Successfully unbanned ip.'};
+}
+
 module.exports = {
-    createUser
+    createUser,
+    banIp
 }
