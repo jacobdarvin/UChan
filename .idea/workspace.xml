@@ -4,9 +4,6 @@
     <list default="true" id="64cbb538-6b49-4346-805a-9e0b83d344f6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/threadController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/threadController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helper/post-transactor.js" beforeDir="false" afterPath="$PROJECT_DIR$/helper/post-transactor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/postThread.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/postThread.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
