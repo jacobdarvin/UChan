@@ -20,6 +20,7 @@ const getIndex = async (req, res) => {
                     .lean();
 
     res.render('index', {
+        active_session: req.session.user && req.cookies.user_sid,
         title: 'UChan',
         threads: threads,
         home_active: true,

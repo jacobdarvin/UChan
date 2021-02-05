@@ -14,6 +14,7 @@ const getModView = async(req ,res) => {
 
     if(req.session.user && req.cookies.user_sid) {
       res.render('modview', {
+          active_session: req.session.user && req.cookies.user_sid,
           title: 'Moderator View',
           thread: false,
           about_active: true,

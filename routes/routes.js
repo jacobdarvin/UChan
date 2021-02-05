@@ -71,6 +71,13 @@ app.get('/thread', function (req, res) {
 });
 
 /* Dynamic Pages */
+
+app.get('/logout', function (req, res) {
+    req.logout;
+    req.session.destroy(function (err) {});
+    res.redirect('/');
+});
+
 app.get('/xeroxthis', LoginController.getLogin);
 app.post('/xeroxthis', LoginController.postLogin);
 
