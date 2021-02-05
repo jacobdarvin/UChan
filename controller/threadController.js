@@ -135,7 +135,8 @@ const replyThread = async(req, res) => {
     }
     parentPost.noOfPosts++;
 
-    if (parentPost.uniqueIps.length > 1 || parentPost.uniqueIps.get(0) !== parentPost.ip) {
+    let array = [];
+    if (parentPost.uniqueIps.length > 1 || parentPost.uniqueIps[0] !== parentPost.ip) {
         parentPost.bump = Date.now();
     }
     await parentPost.save();
