@@ -7,7 +7,7 @@
   <div class="{{#if image}}ml-3{{/if}}">
     <span style="display: inline-block; word-break: break-word;">
       <b>{{name}} {{#if isOwner}}(You){{/if}}</b> {{created}}
-      <a href="javascript:;" class="thread-quote" {{#if stickied}} {{#if active_session}} onclick="showReply({{postNumber}})" {{/if}} {{else}} onclick="showReply({{postNumber}})" {{/if}}> <!-- MAKE STICKIED REACH POST REPLY -->
+      <a href="javascript:;" class="thread-quote" {{#if stickied}} {{#if active_session}} onclick="showReply({{postNumber}})" {{/if}} {{else}} onclick="showReply({{postNumber}})" {{/if}}>
       <u>No.{{postNumber}}</u>
       </a>
       <span>
