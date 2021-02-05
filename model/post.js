@@ -62,7 +62,7 @@ const PostSchema = new mongoose.Schema({
         //select: false
     },
     ownerCookie: {
-        type: String, 
+        type: String,
         required: true
     },
 
@@ -76,7 +76,7 @@ const PostSchema = new mongoose.Schema({
         default: 0,
     },
     uniqueIps: [String],
-    
+
     /* If Post is a REPLY */
     parentPost: {
         type: Number

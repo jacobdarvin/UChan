@@ -21,11 +21,17 @@
 </div>
 
 <div class="catalogue-view" id="type-view">
-	{{#each threads}}
-		{{> post}}
-	{{/each}}
+	{{#if list}}
+		{{#each threads}}
+			{{> list-post}}
+		{{/each}}
 
-	{{> list-post}}
+	{{else}}
+		{{#each threads}}
+			{{> post}}
+		{{/each}}
+
+	{{/if}}
 </div>
 
 {{> postForm}}

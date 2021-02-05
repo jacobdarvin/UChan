@@ -1,7 +1,8 @@
-let viewChoice = localStorage.getItem('viewChoice');
+//let viewChoice = localStorage.getItem('viewChoice');
 
 $( document ).ready(function() {
-    if(viewChoice === 'list') {
+    //if(viewChoice === 'list') {
+    if(window.location.search === '?view=list') {
       $("#view-selector").val("list");
 
       $('#type-view').removeClass("catalogue-view");
@@ -12,12 +13,13 @@ $( document ).ready(function() {
     }
 });
 
+
 $('#view-selector').change(function(){
   var v = window.location.href;
 
   if($(this).val() == 'list') {
     localStorage.setItem('viewChoice', 'list');
-    k = v + '?' + 'view=list';
+    let k = v + '?' + 'view=list';
 
     window.location.replace(k);
 
