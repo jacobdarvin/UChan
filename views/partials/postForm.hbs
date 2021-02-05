@@ -14,8 +14,10 @@
   </div>
 
 	<div class="form-check">
-    <input type="checkbox" class="form-check-input" id="sticky-check">
-    <label class="form-check-label" for="exampleCheck1">Sticky Post</label>
+		{{#if active_session}}
+    	<input type="checkbox" class="form-check-input" id="sticky-check">
+    	<label class="form-check-label" for="stickyCheck">Sticky Post</label>
+		{{/if}}
   </div>
 
 	<div id="post-form-captcha">

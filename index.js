@@ -5,6 +5,10 @@ const exphbs = require('express-handlebars');
 const hbs = require('hbs');
 const path = require('path');
 
+const session = require('express-session'); //EXPRESS-SESSIONS
+const cookieParser = require('cookie-parser'); //COOKIES
+const bodyParser = require('body-parser'); //BODY PARSING
+
 const app = express();
 
 app.use(express.urlencoded({extended: true}));
@@ -27,6 +31,24 @@ app.engine(
 const routes = require('./routes/routes.js');
 const connectToDb = require('./model/database.js');
 hbs.registerPartials(__dirname + '/views/partials');
+
+//Init Cookie and Body Parser
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+//Init Sessions
+app.use(
+	session({
+		key: 'user_sid',
+		secret: 'yB35$ajp{v-T9$VD',
+		resave: false,
+		saveUninitialized: true,
+		store: database.sessionStore,
+		cookie: {
+			maxAge: 1000 * 60 * 60 * 24, //24 HOURS
+		},
+	}),
+);
 
 app.use('/', routes);
 

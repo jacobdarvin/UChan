@@ -4,6 +4,7 @@ const express 	 = require('express');
 // Sessions and Cookies
 const cookieParser   = require('cookie-parser');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 
 const app 		  = express();
 
@@ -44,6 +45,7 @@ app.get('/modview', ModController.getModView);
 /* Static Pages */
 app.get('/about', function (req, res) {
 	res.render('about', {
+    active_session: req.session.user && req.cookies.user_sid,
 		title: 'About',
 		thread: false,
     about_active: true,
@@ -52,6 +54,7 @@ app.get('/about', function (req, res) {
 
 app.get('/rules', function (req, res) {
 	res.render('rules', {
+    active_session: req.session.user && req.cookies.user_sid,
 		title: 'Rules',
 		thread: false,
     rules_active: true,
@@ -61,6 +64,7 @@ app.get('/rules', function (req, res) {
 
 app.get('/thread', function (req, res) {
 	res.render('thread', {
+    active_session: req.session.user && req.cookies.user_sid,
 		title: 'Thread',
 		thread: true,
 	});
@@ -68,6 +72,7 @@ app.get('/thread', function (req, res) {
 
 /* Dynamic Pages */
 app.get('/xeroxthis', LoginController.getLogin);
+app.post('/xeroxthis', LoginController.postLogin);
 
 app.get('/xeroxthat', RegisterController.getRegister);
 app.post('/xeroxed', RegisterController.postRegister);
