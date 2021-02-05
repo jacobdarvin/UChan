@@ -1,22 +1,25 @@
 <!-- Login page for Moderators -->
 
 <div class="container mt-5">
-  <h1><i>XeroxThat</i></h1>
+  <h1><i>XeroxThis</i></h1>
   	<div class="card shadow-sm">
   	  <div class="card-body">
-        <form>
+        <div id="error" style="color: red; font-weight: bold;" class="mt-2"></div>
+        <form id="form-login" name="form-login" method="POST">
           <b>Moderator ID</b>
           <div class="form-group mb-1 mt-2">
-            <input class="form-control">
+            <input name="id-login" id="id-login" class="form-control">
           </div>
 
           <b>Password</b>
           <div class="form-group mb-1 mt-2">
-            <input class="form-control">
+            <input name="password-login" id="password-login" class="form-control">
           </div>
 
-          <a href="/modview">Login as Moderator</a>
+          <input type="submit" value="Login as Moderator" class="select btn btn-custom w-100 mt-1">
         </form>
 	    </div>
   	</div>
 </div>
+
+<script type="text/javascript" src="/js/uchan.logvalidate.js"></script>

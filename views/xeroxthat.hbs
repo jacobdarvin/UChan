@@ -4,7 +4,8 @@
   <h1><i>XeroxThat</i></h1>
   	<div class="card shadow-sm">
   	  <div class="card-body">
-        <form id="register-form" name="register-form" method="POST" action="/xeroxed">
+        <div id="error" style="color: red; font-weight: bold;" class="mt-2"></div>
+        <form id="form-register" name="form-register" method="POST" action="/xeroxed">
           <b>Moderator Registration Key</b>
           <div class="form-group mb-1 mt-2">
             <input id="key-register" name="key-register" class="form-control" placeholder="e.g. dQw4w9WgXcQ">
@@ -25,8 +26,10 @@
             <input id="password-repeat" name="password-repeat" class="form-control" type="password">
           </div>
 
-          <button type="submit">Register as Moderator</button>
+          <input type="submit" value="Register as Moderator" class="select btn btn-custom w-100 mt-1">
         </form>
 	    </div>
   	</div>
 </div>
+
+<script type="text/javascript" src="/js/uchan.regvalidate.js"></script>
