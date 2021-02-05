@@ -44,8 +44,8 @@
     {{#if active_session}}
 
       {{#if stickied}}
-      <form id="unsticky-form" name="unsticky-form" method="post" action="/stickypost">
-        <input type="hidden" id="unstickyId" name="unstickyId" value="{{postNumber}}">
+      <form id="unsticky-form" name="unsticky-form" method="post" action="/unstickypost">
+        <input type="hidden" id="stickyId" name="stickyId" value="{{postNumber}}">
         <button href="#" type="submit" class="btn btn-danger"><i class="fas fa-thumbtack"></i> Un-Sticky Post</b></button>
       </form>
       {{else}}

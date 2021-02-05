@@ -232,7 +232,24 @@ const stickyPost = async(req, res) => {
     }
 
     let postNumber = sanitize(req.body['stickyId']);
-    let result = await postTransactor.stickyPost(postNumber);
+    let result = await postTransactor.setSticky(postNumber, true);
+    if (!result) {
+        res.render('404', {title: result.message});
+        return;
+    }
+
+    res.redirect(req.get('referer'));
+};
+
+//TODO: ajax this shit
+const unstickyPost = async(req, res) => {
+    if (!(req.session.user && req.cookies.user_sid)) {
+        res.render('404', {title: 'Cannot unsticky post as a non-moderator.'});
+        return;
+    }
+
+    let postNumber = sanitize(req.body['stickyId']);
+    let result = await postTransactor.setSticky(postNumber, false);
     if (!result) {
         res.render('404', {title: result.message});
         return;
@@ -314,5 +331,6 @@ module.exports = {
     replyThread,
     deletePost,
     reportPost,
-    stickyPost
+    stickyPost,
+    unstickyPost,
 };
