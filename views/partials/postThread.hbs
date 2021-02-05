@@ -1,8 +1,8 @@
 <div class="post-thread" id="{{postNumber}}p" style="display: flex; flex-wrap: nowrap;">
-  <a href="javascript:;"><img src="/postimgs/{{image}}" onclick="toggleImage({{postNumber}})" id="{{postNumber}}" title="{{imageDisplayName}}" style="max-width: 300px;" class="mb-2"></a>
+  <a href="javascript:;"><img src="/postimgs/{{image}}" onclick="toggleImage({{postNumber}})" id="{{postNumber}}" title="{{imageDisplayName}}" style="max-width: 300px; {{#if stickied}}border: 4px solid green;{{/if}}" class="mb-2"></a>
   <div class="ml-3">
     <span style="display: inline-block; word-break: break-word;">
-      <b>{{name}} {{#if isOwner}}(You){{/if}}</b> {{created}}
+      <b {{#if stickied}}style="color: green;"{{/if}}>{{#if stickied}}<i class="fas fa-thumbtack"></i> MODERATOR {{else}} {{name}} {{/if}} {{#if isOwner}}(You){{/if}}</b> {{created}}
       <a href="#" class="thread-quote" onclick="showReply({{postNumber}})">
       <u>No.{{postNumber}}</u>
       </a>
@@ -42,10 +42,19 @@
     <br>
     <span style="white-space: pre-line; display: inline-block; word-break: break-word;">{{text}}</span>
     {{#if active_session}}
-    <form id="sticky-form" name="sticky-form" method="post" action="/stickypost">
-      <input type="hidden" id="stickyId" name="stickyId" value="{{postNumber}}">
-      <button href="#" type="submit" class="btn btn-success"><i class="fas fa-thumbtack"></i> Sticky Post</b></button>
-    </form>
+
+      {{#if stickied}}
+      <form id="unsticky-form" name="unsticky-form" method="post" action="/stickypost">
+        <input type="hidden" id="unstickyId" name="unstickyId" value="{{postNumber}}">
+        <button href="#" type="submit" class="btn btn-danger"><i class="fas fa-thumbtack"></i> Un-Sticky Post</b></button>
+      </form>
+      {{else}}
+      <form id="sticky-form" name="sticky-form" method="post" action="/stickypost">
+        <input type="hidden" id="stickyId" name="stickyId" value="{{postNumber}}">
+        <button href="#" type="submit" class="btn btn-success"><i class="fas fa-thumbtack"></i> Sticky Post</b></button>
+      </form>
+      {{/if}}
+
     {{/if}}
   </div>
 </div>

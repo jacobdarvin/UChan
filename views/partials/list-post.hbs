@@ -2,12 +2,12 @@
   <div style="display: inline-flex;">
     <div style="min-width: 250px; max-height: 250px;">
       <a href="/thread/{{postNumber}}">
-        <img src="/postimgs/{{image}}" class="col post-zoom p-0 shadow rounded" id="{{postNumber}}" style="min-width: 250px; max-height: 250px; object-fit: cover; object-position: top;">
+        <img src="/postimgs/{{image}}" class="col post-zoom p-0 shadow rounded" id="{{postNumber}}" style="{{#if stickied}}border: 4px solid green;{{/if}} min-width: 250px; max-height: 250px; object-fit: cover; object-position: top;">
       </a>
     </div>
 
     <div class="ml-3">
-      <b>Anonymous</b> <b>R: {{noOfPosts}} / I: {{noOfImages}} |</b> @{{postNumber}} <br>
+      <b {{#if stickied}}style="color: green;"{{/if}}>{{#if stickied}}<i class="fas fa-thumbtack"></i> MODERATOR {{else}} {{name}} {{/if}} R: {{noOfPosts}} / I: {{noOfImages}} </b> | @{{postNumber}}  <br>
       <span style="white-space: pre-line; display: inline-block; word-break: break-word;">{{text}}</span>
     </div>
   </div>
