@@ -3,7 +3,7 @@
   <div class="ml-3">
     <span style="display: inline-block; word-break: break-word;">
       <b {{#if stickied}}style="color: green;"{{/if}}>{{#if stickied}}<i class="fas fa-thumbtack"></i> MODERATOR {{else}} {{name}} {{/if}} {{#if isOwner}}(You){{/if}}</b> {{created}}
-      <a href="#" class="thread-quote" onclick="showReply({{postNumber}})">
+      <a href="#" class="thread-quote" {{#if stickied}} {{#if active_session}} onclick="showReply({{postNumber}})" {{/if}} {{else}} onclick="showReply({{postNumber}})" {{/if}}>
       <u>No.{{postNumber}}</u>
       </a>
       <span>

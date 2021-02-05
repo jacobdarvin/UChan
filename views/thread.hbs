@@ -2,7 +2,13 @@
 
 <div class="container">
 	<!--⚠️ <a href="javascript:;" class="select" onclick="showReport();">Report Thread</a> <br> -->
-	🗨️ <a href="javascript:;" class="select" onclick="showReply();" style="font-size: 16pt;">Reply To Thread</a>
+	{{#if stickied}}
+
+	{{#if active_session}}🗨️ <a href="javascript:;" class="select" onclick="showReply();" style="font-size: 16pt;">Reply To Thread</a> {{/if}}
+
+	{{else}} 🗨️ <a href="javascript:;" class="select" onclick="showReply();" style="font-size: 16pt;">Reply To Thread</a>
+
+	{{/if}}
 <hr>
 
 <div id="thread">
