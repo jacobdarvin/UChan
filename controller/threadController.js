@@ -135,9 +135,10 @@ const replyThread = async(req, res) => {
     }
     parentPost.noOfPosts++;
 
-    parentPost.bump = Date.now();
+    if (parentPost.uniqueIps.length > 1 || parentPost.uniqueIps.get(0) !== parentPost.ip) {
+        parentPost.bump = Date.now();
+    }
     await parentPost.save();
-
 
     res.redirect(req.get('referer'));
 
