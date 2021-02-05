@@ -30,7 +30,7 @@ const getBoard = async(req, res) => {
     let noOfThreadLimit = 20; //for testing
     let [threads, boardResult] = await Promise.all([
 
-        Post.find({board: board, type: 'THREAD'}).sort({bump: 'desc'}).limit(noOfThreadLimit).lean(),
+        Post.find({board: board, type: 'THREAD'}).sort({stickied: 'desc', bump: 'desc'}).limit(noOfThreadLimit).lean(),
 
         Board.findOne({name: board}).select('displayName')
 

@@ -80,6 +80,7 @@ const getThread = async(req, res) => {
         quotes: thread.quotes,
         imageDisplayName: thread.imageDisplayName,
         isOwner: owner === thread.ownerCookie,
+        stickied: thread.stickied,
 
         replies: replies
     });
@@ -223,6 +224,23 @@ const reportPost = async(req, res) => {
     res.send(result);
 }
 
+//TODO: ajax this shit
+const stickyPost = async(req, res) => {
+    if (!(req.session.user && req.cookies.user_sid)) {
+        res.render('404', {title: 'Cannot sticky post as a non-moderator.'});
+        return;
+    }
+
+    let postNumber = sanitize(req.body['stickyId']);
+    let result = await postTransactor.stickyPost(postNumber);
+    if (!result) {
+        res.render('404', {title: result.message});
+        return;
+    }
+
+    res.redirect(req.get('referer'));
+};
+
 //======================================================================
 // Inner Functions
 //======================================================================
@@ -295,5 +313,6 @@ module.exports = {
     getThread,
     replyThread,
     deletePost,
-    reportPost
+    reportPost,
+    stickyPost
 };

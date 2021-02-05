@@ -22,6 +22,10 @@ const PostSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    stickied: {
+        type: Boolean,
+        default: false
+    },
 
     /* How it is fetched internally */
     image: {
