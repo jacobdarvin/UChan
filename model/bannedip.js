@@ -15,8 +15,10 @@ const BannedIP = new mongoose.Schema({
         default: Date.now
     },
     reason: {
+        type: String,
+        required: true,
         enum: ['OFF TOPIC', 'LAW'],
-        required: true
+
     },
     remarks: {
         type: String
