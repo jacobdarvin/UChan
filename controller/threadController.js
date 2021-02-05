@@ -93,7 +93,7 @@ const replyThread = async(req, res) => {
     await ThreadValidator.cookieValidation(req, res);
 
     let owner = sanitize(req.cookies.local_user);
-    let ip = sanitize(req.ip) || sanitize(req.connection.remoteAddress);
+    let ip = sanitize(req.ip);
     let text = sanitize(req.body.text);
     let name = sanitize(req.body.name);
     let file = sanitize(req.file);
@@ -191,7 +191,7 @@ const deletePost = async(req, res) => {
 }
 
 const reportPost = async(req, res) => {
-    let captchaResult = await ThreadValidator.captchaValidation(req.body['g-recaptcha-response'], req.connection.remoteAddress);
+    let captchaResult = await ThreadValidator.captchaValidation(req.body['g-recaptcha-response'], req.ip);
     if (!captchaResult) {
         res.send({result: false, message: 'Captcha failed'});
         return;
@@ -200,7 +200,7 @@ const reportPost = async(req, res) => {
     let id = sanitize(req.body['id']);
     let reason = sanitize(req.body['reason']);
 
-    let result = await postTransactor.reportThread(id, reason, req.connection.remoteAddress);
+    let result = await postTransactor.reportThread(id, reason, req.ip);
 
     res.send(result);
 }

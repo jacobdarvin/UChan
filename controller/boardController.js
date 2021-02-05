@@ -71,7 +71,7 @@ const createThread = async(req, res) => {
     await ThreadValidator.cookieValidation(req, res);
 
     let owner = sanitize(req.cookies.local_user);
-    let ip = sanitize(req.ip) || sanitize(req.connection.remoteAddress);
+    let ip = sanitize(req.ip);
     let text = sanitize(req.body.text);
     let name = sanitize(req.body.name);
     let file = sanitize(req.file);
