@@ -10,8 +10,10 @@
       <div class="">
         <a href="#" class="select mod-items"> Boards </a> <br>
         <a href="#reports" class="select mod-items"> Reported Posts </a> <br>
+        {{#if admin}}
         <a href="#moderator" class="select mod-items"> Moderators </a> <br>
         <a href="#banned" class="select mod-items"> Banned IPs </a> <br>
+        {{/if}}
       </div>
     </div>
   </nav>
@@ -52,7 +54,7 @@
     </table>
 
     <hr>
-
+{{#if admin}}
     <h2 id="moderator">Manage Moderators (Admin)</h2>
     <table id="moderatorTable" class="display">
       <thead>
@@ -116,6 +118,7 @@
     <hr>
 
   </div>
+{{/if}}
 </div>
 
 <div class="modal fade" id="reportDataModal" tabindex="-1" role="dialog" aria-labelledby="reportDataModal" aria-hidden="true">
