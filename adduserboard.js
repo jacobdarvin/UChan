@@ -6,6 +6,7 @@ database.connectToDb();
 (async function() {
     let user = await User.findOne({name: 'nigga'});
     user.rank = 'ADMIN';
+    user.name = 'admin';
     //user['boards'].push('ufo');
     await user.save();
 })();
