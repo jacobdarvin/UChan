@@ -45,26 +45,26 @@ app.get('/modview', ModController.getModView);
 /* Static Pages */
 app.get('/about', function (req, res) {
 	res.render('about', {
-    active_session: req.session.user && req.cookies.user_sid,
+        active_session: req.session.user && req.cookies.user_sid,
 		title: 'About',
 		thread: false,
-    about_active: true,
+        about_active: true,
 	});
 });
 
 app.get('/rules', function (req, res) {
 	res.render('rules', {
-    active_session: req.session.user && req.cookies.user_sid,
+        active_session: req.session.user && req.cookies.user_sid,
 		title: 'Rules',
 		thread: false,
-    rules_active: true,
+        rules_active: true,
 	});
 });
 
 
 app.get('/thread', function (req, res) {
 	res.render('thread', {
-    active_session: req.session.user && req.cookies.user_sid,
+        active_session: req.session.user && req.cookies.user_sid,
 		title: 'Thread',
 		thread: true,
 	});
