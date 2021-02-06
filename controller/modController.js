@@ -2,6 +2,7 @@ const ReportedPost = require('../model/reportedpost.js');
 const Board = require('../model/board.js');
 const RegisterKey = require('../model/registerKey.js');
 const User = require('../model/user.js');
+const BannedIP = require('../model/bannedip.js');
 
 const sanitize = require('mongo-sanitize');
 const userTransactor = require('../helper/user-transactor.js');
@@ -14,11 +15,12 @@ const getModView = async (req, res) => {
     }
 
     try {
-        var [reportedPosts, activeBoards, unregisteredKeys, moderators] = await Promise.all([
+        var [reportedPosts, activeBoards, unregisteredKeys, moderators, bannedips] = await Promise.all([
             ReportedPost.find().sort({date: 'desc'}).lean(),
             Board.find().select('name').lean(),
             RegisterKey.find().lean(),
-            User.find({rank: 'MODERATOR'}).lean()
+            User.find({rank: 'MODERATOR'}).lean(),
+            BannedIP.find().lean()
         ]);
     } catch (e) {
         console.log(e);
@@ -37,6 +39,7 @@ const getModView = async (req, res) => {
         activeBoards: activeBoards,
         unregisteredKeys: unregisteredKeys,
         moderators: moderators,
+        bannedips: bannedips,
 
         admin: req.session.rank === 'ADMIN'
     });
