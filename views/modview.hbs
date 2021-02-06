@@ -62,10 +62,13 @@
           </tr>
       </thead>
       <tbody>
-          <tr>
-              <td>Row 1 Data 1</td>
-              <td>Row 1 Data 3</td>
-          </tr>
+        {{#each moderators}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{boards}}</td>
+            </tr>
+        {{/each}}
+
       </tbody>
     </table>
     <hr>
