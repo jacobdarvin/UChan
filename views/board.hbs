@@ -10,14 +10,27 @@
 	<a href="#" style="font-size: 16pt;" onclick="showReply();" class="select btn btn-custom">Start a Thread</a>
 </div>
 
-<label for="view">View: </label>
+<div class="w-100 mt-1">
+	<span style="text-align: left;">
+		<label for="view">View: </label>
 
-<select name="view" id="view-selector">
-  <option value="catalogue">Catalogue</option>
-  <option value="list">List</option>
-</select>
+		<select name="view" id="view-selector">
+		  <option value="catalogue">Catalogue</option>
+		  <option value="list">List</option>
+		</select>
+	</span>
 
-<hr>
+	<span style="float:right">
+		<label for="sort" >Sort By: </label>
+		<select name="sort" id="sort-selector">
+		  <option value="most_active">Most Active (Default)</option>
+		  <option value="newest">Newest</option>
+			<option value="oldest">Oldest</option>
+			<option value="most_replies">Most Replies</option>
+		</select>
+	</span>
+</div>
+<hr class="mt-0">
 </div>
 
 <div class="catalogue-view" id="type-view">
