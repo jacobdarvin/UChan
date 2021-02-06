@@ -26,11 +26,12 @@ const getBoard = async(req, res) => {
     await ThreadValidator.cookieValidation(req, res);
     let board = sanitize(req.params.board);
     let view = sanitize(req.query['view']);
+    let sort = getSort(sanitize(req.query['sort']));
 
     let noOfThreadLimit = 20; //for testing
     let [threads, boardResult] = await Promise.all([
 
-        Post.find({board: board, type: 'THREAD'}).sort({stickied: 'desc', bump: 'desc'}).limit(noOfThreadLimit).lean(),
+        Post.find({board: board, type: 'THREAD'}).sort(sort).limit(noOfThreadLimit).lean(),
 
         Board.findOne({name: board}).select('displayName')
 
@@ -115,6 +116,27 @@ const validateCaptcha = async(req, res) => {
     res.send(captchaResult);
     return;
 };
+
+//===============================================================
+// Inner Functions
+//===============================================================
+
+function getSort(value) {
+    switch (value) {
+        case 'most_active':
+            return {stickied: 'desc', bump: 'desc'};
+        case 'newest':
+            return {stickied: 'desc', created: 'desc' };
+        case 'oldest':
+            return {stickied: 'desc', created: 'asc'};
+        case 'most_replies':
+            return {stickied: 'desc', noOfPosts: 'desc'};
+        default:
+            return {stickied: 'desc', bump: 'desc'};
+    }
+}
+
+
 
 module.exports = {
     getBoard,
