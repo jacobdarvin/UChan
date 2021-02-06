@@ -154,5 +154,5 @@ const setSticky = async(postNumber, username, flag) => {
 
 module.exports = {
     reportThread,
-    setSticky
+    setSticky,
 }

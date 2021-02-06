@@ -10,6 +10,7 @@
 
 const bcrypt = require('bcrypt');
 const User = require('../model/user.js');
+const Board = require('../model/board.js');
 const RegisterKey = require('../model/registerKey.js');
 const BannedIP = require('../model/bannedip.js');
 
@@ -31,7 +32,7 @@ const BannedIP = require('../model/bannedip.js');
  */
 const createUser = async(username, password, registerKey) => {
     try {
-        var key = await RegisterKey.findOne({key: registerKey});
+        var key = await RegisterKey.findOne({_id: registerKey});
         if (!key) {
             return {result: false, message: 'Invalid Register Key.'};
         }
@@ -44,7 +45,8 @@ const createUser = async(username, password, registerKey) => {
     try {
         let user = new User({
             name: username,
-            password: password
+            password: password,
+            boards: [key['defaultBoard']]
         });
 
         await Promise.all([
@@ -111,7 +113,41 @@ const unbanIp = async (ip) => {
     return {result: true, message: 'Successfully unbanned ip.'};
 }
 
+/*
+    Generates a new
+
+    @param username: Name of the new user.
+    @param password: Password of the new user.
+    @param registerKey: Unique register key that can only be used once.
+
+    @return result (boolean): Whether the report operation is successful.
+    @return message (String): Message associated with the result.
+ */
+const generateRegisterKey = async(defaultBoard) => {
+    let exists = await Board.exists({name: defaultBoard});
+    if (!exists) {
+        return {key: null, message: 'generateRegisterKey: default board given does not exist'};
+    }
+
+    let key;
+    try {
+        key = new RegisterKey({
+            defaultBoard: defaultBoard
+        });
+
+        await key.save();
+    } catch (e) {
+        console.log(e);
+        return {key: null, message: 'generateRegisterKey: An unexpected error ocurred'}
+    }
+    console.log(key);
+
+    return {key: key._id, message: 'Successfully created new register key.'};
+}
+
 module.exports = {
     createUser,
-    banIp
+    banIp,
+    unbanIp,
+    generateRegisterKey
 }

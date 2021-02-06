@@ -75,14 +75,17 @@
       <thead>
           <tr>
               <th>Key</th>
-              <th>Assigned Table</th>
+              <th>Default Board</th>
           </tr>
       </thead>
       <tbody>
-          <tr>
-              <td>Row 1 Data 1</td>
-              <td>Row 1 Data 3</td>
-          </tr>
+        {{#each unregisteredKeys}}
+            <tr>
+                <td>{{_id}}</td>
+                <td>{{defaultBoard}}</td>
+            </tr>
+        {{/each}}
+
       </tbody>
     </table>
     <hr>
@@ -152,16 +155,14 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form>
+      <form id="generate-key-form" name="generate-key-form" method="post" action="/generatekey">
         <div class="modal-body">
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Assigned Board</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+            <label for="default-board">Default Board</label>
+            <select class="form-control" id="default-board" name="default-board">
+              {{#each activeBoards}}
+                  <option value="{{name}}">{{name}}</option>
+              {{/each}}
             </select>
           </div>
 

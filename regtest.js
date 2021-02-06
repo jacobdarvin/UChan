@@ -5,10 +5,10 @@ database.connectToDb();
 
 async function test() {
 
-    /*
+/*
     try {
         let key = new RegisterKey({
-            key: 'BUYBUYBUY'
+            defaultBoard: 'ufo'
         });
 
         await key.save();
@@ -16,6 +16,8 @@ async function test() {
         console.log(e);
     } */
 
+    //RegisterKey.collection.drop();
+    //return;
     try {
         let registers = await RegisterKey.find();
         console.log(registers);

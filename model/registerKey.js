@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 
 const RegisterKey = mongoose.Schema({
-    key: {
-        type: String,
-        unique: true
+    defaultBoard: {
+        type: String
     }
 });
 
