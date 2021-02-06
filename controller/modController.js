@@ -14,10 +14,11 @@ const getModView = async(req ,res) => {
 
     if(req.session.user && req.cookies.user_sid) {
       res.render('modview', {
+          mod_active: true,
+          boards: req.session.boards,
           active_session: req.session.user && req.cookies.user_sid,
           title: 'Moderator View',
           thread: false,
-          about_active: true,
           reportedPosts: reportedPosts
       });
     } else {

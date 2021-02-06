@@ -19,9 +19,13 @@
   <div class="col">
 
     <h2>Boards</h2>
-    <a href="/ufo" class="select" style="font-size: 20pt;">
-      /UFO
-    </a>
+
+    {{#each boards}}
+      <a href="/{{this}}" class="select" style="font-size: 20pt;">
+        {{this}}
+      </a>
+    {{/each}}
+
     <hr>
     <h2 id="reports">Reported Posts</h2>
     <table id="reportTable" class="display">
@@ -49,7 +53,7 @@
 
     <hr>
 
-    <h2 id="moderator">Moderators</h2>
+    <h2 id="moderator">Manage Moderators (Admin)</h2>
     <table id="moderatorTable" class="display">
       <thead>
           <tr>
@@ -65,6 +69,25 @@
       </tbody>
     </table>
     <hr>
+
+    <h2 id="keys">Unused Keys (Admin)</h2>
+    <table id="keysTable" class="display">
+      <thead>
+          <tr>
+              <th>Key</th>
+              <th>Assigned Table</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>Row 1 Data 1</td>
+              <td>Row 1 Data 3</td>
+          </tr>
+      </tbody>
+    </table>
+    <hr>
+
+    <button type="button" class="btn btn-success w-100" data-toggle="modal" data-target="#moderatorKeyGen"><b>+</b> Generate Moderator Key <i class="fas fa-key"></i></button>
 
     <h2 id="banned">Banned IPs</h2>
     <table id="bannedTable" class="display">
@@ -94,22 +117,65 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="reportDataModal-Title">Modal title</h5>
+        <h5 class="modal-title" id="reportDataModal-Title"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-          <b>Post Number:</b> <span id="reportDataModal-PostN"></span><br>
-          <b>Law Counter:</b>  <span id="reportDataModal-Board"></span><br>
-          <b>Spam Counter:</b> <span id="reportDataModal-Law"></span><br>
-          <b>Off-Topic Counter:</b> <span id="reportDataModal-Off"></span><br>
-          <b>Spam Counter:</b> <span id="reportDataModal-Spam"></span><br>
+      <div class="modal-body p-0 m-0" style="line-height: normal !important;">
+        <pre>
+
+   <b>Post Number:</b>    <span id="reportDataModal-PostN"></span><br>
+   <b>Board:</b>          <span id="reportDataModal-Board"></span><br>
+   <b>Law Offenses:</b>   <span id="reportDataModal-Law"></span><br>
+   <b>Off Offenses:</b>   <span id="reportDataModal-Off"></span><br>
+   <b>Spam Offenses:</b>  <span id="reportDataModal-Spam"></span><br>
+        </pre>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Ignore</button>
         <button type="button" class="btn btn-danger">Ban IP</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="moderatorKeyGen" tabindex="-1" role="dialog" aria-labelledby="moderatorKeyGen" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="moderatorKeyGenTitle">Generate a Moderator Key</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Assigned Board</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Generated Key</label>
+            <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Generate Key <i class="fas fa-key"></i></button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

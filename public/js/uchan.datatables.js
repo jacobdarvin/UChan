@@ -1,6 +1,7 @@
 $(document).ready( function () {
     var reportTable = $('#reportTable').DataTable();
     var moderatorTable = $('#moderatorTable').DataTable();
+    var keysTable = $('#keysTable').DataTable();
     var bannedTable = $('#bannedTable').DataTable();
 
     //ON OPEN
