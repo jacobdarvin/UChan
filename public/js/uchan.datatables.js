@@ -29,15 +29,15 @@ $(document).ready( function () {
 
       if(data[1] != ''){
         $('#modManageModal-Boards').text(data[1]);
-        var boardArray = data[1].split(" ");
+        var boardArray = data[1].split(",");
+        document.getElementById("removeBoardArea").innerHTML = '';
         for(let i = 0; i < boardArray.length; i++) {
-          console.log(boardArray[i]);
           document.getElementById("removeBoardArea").innerHTML +=
-          "<h3>This is the text which has been inserted by JS</h3>";
+          "<button type='button' class='btn btn-danger mb-1'><i class='fas fa-times-circle'></i> Remove " + boardArray[i] + "</button> <br>";
         }
-
       } else {
         $('#modManageModal-Boards').text("Managing No Boards");
+        document.getElementById("removeBoardArea").innerHTML = '';
       }
 
       $('#modManageModal').modal('show');
