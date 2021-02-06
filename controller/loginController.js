@@ -23,14 +23,12 @@ const loginController = {
         if(user) {
           bcrypt.compare(password, user.password, function (err,equal) {
             if(equal) {
-              console.log("CORRECT")
               req.session.user  = user.name;
               req.session.rank  = user.rank;
               req.session.boards = user.boards;
 
               res.redirect('/modview');
             } else {
-              console.log("WRONG PASS")
               res.render('xeroxthis', {
                 title: 'XeroxThis',
             		thread: false,
@@ -39,7 +37,6 @@ const loginController = {
             }
           });
         } else {
-          console.log("WRONG USER")
           res.render('xeroxthis', {
             title: 'XeroxThis',
         		thread: false,
