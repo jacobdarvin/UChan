@@ -24,7 +24,23 @@ $(document).ready( function () {
 
     $('#moderatorTable tbody').on('click', 'tr', function () {
       var data = moderatorTable.row( this ).data();
-      alert( 'You clicked on '+data[0]+'\'s row' );
+
+      $('#modManageUsername').val(data[0]);
+
+      if(data[1] != ''){
+        $('#modManageModal-Boards').text(data[1]);
+
+        var boardArray = data[1].split(" ");
+
+        for(let i = 0; i < boardArray.length; i++) {
+          console.log(boardArray[i]);
+        }
+        
+      } else {
+        $('#modManageModal-Boards').text("Managing No Boards");
+      }
+
+      $('#modManageModal').modal('show');
     } );
 
     $('#bannedTable tbody').on('click', 'tr', function () {

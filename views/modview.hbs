@@ -225,3 +225,45 @@
     </div>
   </div>
 </div>
+
+<!-- Modal Moderator Manage -->
+<div class="modal fade" id="modManageModal" tabindex="-1" role="dialog" aria-labelledby="modManageModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modManageTitle">Manage Moderator</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form id="mod-manage-form" name="mod-manage-form" method="post" action="/banuser">
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="default-board">Username</label>
+            <input type="text" class="form-control" id="modManageUsername" placeholder="Enter post number" readonly>
+          </div>
+
+          <b>Manages: </b><i><span id="modManageModal-Boards"></span></i><br>
+          <hr>
+
+          <div class="form-group">
+            <label for="default-board">Add Board</label>
+            <select class="form-control" id="add-board" name="add-board">
+              {{#each activeBoards}}
+                  <option value="{{name}}">{{name}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Add Board <i class="fas fa-key"></i></button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

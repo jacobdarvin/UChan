@@ -6,8 +6,8 @@ var url = new URL(url_string);
 var view_value = url.searchParams.get("view");
 var sort_value = url.searchParams.get("sort");
 
-console.log(view_value);
-console.log(sort_value);
+//console.log(view_value);
+//console.log(sort_value);
 
 //RE UPDATE VALUES
 $( document ).ready(function() {
