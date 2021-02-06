@@ -139,7 +139,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary">Ignore</button>
-        <button type="button" class="btn btn-danger">Ban IP</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#banReasonModal">Ban IP</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -177,6 +177,36 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success">Generate Key <i class="fas fa-key"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Reason -->
+<div class="modal fade" id="banReasonModal" tabindex="-1" role="dialog" aria-labelledby="moderatorKeyGen" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="banReasonTitle">Ban Reason</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="generate-key-form" name="generate-key-form" method="post" action="/generatekey">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="default-board">Ban Reason</label>
+            <select class="form-control" id="ban-reason" name="ban-reason">
+              <option value="law" >Breaking Philippine Law</option>
+              <option value="spam">Spam Post</option>
+              <option value="off" >Off-Topic Post</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-danger">Ban IP<i class="fas fa-key"></i></button>
         </div>
       </form>
     </div>
