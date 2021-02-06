@@ -7,7 +7,7 @@
   <div class="{{#if image}}ml-3{{/if}}">
     <span style="display: inline-block; word-break: break-word;">
       <b>{{name}} {{#if isOwner}}(You){{/if}}</b> {{created}}
-      <a href="javascript:;" class="thread-quote" {{#if stickied}} {{#if active_session}} onclick="showReply({{postNumber}})" {{/if}} {{else}} onclick="showReply({{postNumber}})" {{/if}}>
+      <a href="javascript:;" class="thread-quote" {{#if stickied}} {{#if mod_access}} onclick="showReply({{postNumber}})" {{/if}} {{else}} onclick="showReply({{postNumber}})" {{/if}}>
       <u>No.{{postNumber}}</u>
       </a>
       <span>
@@ -28,7 +28,7 @@
           </form>
           {{/if}}
 
-          {{#if active_session}}
+          {{#if mod_access}}
           <i class="fas fa-trash" style="color:green;"></i> <a href="javascript:;" id="d_{{postNumber}}" style="color: green !important;" onclick="deleteConfirmation({{postNumber}})">MOD Delete</a>
           <span id="dc_{{postNumber}}" style="display: none;">Delete?<br>
           <a href="javascript:;" onclick="document.getElementById('delete_{{postNumber}}_form').submit()" class="text-danger" style="color: red !important;">Yes</a>

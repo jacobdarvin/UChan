@@ -59,12 +59,13 @@ const getThread = async(req, res) => {
     for (let i = 0; i < replies.length; i++) {
         replies[i].created = dateHelper.formatDate(replies[i].created);
         replies[i].isOwner = owner === replies[i].ownerCookie;
-        replies[i].active_session = (req.session.user && req.cookies.user_sid) && req.session.boards.includes(thread.board); //BEING CALLED
+        replies[i].mod_access = (req.session.user && req.cookies.user_sid) && req.session.boards.includes(thread.board); //BEING CALLED
         replies[i].stickied = thread.stickied; //check if parent post is stickied
     }
 
     res.render('thread', {
-        active_session: (req.session.user && req.cookies.user_sid) && (req.session.boards.includes(thread.board)),
+        active_session: req.session.user && req.cookies.user_sid,
+        mod_access: (req.session.user && req.cookies.user_sid) && (req.session.boards.includes(thread.board)),
         title: board.displayName + ' - ' + thread.text,
         postNumber: thread.postNumber,
         displayName: board.displayName,

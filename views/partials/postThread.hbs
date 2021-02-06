@@ -3,7 +3,7 @@
   <div class="ml-3">
     <span style="display: inline-block; word-break: break-word;">
       <b {{#if stickied}}style="color: #28a745;"{{/if}}>{{#if stickied}}<i class="fas fa-thumbtack"></i> MODERATOR {{else}} {{name}} {{/if}} {{#if isOwner}}(You){{/if}}</b> {{created}}
-      <a href="#" class="thread-quote" {{#if stickied}} {{#if active_session}} onclick="showReply({{postNumber}})" {{/if}} {{else}} onclick="showReply({{postNumber}})" {{/if}}>
+      <a href="#" class="thread-quote" {{#if stickied}} {{#if mod_access}} onclick="showReply({{postNumber}})" {{/if}} {{else}} onclick="showReply({{postNumber}})" {{/if}}>
       <u>No.{{postNumber}}</u>
       </a>
       <span>
@@ -23,7 +23,7 @@
           </form>
           {{/if}}
 
-          {{#if active_session}}
+          {{#if mod_access}}
           <i class="fas fa-trash" style="color:#28a745;"></i> <a href="javascript:;" id="d_{{postNumber}}" style="color: #28a745 !important;" onclick="deleteConfirmation({{postNumber}})">MOD Delete</a>
           <span id="dc_{{postNumber}}" style="display: none;">Delete?<br>
           <a href="javascript:;" onclick="document.getElementById('delete_{{postNumber}}_form').submit()" class="text-danger" style="color: red !important;">Yes</a>
@@ -41,7 +41,7 @@
     </span>
     <br>
     <span style="white-space: pre-line; display: inline-block; word-break: break-word;">{{text}}</span>
-    {{#if active_session}}
+    {{#if mod_access}}
 
       {{#if stickied}}
       <form id="unsticky-form" name="unsticky-form" method="post" action="/unstickypost">
