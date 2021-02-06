@@ -4,8 +4,8 @@ const fs = require('fs-extra');
 
 database.connectToDb();
 async function test() {
-    ReportedPost.deleteMany({}, () => {})
-
+    //ReportedPost.deleteMany({}, () => {})
+    ReportedPost.collection.drop();
     fs.emptyDir('./admin/reportedimgs');
 }
 

@@ -19,7 +19,7 @@ $(document).ready( function () {
 
       $('#reportDataModal').modal('show');
 
-      $('#banPostNumber').val(data[0]);
+      $('#ban-post-number').val(data[0]);
     });
 
     $('#moderatorTable tbody').on('click', 'tr', function () {
