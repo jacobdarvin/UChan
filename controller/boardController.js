@@ -50,7 +50,7 @@ const getBoard = async(req, res) => {
     }
 
     res.render('board', {
-        active_session: req.session.user && req.cookies.user_sid,
+        active_session: (req.session.user && req.cookies.user_sid) && (req.session.boards.includes(board)),
         title:        boardResult.displayName,
         displayName:  boardResult.displayName,
 

@@ -10,6 +10,7 @@
 
 const Post = require('../model/post.js');
 const ReportedPost = require('../model/reportedpost.js');
+const User = require('../model/user.js');
 const fsHelper = require('../helper/fsHelper.js');
 
 //======================================================================
@@ -113,18 +114,28 @@ const reportThread = async(postNumber, reason, ip) => {
 /*
     ADMIN/MODERATOR
     Stickies a post. Posts can only be stickied if they're of the type 'THREAD'.
-
+    Only Mmoderators that have power over the post's board can sticky the post.
+    
     @param postNumber: The post number to be stickied.
+    @param user: The username requesting the sticky command.
     @param flag: What to set the sticky status
 
     @return result (boolean): Whether the sticky operation is successful.
     @return message (String): Message associated with the result.
  */
-const setSticky = async(postNumber, flag) => {
+const setSticky = async(postNumber, user, flag) => {
     try {
-        let post = await Post.findOne({postNumber: postNumber});
+        let [post, moderator] = await Promise.all([
+            Post.findOne({postNumber: postNumber}),
+            User.findOne({name: user})
+        ]);
+
         if (!post) {
             return {result: false, message: 'stickyPost: post does not exist.'};
+        }
+
+        if (!user.boards.includes(post.board)) {
+            return {result: false, message: 'stickyPost: you do not have moderation powers over this board.'};
         }
 
         if (post['type'] !== 'THREAD') {

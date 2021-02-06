@@ -27,6 +27,7 @@ const getThread = async(req, res) => {
     let postNumber = sanitize(req.params.postNumber);
     let owner = sanitize(req.cookies.local_user);
 
+    console.log(req.session);
     let [thread, replies] = await Promise.all([
 
         Post.findOne({postNumber: postNumber, type: 'THREAD'}).lean(),
@@ -58,12 +59,12 @@ const getThread = async(req, res) => {
     for (let i = 0; i < replies.length; i++) {
         replies[i].created = dateHelper.formatDate(replies[i].created);
         replies[i].isOwner = owner === replies[i].ownerCookie;
-        replies[i].active_session = req.session.user && req.cookies.user_sid; //BEING CALLED
+        replies[i].active_session = (req.session.user && req.cookies.user_sid) && req.session.boards.includes(thread.board); //BEING CALLED
         replies[i].stickied = thread.stickied; //check if parent post is stickied
     }
 
     res.render('thread', {
-        active_session : req.session.user && req.cookies.user_sid,
+        active_session: (req.session.user && req.cookies.user_sid) && (req.session.boards.includes(thread.board)),
         title: board.displayName + ' - ' + thread.text,
         postNumber: thread.postNumber,
         displayName: board.displayName,
@@ -233,7 +234,7 @@ const stickyPost = async(req, res) => {
     }
 
     let postNumber = sanitize(req.body['stickyId']);
-    let result = await postTransactor.setSticky(postNumber, true);
+    let result = await postTransactor.setSticky(postNumber, req.session.user, true);
     if (!result) {
         res.render('404', {title: result.message});
         return;

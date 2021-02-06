@@ -26,7 +26,7 @@ const loginController = {
               console.log("CORRECT")
               req.session.user  = user.name;
               req.session.rank  = user.rank;
-              req.session.board = user.boards;
+              req.session.boards = user.boards;
 
               console.log(req.session.board);
 
