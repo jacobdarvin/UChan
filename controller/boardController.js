@@ -83,9 +83,9 @@ const createThread = async(req, res) => {
     } else {
         ip = req.connection.remoteAddress;
     }
-    let banned = await BannedIP.exists({ip: ip});
+    let banned = await BannedIP.findOne({ip: ip});
     if (banned) {
-        res.render('404', {title: 'You are banned.'});
+        res.render('banned', {title: 'You are banned', reason: banned.reason });
         return;
     }
 

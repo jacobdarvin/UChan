@@ -115,12 +115,12 @@ const replyThread = async(req, res) => {
 
     let [parentPost, banned] = await Promise.all([
         Post.findOne({postNumber: parentPostNumber}),
-        BannedIP.exists({ip: ip})
+        BannedIP.findOne({ip: ip})
     ]);
 
     console.log(ip, banned);
     if (banned) {
-        res.render('404', {title: 'You are banned.'});
+        res.render('banned', {title: 'You are banned', reason: banned.reason });
         return;
     }
 
