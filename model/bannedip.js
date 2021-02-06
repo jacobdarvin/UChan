@@ -17,7 +17,7 @@ const BannedIP = new mongoose.Schema({
     reason: {
         type: String,
         required: true,
-        enum: ['OFF TOPIC', 'LAW'],
+        enum: ['OFF TOPIC', 'LAW', 'SPAM'],
 
     },
     remarks: {
