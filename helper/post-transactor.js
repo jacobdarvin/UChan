@@ -115,7 +115,7 @@ const reportThread = async(postNumber, reason, ip) => {
     ADMIN/MODERATOR
     Stickies a post. Posts can only be stickied if they're of the type 'THREAD'.
     Only Mmoderators that have power over the post's board can sticky the post.
-    
+
     @param postNumber: The post number to be stickied.
     @param user: The username requesting the sticky command.
     @param flag: What to set the sticky status
@@ -123,11 +123,11 @@ const reportThread = async(postNumber, reason, ip) => {
     @return result (boolean): Whether the sticky operation is successful.
     @return message (String): Message associated with the result.
  */
-const setSticky = async(postNumber, user, flag) => {
+const setSticky = async(postNumber, username, flag) => {
     try {
-        let [post, moderator] = await Promise.all([
+        let [post, user] = await Promise.all([
             Post.findOne({postNumber: postNumber}),
-            User.findOne({name: user})
+            User.findOne({name: username})
         ]);
 
         if (!post) {

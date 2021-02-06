@@ -251,7 +251,7 @@ const unstickyPost = async(req, res) => {
     }
 
     let postNumber = sanitize(req.body['stickyId']);
-    let result = await postTransactor.setSticky(postNumber, false);
+    let result = await postTransactor.setSticky(postNumber, req.session.user,false);
     if (!result) {
         res.render('404', {title: result.message});
         return;

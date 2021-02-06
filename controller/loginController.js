@@ -28,8 +28,6 @@ const loginController = {
               req.session.rank  = user.rank;
               req.session.boards = user.boards;
 
-              console.log(req.session.board);
-
               res.redirect('/modview');
             } else {
               console.log("WRONG PASS")
