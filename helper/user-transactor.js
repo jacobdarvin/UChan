@@ -77,7 +77,7 @@ const banIp = async(ip, startDate, endDate, reason, remarks) => {
     }
      */
 
-    let bannedip = await BannedIP.exists();
+    let bannedip = await BannedIP.exists({ip: ip});
     if (bannedip) {
         return {result: false, message: 'A ban on the IP already exists.'};
     }
