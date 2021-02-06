@@ -29,13 +29,13 @@ $(document).ready( function () {
 
       if(data[1] != ''){
         $('#modManageModal-Boards').text(data[1]);
-
         var boardArray = data[1].split(" ");
-
         for(let i = 0; i < boardArray.length; i++) {
           console.log(boardArray[i]);
+          document.getElementById("removeBoardArea").innerHTML +=
+          "<h3>This is the text which has been inserted by JS</h3>";
         }
-        
+
       } else {
         $('#modManageModal-Boards').text("Managing No Boards");
       }
