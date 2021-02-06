@@ -2,8 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64cbb538-6b49-4346-805a-9e0b83d344f6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/admin/reportedimgs/Alien.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/adduserboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/adduserboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clearreports.js" beforeDir="false" afterPath="$PROJECT_DIR$/clearreports.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/boardController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/boardController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/modController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/modController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/threadController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/threadController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/post-transactor.js" beforeDir="false" afterPath="$PROJECT_DIR$/helper/post-transactor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/user-transactor.js" beforeDir="false" afterPath="$PROJECT_DIR$/helper/user-transactor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/reportedpost.js" beforeDir="false" afterPath="$PROJECT_DIR$/model/reportedpost.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/uchan.datatables.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/uchan.datatables.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/routes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/modview.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/modview.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

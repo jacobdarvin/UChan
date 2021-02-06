@@ -13,6 +13,7 @@ const User = require('../model/user.js');
 const Board = require('../model/board.js');
 const RegisterKey = require('../model/registerKey.js');
 const BannedIP = require('../model/bannedip.js');
+const ReportedPost = require('../model/reportedpost.js');
 
 //======================================================================
 // Exports
@@ -87,7 +88,11 @@ const banIp = async(ip, startDate, endDate, reason, remarks) => {
             reason: reason,
             remarks: remarks
         });
-        bannedip.save();
+
+        await Promise.all([
+            ReportedPost.updateMany({ip: ip}, {banned: true}),
+            bannedip.save()
+        ]);
     } catch (e) {
         console.log(e);
         return {result: false, message: 'An unexpected error occured.'};
@@ -104,7 +109,10 @@ const unbanIp = async (ip) => {
             return {result: false, message: 'UnbanIp: IP does not exist.'};
         }
 
-        await bannedip.remove();
+        await Promise.all([
+            ReportedPost.updateMany({ip: ip}, {banned: false}),
+            bannedip.remove()
+        ]);
     } catch (e) {
         console.log(e);
         return {result: false, message: 'An unexpected error occured in unbanning a post.'}

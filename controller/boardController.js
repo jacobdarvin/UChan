@@ -6,6 +6,7 @@
 // Schemas
 const Board = require('../model/board.js');
 const Post = require('../model/post.js');
+const BannedIP = require('../model/bannedip.js');
 
 // Helpers
 const fsHelper = require('../helper/fsHelper.js');
@@ -81,6 +82,11 @@ const createThread = async(req, res) => {
         ip = list[list.length-1];
     } else {
         ip = req.connection.remoteAddress;
+    }
+    let banned = await BannedIP.exists({ip: ip});
+    if (banned) {
+        res.render('404', {title: 'You are banned.'});
+        return;
     }
 
     let text = sanitize(req.body.text);

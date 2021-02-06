@@ -38,6 +38,7 @@
               <th># Law</th>
               <th># Off-Topic</th>
               <th># Spam</th>
+              <th>Banned</th>
           </tr>
       </thead>
       <tbody>
@@ -48,6 +49,7 @@
               <td>{{lawCounter}}</td>
               <td>{{offTopicCounter}}</td>
               <td>{{spamCounter}}</td>
+              <td>{{banned}}</td>
           </tr>
         {{/each}}
       </tbody>
@@ -109,8 +111,9 @@
       <tbody>
         {{#each bannedips}}
             <tr>
-                <td>Row 1 Data 1</td>
-                <td>Row 1 Data 2</td>
+                <td>{{ip}}</td>
+                <td>{{reason}}</td>
+                <td>{{remarks}}</td>
             </tr>
         {{/each}}
       </tbody>
@@ -199,12 +202,12 @@
       <form id="ban-report-form" name="ban-report-form" method="post" action="/banuser">
         <div class="modal-body">
           <div class="form-group">
-            <label for="default-board">Post ID</label>
-            <input type="text" class="form-control" id="banPostNumber" placeholder="Enter post number" readonly>
+            <label for="ban-post-number">Post ID</label>
+            <input type="text" class="form-control" id="ban-post-number" name="ban-post-number" placeholder="Enter post number" readonly>
           </div>
 
           <div class="form-group">
-            <label for="default-board">Ban Reason</label>
+            <label for="ban-reason">Ban Reason</label>
             <select class="form-control" id="ban-reason" name="ban-reason">
               <option value="LAW" >Breaking Philippine Law</option>
               <option value="SPAM">Spam Post</option>
@@ -213,8 +216,8 @@
           </div>
 
           <div class="form-group">
-            <label for="exampleFormControlTextarea1">Remarks</label>
-            <textarea class="form-control" id="banremarks" rows="3"></textarea>
+            <label for="ban-remarks">Remarks</label>
+            <textarea class="form-control" id="ban-remarks" name="ban-remarks" rows="3"></textarea>
           </div>
         </div>
         <div class="modal-footer">

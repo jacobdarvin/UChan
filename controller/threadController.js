@@ -5,6 +5,7 @@
 
 const Board = require('../model/board.js');
 const Post = require('../model/post.js');
+const BannedIP = require('../model/bannedip.js');
 
 const dateHelper = require('../helper/dateHelper.js');
 const fsHelper = require('../helper/fsHelper.js');
@@ -97,7 +98,6 @@ const replyThread = async(req, res) => {
     }
 
     await ThreadValidator.cookieValidation(req, res);
-
     let owner = sanitize(req.cookies.local_user);
 
     let ip = req.headers["x-forwarded-for"];
@@ -113,7 +113,17 @@ const replyThread = async(req, res) => {
     let file = sanitize(req.file);
     let parentPostNumber = sanitize(req.params.postNumber);
 
-    let parentPost = await Post.findOne({postNumber: parentPostNumber});
+    let [parentPost, banned] = await Promise.all([
+        Post.findOne({postNumber: parentPostNumber}),
+        BannedIP.exists({ip: ip})
+    ]);
+
+    console.log(ip, banned);
+    if (banned) {
+        res.render('404', {title: 'You are banned.'});
+        return;
+    }
+
     if (!parentPost) {
         res.render('404', {title: '404'});
         return;

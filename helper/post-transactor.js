@@ -10,6 +10,7 @@
 
 const Post = require('../model/post.js');
 const ReportedPost = require('../model/reportedpost.js');
+const BannedIP = require('../model/bannedip.js');
 const User = require('../model/user.js');
 const fsHelper = require('../helper/fsHelper.js');
 
@@ -43,8 +44,13 @@ const reportThread = async(postNumber, reason, ip) => {
     }
 
     let reportedPost;
+    let isIpBanned;
     try {
-        reportedPost = await ReportedPost.findOne({postNumber: postNumber});
+        [reportedPost, isIpBanned] = await Promise.all([
+            ReportedPost.findOne({postNumber: postNumber}),
+            BannedIP.exists({ip: postToReport['ip']})
+        ]);
+
     } catch (error) {
         return {result: false, message: 'An unexpected error occurred.'};
     }
@@ -59,7 +65,8 @@ const reportThread = async(postNumber, reason, ip) => {
                 ip: postToReport['ip'],
                 file: postToReport['image'],
                 board: postToReport['board'],
-                date: postToReport['created']
+                date: postToReport['created'],
+                banned: isIpBanned
             });
             await reportedPost.save();
         } catch (e) {
