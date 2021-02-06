@@ -18,7 +18,9 @@ $(document).ready( function () {
       $('#reportDataModal-Spam').text(data[4]);
 
       $('#reportDataModal').modal('show');
-    } );
+
+      $('#banPostNumber').val(data[0]);
+    });
 
     $('#moderatorTable tbody').on('click', 'tr', function () {
       var data = moderatorTable.row( this ).data();
