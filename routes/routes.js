@@ -118,4 +118,5 @@ app.post('/banuser', ModController.banUser);
 app.post('/deletemoderator', ModController.deleteModerator);
 app.post('/removeboards', ModController.removeBoardsFromModerator);
 app.post('/admin/addboard', ModController.addBoardToModerator);
+app.post('/admin/unbanip', ModController.unbanUser);
 module.exports = app;

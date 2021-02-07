@@ -115,7 +115,7 @@
                 <td>{{ip}}</td>
                 <td>{{reason}}</td>
                 <td>{{remarks}}</td>
-                <td><button type="button" data-toggle="modal" data-target="#unBanIpModal" onclick="ipToBan('{{ip}}')" class="btn btn-danger">Unban IP</button></td>
+                <td><button id="unban-btn-modal" name="unban-btn-modal" type="button" data-toggle="modal" data-target="#unBanIpModal" onclick="ipToBan('{{ip}}')" class="btn btn-danger">Unban IP</button></td>
             </tr>
         {{/each}}
       </tbody>
@@ -182,17 +182,17 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="unBanIpTitle">Unban This IP?</h5>
-        <button id="already-banned-x" name="already-banned-x" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button id="unban-x" name="unban-x" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-        <form id="unban-ip-form" name="unban-ip-form" method="post" action="/modview">
+        <form id="unban-ip-form" name="unban-ip-form" method="post" action="/admin/unbanip">
           <div class="modal-body">
 
             <div class="form-group">
               <label>IP to Ban</label>
-              <textarea readonly class="form-control" id="ipToBanPlacement" rows="1"></textarea>
+              <textarea readonly class="form-control" id="ipToBanPlacement" name="ipToBanPlacement" rows="1" style="dispay: none"></textarea>
             </div>
 
           </div>

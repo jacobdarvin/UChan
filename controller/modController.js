@@ -109,6 +109,28 @@ const banUser = async(req, res) => {
     res.redirect(req.get('referer'));
 }
 
+//TODO: ajax this shit
+const unbanUser = async(req, res) => {
+    if (!(req.session.user && req.cookies.user_sid)) {
+        res.render('404', {title: 'Bad Login!'});
+        return;
+    }
+
+    if (req.session.rank !== 'ADMIN') {
+        res.render('404', {title: 'Invalid moderator access!'});
+        return;
+    }
+
+    const ip = req.body['ipToBanPlacement'];
+    const result = await userTransactor.unbanIp(ip);
+    if (!result.result) {
+        res.render('404', {title: 'Ip ban does not exist.'});
+    }
+
+    res.redirect(req.get('referer'));
+}
+
+
 const deleteModerator = async(req, res) => {
     if (!(req.session.user && req.cookies.user_sid)) {
         res.render('404', {title: 'Bad Login!'});
@@ -170,5 +192,6 @@ module.exports = {
     banUser,
     deleteModerator,
     removeBoardsFromModerator,
-    addBoardToModerator
+    addBoardToModerator,
+    unbanUser
 }
