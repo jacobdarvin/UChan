@@ -21,12 +21,8 @@ const postRegister = async (req, res) => {
 
   //TODO: ajax in the future
   let result = await userTransactor.createUser(username, password, registerKey);
-  if (!result.result) {
-    res.redirect(req.get('referer'));
-    return;
-  }
 
-  res.redirect('/xeroxthis');
+  res.send(result);
 }
 
 module.exports = {

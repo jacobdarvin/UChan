@@ -33,7 +33,15 @@ const ReportedPost = require('../model/reportedpost.js');
  */
 const createUser = async(username, password, registerKey) => {
     try {
-        var key = await RegisterKey.findOne({_id: registerKey});
+        var [key, existingUser] = Promise.all([
+            RegisterKey.findOne({_id: registerKey}),
+            User.exists({name: username})
+        ]);
+
+        if (existingUser) {
+            return {result: false, message: 'Username is already taken.'}
+        }
+        
         if (!key) {
             return {result: false, message: 'Invalid Register Key.'};
         }
@@ -193,7 +201,7 @@ const removeBoards = async(username, boardsToRemove) => {
             set.delete(boardsToRemove[i]);
         }
 
-        moderator.boards = Array.from(set);
+        moderator.boards = Array.from(set); 
 
         await moderator.save();
     } catch (e) {
@@ -209,7 +217,7 @@ const addBoard = async(username, board) => {
     if (!board) {
         return {result: false, message: 'No board selected.'};
     }
-    
+
     try {
         let moderator = await User.findOne({name: username, rank: 'MODERATOR'});
         if (!moderator) {

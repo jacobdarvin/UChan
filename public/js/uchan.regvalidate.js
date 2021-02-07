@@ -16,6 +16,7 @@ function isCaptchaChecked() {
 */
 
 formReg.addEventListener('submit', (e) => {
+	e.preventDefault();
 	let messages = [];
 
 	if ( $.trim( $('[name=id-register]').val() ) == '' )
@@ -32,7 +33,6 @@ formReg.addEventListener('submit', (e) => {
 	} else if ( $.trim( $('[name=password-repeat]').val() ) != $.trim( $('[name=password-register]').val() ) ) {
 		messages.push('Passwords Do Not Match');
 	}
-
 /*
 	if (!isCaptchaChecked()) {
 	  messages.push("Captcha Missing");
@@ -43,8 +43,31 @@ formReg.addEventListener('submit', (e) => {
 		console.log(messages[i])
 	}
 
-	if(messages.length > 0) {
-		e.preventDefault();
-		errorElement.innerText = messages.join(', ')
-	}
+	$.ajax({
+		type: 'post',
+		url: '/xeroxthat',
+		data: {username: $.trim( $('[name=id-register]').val() ), password: $.trim( $('[name=password-register]').val() )},
+		success: (response) => {
+			if (!response.result) {
+				messages.push(response.message);
+			}
+
+			if(messages.length > 0) {
+				errorElement.innerText = messages.join(', ')
+				return;
+			}
+
+			//ON SUCCESS
+			//show response.message
+			//wait 2 secs or smth
+			//redirect to modview
+
+			return;
+		},
+		error: () => {
+			alert('ajax error');
+		}
+	});
+
+	
 });
