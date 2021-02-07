@@ -19,35 +19,33 @@ formReg.addEventListener('submit', (e) => {
 	e.preventDefault();
 	let messages = [];
 
-	if ( $.trim( $('[name=id-register]').val() ) == '' )
+	let id = $.trim( $('[name=id-register]').val() );
+	let key = $.trim( $('[name=key-register]').val() );
+	let password = $.trim( $('[name=password-register]').val() );
+	let passwordRepeat = $.trim( $('[name=password-repeat]').val() );
+
+	if ( id === '' )
 	  messages.push('ID Required');
 
-	if ( $.trim( $('[name=key-register]').val() ) == '' )
+	if ( key === '' )
 		messages.push('Key Required');
 
-	if ( $.trim( $('[name=password-register]').val() ) == '' ) {
+	if ( password === '' ) {
 		messages.push('Password Required');
-	} else if ( $.trim( $('[name=password-register]').val().length ) < 8 ) {
-		console.log($.trim( $('[name=password-register]').val().length ));
+	} else if ( password.length < 8 ) {
 		messages.push('Password Must Be More Than 8 Characters');
-	} else if ( $.trim( $('[name=password-repeat]').val() ) != $.trim( $('[name=password-register]').val() ) ) {
+	} else if ( passwordRepeat !== password ) {
 		messages.push('Passwords Do Not Match');
 	}
-/*
-	if (!isCaptchaChecked()) {
-	  messages.push("Captcha Missing");
-	}
-*/
 
-	for(let i = 0; i < messages.length; i++) {
-		console.log(messages[i])
-	}
-
+	//DEACTIVATE REGISTER BUTTON WHILE AJAX IS PROCESSING
 	$.ajax({
 		type: 'post',
-		url: '/xeroxthat',
-		data: {'id-register': $.trim( $('[name=id-register]').val() ), 'password-register': $.trim( $('[name=password-register]').val() ), 'key-register': $.trim( $('[name=key-register]').val() )},
+		url: '/xeroxed',
+		data: {'id-register': id, 'password-register': password, 'key-register': key},
 		success: (response) => {
+			console.log('fires')
+			//REACTIVATE REGISTER BUTTON
 			if (!response.result) {
 				messages.push(response.message);
 			}
@@ -57,8 +55,6 @@ formReg.addEventListener('submit', (e) => {
 				return;
 			}
 
-			
-
 			//ON SUCCESS
 			//show response.message
 			//wait 2 secs or smth
@@ -66,10 +62,9 @@ formReg.addEventListener('submit', (e) => {
 
 			return;
 		},
-		error: () => {
-			alert('ajax error');
+		error: (e) => {
+			console.log(e)
 		}
-	});
-
+	}); 
 
 });

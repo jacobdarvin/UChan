@@ -33,21 +33,19 @@ const ReportedPost = require('../model/reportedpost.js');
  */
 const createUser = async(username, password, registerKey) => {
     try {
-        var [key, existingUser] = Promise.all([
-            RegisterKey.findOne({_id: registerKey}),
-            User.exists({name: username})
-        ]);
+        var key = await RegisterKey.findById(registerKey);
+    } catch (e) {
+        return {result: false, message: 'Invalid register key.'};
+    }
 
-        if (existingUser) {
-            return {result: false, message: 'Username is already taken.'}
+    try {
+        let exists = await User.exists({name: username});
+        if (exists) {
+            return {result: false, message: 'Username is already taken.'};
         }
         
-        if (!key) {
-            return {result: false, message: 'Invalid Register Key.'};
-        }
     } catch (e) {
-        console.log(e);
-        return {result: false, message: 'An unexpected error occured.'};
+        return {result: false, message: 'An unexpected error occurred.'};
     }
 
     password = await bcrypt.hash(password, 10);

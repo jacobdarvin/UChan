@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const userTransactor = require('../helper/user-transactor.js');
 const sanitize = require('mongo-sanitize');
+var ObjectId = require('mongodb').ObjectID;
 
 const db = require('../model/database.js');
 
