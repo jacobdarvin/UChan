@@ -144,9 +144,9 @@
         </pre>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Ignore</button>
         {{#if admin}}
-        <button type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#banReasonModal">Ban IP <i class="fas fa-key"></i></button>
+        <button type="button" class="btn btn-primary">Ignore</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#banReasonModal">Open Ban Hammer <i class="fas fa-key"></i></button>
         {{/if}}
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
@@ -154,8 +154,27 @@
   </div>
 </div>
 
+<!-- Modal  -->
+<div class="modal fade" id="alreadyBannedModal" tabindex="-1" role="dialog" aria-labelledby="alreadyBannedModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="alreadyBannedModalTitle">User Already Banned</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        This user has already been banned.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- Modal -->
+<!-- Modal Keygen -->
 <div class="modal fade" id="moderatorKeyGen" tabindex="-1" role="dialog" aria-labelledby="moderatorKeyGen" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -224,9 +243,9 @@
         </div>
         <div class="modal-footer">
           {{#if admin}}
-          <button type="submit" class="btn btn-danger">Ban IP<i class="fas fa-key"></i></button>
-          {{/if}}
+          <button type="submit" class="btn btn-danger" onclick="checkIfBanned()">Ban IP<i class="fas fa-key"></i></button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          {{/if}}
         </div>
       </form>
     </div>
@@ -274,7 +293,7 @@
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Add Board <i class="fas fa-key"></i></button>
-          <button type="submit" class="btn btn-danger">Delete Moderator <i class="fas fa-key"></i></button>
+          <button type="submit" class="btn btn-danger" id="deleteModeratorButton" onclick="">Delete Moderator <i class="fas fa-key"></i></button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </form>

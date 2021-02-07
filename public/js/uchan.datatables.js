@@ -25,7 +25,10 @@ $(document).ready( function () {
     $('#moderatorTable tbody').on('click', 'tr', function () {
       var data = moderatorTable.row( this ).data();
 
-      $('#modManageUsername').val(data[0]);
+      //DELETE MODERATOR
+      $("#deleteModeratorButton").attr("onclick","alert('" + data[0] + "')");
+
+      //$('#modManageUsername').val(data[0]);
 
       if(data[1] != ''){
         $('#modManageModal-Boards').text(data[1]);
