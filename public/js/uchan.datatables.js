@@ -62,11 +62,21 @@ function addBoardToMod() {
 
 function removeBoardFromMod() {
   var val = [];
+  let username = $('#modManageUsername').val();
   $('input[name="checkboxBoards"]:checked').each(function(i) {
      val[i] = $(this).val();
   })
 
-  alert(val);
+  $.ajax({
+    type: "post",
+    url: "/removeboards",
+    data: {boards: val, username: username}
+  }).done((response) => {
+    alert(response.message);
+  }).fail(() => {
+    alert('error');
+  });
+
 }
 
 function banStatus(value) {

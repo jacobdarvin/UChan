@@ -139,14 +139,17 @@ const removeBoardsFromModerator = async(req, res) => {
         return;
     }
 
-    //const boardsToRemove = req.body[]
+    const boardsToRemove = req.body['boards'];
+    const username = req.body['username'];
+    const result = await userTransactor.removeBoards(username, boardsToRemove);
 
-
+    res.send(result);
 }
 
 module.exports = {
     getModView,
     generateRegisterKey,
     banUser,
-    deleteModerator
+    deleteModerator,
+    removeBoardsFromModerator
 }

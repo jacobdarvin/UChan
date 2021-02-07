@@ -188,13 +188,12 @@ const removeBoards = async(username, boardsToRemove) => {
             return {result: false, message: 'Moderator does not exist.'};
         }
 
+        let set = new Set(moderator.boards);
         for (let i = 0; i < boardsToRemove.length; i++) {
-            let index = boardsToRemove[i];
-            if (index != 1) {
-                moderator.boards.splice(index, 1);
-            }
+            set.delete(boardsToRemove[i]);
         }
-        
+
+        moderator.boards = Array.from(set);
 
         await moderator.save();
     } catch (e) {
