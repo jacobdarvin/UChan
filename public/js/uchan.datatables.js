@@ -35,7 +35,9 @@ $(document).ready( function () {
         document.getElementById("removeBoardArea").innerHTML = '';
         for(let i = 0; i < boardArray.length; i++) {
           document.getElementById("removeBoardArea").innerHTML +=
-          "<button type='button' class='btn btn-danger mb-1'><i class='fas fa-times-circle'></i> Remove " + boardArray[i] + "</button> <br>";
+          "<input type='checkbox' class='form-check-input' id='tempId' name=''> " + boardArray[i] + "<br>";
+          $('#tempId').attr("name", boardArray[i]);
+          $('#tempId').attr("id", boardArray[i]);
         }
       } else {
         $('#modManageModal-Boards').text("Managing No Boards");

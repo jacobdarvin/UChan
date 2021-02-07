@@ -296,24 +296,22 @@
           <hr>
 
           <div class="form-group">
-            <label for="default-board">Add Board</label>
-            <select class="form-control" id="add-board" name="add-board">
+            <label for="default-board"><b>Add Board</b></label>
+            <select class="form-control mb-2" id="add-board" name="add-board">
               {{#each activeBoards}}
                   <option value="{{name}}">{{name}}</option>
               {{/each}}
             </select>
+            <button type="submit" class="btn btn-success">Add Board <i class="fas fa-key"></i></button>
           </div>
           <hr>
-          <div class="form-group">
-            <label for="default-board">Remove Board</label>
-            <div id="removeBoardArea">
-
-            </div>
+          <b>Remove Board</b>
+          <div class="form-check mb-0">
+            <p id="removeBoardArea" class="mb-0"></p>
           </div>
-
+          <button type="submit" class="btn btn-warning">Remove Selected Board <i class="fas fa-key"></i></button>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Add Board <i class="fas fa-key"></i></button>
           <button type="button" class="btn btn-danger" id="deleteModeratorButton" data-dismiss="modal" onclick="">Delete Moderator <i class="fas fa-key"></i></button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
