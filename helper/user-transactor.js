@@ -153,9 +153,38 @@ const generateRegisterKey = async(defaultBoard) => {
     return {key: key._id, message: 'Successfully created new register key.'};
 }
 
+/*
+    Deletes a moderator and ONLY a moderator. 
+
+    @param username: Name of the user to delete.
+   
+    @return result (boolean): Whether the user delete operation is successful.
+    @return message (String): Message associated with the result.
+ */
+const deleteModerator = async(username) => {
+    try {
+        let moderator = await User.findOne({name: username});
+        if (!moderator) {
+            return {result: false, message: 'Moderator does not exist'};
+        }
+
+        if (moderator['rank'] !== 'MODERATOR') {
+            return {result: false, message: 'Cannot remove an admin'};
+        }
+
+        await moderator.remove();
+    } catch (e) {
+        console.log(e);
+        return {result: false, message: 'An unexpected error occurred.'}
+    }
+
+    return {result: true, message: `Successfully deleted user ${username}`};
+}
+
 module.exports = {
     createUser,
     banIp,
     unbanIp,
-    generateRegisterKey
+    generateRegisterKey,
+    deleteModerator
 }

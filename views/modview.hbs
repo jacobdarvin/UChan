@@ -293,7 +293,7 @@
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Add Board <i class="fas fa-key"></i></button>
-          <button type="submit" class="btn btn-danger" id="deleteModeratorButton" onclick="">Delete Moderator <i class="fas fa-key"></i></button>
+          <button type="button" class="btn btn-danger" id="deleteModeratorButton" onclick="">Delete Moderator <i class="fas fa-key"></i></button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </form>
@@ -302,14 +302,3 @@
   </div>
 </div>
 
-<script>
-function banStatus(value) {
-  if (value == 'true') {
-    $('#alreadyBannedModal').modal('show');
-  }
-}
-
-function deleteModerator(value) {
-  alert(value);
-}
-</script>

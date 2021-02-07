@@ -109,8 +109,28 @@ const banUser = async(req, res) => {
     res.redirect(req.get('referer'));
 }
 
+const deleteModerator = async(req, res) => {
+    if (!(req.session.user && req.cookies.user_sid)) {
+        res.render('404', {title: 'Bad Login!'});
+        return;
+    }
+
+    if (req.session.rank !== 'ADMIN') {
+        res.render('404', {title: 'Invalid moderator access!'});
+        return;
+    }
+
+    const username = req.body['username'];
+
+    const result = await userTransactor.deleteModerator(username);
+    console.log(result);
+
+    res.send(result);
+}
+
 module.exports = {
     getModView,
     generateRegisterKey,
-    banUser
+    banUser,
+    deleteModerator
 }

@@ -49,4 +49,29 @@ $(document).ready( function () {
       var data = bannedTable.row( this ).data();
       alert( 'You clicked on '+data[0]+'\'s row' );
     } );
+    
 } );
+
+
+function banStatus(value) {
+  if (value == 'true') {
+    $('#alreadyBannedModal').modal('show');
+  }
+}
+
+function deleteModerator(value) {
+  let username = value.trim();
+
+  $.ajax({
+    type: "post",
+    url: "/deletemoderator",
+    data: {username: username}
+  }).done((response) => {
+    //response.result: (boolean) success in deleting or not
+    //response.message: message associated with the operation
+    
+    alert(response.message);
+  }).fail(() => {
+    alert('error');
+  })
+} 

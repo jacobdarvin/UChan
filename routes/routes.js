@@ -115,4 +115,5 @@ app.post('/stickypost', ThreadController.stickyPost);
 app.post('/unstickypost', ThreadController.unstickyPost);
 app.post('/generatekey', ModController.generateRegisterKey);
 app.post('/banuser', ModController.banUser);
+app.post('/deletemoderator', ModController.deleteModerator);
 module.exports = app;
