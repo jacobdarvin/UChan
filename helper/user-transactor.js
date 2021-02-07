@@ -204,6 +204,15 @@ const removeBoards = async(username, boardsToRemove) => {
     return {result: true, message: `Boards ${boardsToRemove} successfully removed from ${username}`};
 } 
 
+/*
+const addBoard = async(username, board) => {
+    try {
+        let moderator = await User.findOne({name: username, rank: 'MODERATOR'});
+        if (!moderator) {
+            return {result: false, message: ''}
+        }
+    }
+} */
 module.exports = {
     createUser,
     banIp,
