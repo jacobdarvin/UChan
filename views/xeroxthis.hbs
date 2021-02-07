@@ -5,6 +5,7 @@
   	<div class="card shadow-sm">
   	  <div class="card-body">
         <div id="error" style="color: red; font-weight: bold;" class="mt-2"></div>
+        {{#if invalid}}<div id="error" style="color: red; font-weight: bold;" class="mt-2">Invalid Credentials Please Again</div>{{/if}}
         <form id="form-login" name="form-login" method="POST">
           <b>Moderator ID</b>
           <div class="form-group mb-1 mt-2">
