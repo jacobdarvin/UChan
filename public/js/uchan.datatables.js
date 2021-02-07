@@ -8,6 +8,7 @@ $(document).ready( function () {
     $('#reportTable tbody').on('click', 'tr', function () {
       var data = reportTable.row( this ).data();
       //alert( 'You clicked on '+data[0]+'\'s row' );
+      
       $("#banIpButton").attr("onclick", "banStatus('" + data[5] + "')");
 
       $('#reportDataModal-Title').text("Post @" + data[0]);
@@ -58,7 +59,11 @@ $(document).ready( function () {
 function banStatus(value) {
   if (value == 'true') {
     $('#alreadyBannedModal').modal('show');
+    return;
   }
+
+
+  $('#ban-report-form').submit();
 }
 
 function deleteModerator(value) {
