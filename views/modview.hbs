@@ -106,6 +106,7 @@
               <th>IP #</th>
               <th>Reason</th>
               <th>Remarks</th>
+              <th>Action</th>
           </tr>
       </thead>
       <tbody>
@@ -114,6 +115,7 @@
                 <td>{{ip}}</td>
                 <td>{{reason}}</td>
                 <td>{{remarks}}</td>
+                <td><button type="button" data-toggle="modal" data-target="#unBanIpModal" onclick="ipToBan('{{ip}}')" class="btn btn-danger">Unban IP</button></td>
             </tr>
         {{/each}}
       </tbody>
@@ -173,6 +175,38 @@
     </div>
   </div>
 </div>
+
+<!-- UNBAN IP -->
+<div class="modal fade" id="unBanIpModal" tabindex="-1" role="dialog" aria-labelledby="alreadyBannedModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="unBanIpTitle">Unban This IP?</h5>
+        <button id="already-banned-x" name="already-banned-x" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+        <form id="unban-ip-form" name="unban-ip-form" method="post" action="/modview">
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label>IP to Ban</label>
+              <textarea readonly class="form-control" id="ipToBanPlacement" rows="1"></textarea>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button id="unban-ip-close-btn" name="unban-ip-close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="unban-ip-btn" name="unban-ip-btn" type="submit" class="btn btn-danger">Unban this IP</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- Modal Successfully Banned -->
 <div class="modal fade" id="deletedModeratorMessage" tabindex="-1" role="dialog" aria-labelledby="deletedModeratorMessage" aria-hidden="true">
