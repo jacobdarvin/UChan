@@ -46,7 +46,7 @@ formReg.addEventListener('submit', (e) => {
 	$.ajax({
 		type: 'post',
 		url: '/xeroxthat',
-		data: {username: $.trim( $('[name=id-register]').val() ), password: $.trim( $('[name=password-register]').val() )},
+		data: {'id-register': $.trim( $('[name=id-register]').val() ), 'password-register': $.trim( $('[name=password-register]').val() ), 'key-register': $.trim( $('[name=key-register]').val() )},
 		success: (response) => {
 			if (!response.result) {
 				messages.push(response.message);
@@ -56,6 +56,8 @@ formReg.addEventListener('submit', (e) => {
 				errorElement.innerText = messages.join(', ')
 				return;
 			}
+
+			
 
 			//ON SUCCESS
 			//show response.message
@@ -69,5 +71,5 @@ formReg.addEventListener('submit', (e) => {
 		}
 	});
 
-	
+
 });
