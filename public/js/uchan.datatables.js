@@ -47,12 +47,6 @@ $(document).ready( function () {
 
       $('#modManageModal').modal('show');
     } );
-
-    $('#bannedTable tbody').on('click', 'tr', function () {
-      var data = bannedTable.row( this ).data();
-      alert( 'You clicked on '+data[0]+'\'s row' );
-    } );
-
 } );
 
 function addBoardToMod() {
@@ -90,6 +84,11 @@ function removeBoardFromMod() {
     alert('error');
   });
 
+}
+
+function ipToBan(ip) {
+  $('#ipToBanPlacement').val(ip);
+  console.log(ip);
 }
 
 function banStatus(value) {
