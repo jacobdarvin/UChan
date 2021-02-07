@@ -128,6 +128,22 @@ const deleteModerator = async(req, res) => {
     res.send(result);
 }
 
+const removeBoardsFromModerator = async(req, res) => {
+    if (!(req.session.user && req.cookies.user_sid)) {
+        res.render('404', {title: 'Bad Login!'});
+        return;
+    }
+
+    if (req.session.rank !== 'ADMIN') {
+        res.render('404', {title: 'Invalid moderator access!'});
+        return;
+    }
+
+    //const boardsToRemove = req.body[]
+
+
+}
+
 module.exports = {
     getModView,
     generateRegisterKey,
