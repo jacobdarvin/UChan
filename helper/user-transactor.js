@@ -163,13 +163,9 @@ const generateRegisterKey = async(defaultBoard) => {
  */
 const deleteModerator = async(username) => {
     try {
-        let moderator = await User.findOne({name: username});
+        let moderator = await User.findOne({name: username, rank: 'MODERATOR'});
         if (!moderator) {
             return {result: false, message: 'Moderator does not exist'};
-        }
-
-        if (moderator['rank'] !== 'MODERATOR') {
-            return {result: false, message: 'Cannot remove an admin'};
         }
 
         await moderator.remove();
@@ -181,10 +177,39 @@ const deleteModerator = async(username) => {
     return {result: true, message: `Successfully deleted user ${username}`};
 }
 
+const removeBoards = async(username, boardsToRemove) => {
+    if (boardsToRemove.length === 0) {
+        return {result: false, message: 'No boards given to remove.'};
+    }
+
+    try {
+        let moderator = await User.findOne({name: username, rank: 'MODERATOR'});
+        if (!moderator) {
+            return {result: false, message: 'Moderator does not exist.'};
+        }
+
+        for (let i = 0; i < boardsToRemove.length; i++) {
+            let index = boardsToRemove[i];
+            if (index != 1) {
+                moderator.boards.splice(index, 1);
+            }
+        }
+        
+
+        await moderator.save();
+    } catch (e) {
+        console.log(e);
+        return {result: false, message: 'An unexpected error occurred.'};
+    }
+
+    return {result: true, message: `Boards ${boardsToRemove} successfully removed from ${username}`};
+} 
+
 module.exports = {
     createUser,
     banIp,
     unbanIp,
     generateRegisterKey,
-    deleteModerator
+    deleteModerator,
+    removeBoards
 }

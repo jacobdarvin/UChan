@@ -97,7 +97,7 @@
     </table>
     <hr>
 
-    <button type="button" class="btn btn-success w-100" data-toggle="modal" data-target="#moderatorKeyGen"><b>+</b> Generate Moderator Key <i class="fas fa-key"></i></button>
+    <button type="button" id="generate-moderator-key" name="generate-moderator-key" class="btn btn-success w-100" data-toggle="modal" data-target="#moderatorKeyGen"><b>+</b> Generate Moderator Key <i class="fas fa-key"></i></button>
 
     <h2 id="banned">Banned IPs</h2>
     <table id="bannedTable" class="display">
@@ -129,7 +129,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="reportDataModal-Title"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button id="report-data-x" name="report-data-x" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -145,10 +145,10 @@
       </div>
       <div class="modal-footer">
         {{#if admin}}
-        <button type="button" class="btn btn-primary">Ignore</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#banReasonModal">Open Ban Hammer <i class="fas fa-key"></i></button>
+        <button id="ignore-report-btn" name="ignore-report-btn" type="button" class="btn btn-primary">Ignore</button>
+        <button id="ban-hammer-btn" name="ban-hammer-btn" type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#banReasonModal">Open Ban Hammer <i class="fas fa-key"></i></button>
         {{/if}}
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="close-report-btn" name="close-report-btn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -160,7 +160,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="alreadyBannedModalTitle">User Already Banned</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button id="already-banned-x" name="already-banned-x" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -168,7 +168,7 @@
         This user has already been banned.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="already-banned-close-btn" name="already-banned-close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -180,7 +180,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="deletedModeratorMessageTitle">Moderator Account Removed</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button id="moderator-remove-x" name="moderator-remove-x" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -189,7 +189,7 @@
         <p id="moderatorDeletedMessage"></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="window.location.reload();">Close</button>
+        <button id="moderator-remove-close-btn" name="moderator-remove-close-btn"type="button" class="btn btn-secondary" data-dismiss="modal" onClick="window.location.reload();">Close</button>
       </div>
     </div>
   </div>
@@ -201,7 +201,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="moderatorKeyGenTitle">Generate a Moderator Key</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button id="generate-modkey-x" name="generate-modkey-x" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -223,8 +223,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success">Generate Key <i class="fas fa-key"></i></button>
+          <button id="generate-modkey-close-btn" name="generate-modkey-close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button id="generate-modkey-submit-btn" name="generate-modkey-submit-btn" type="submit" class="btn btn-success">Generate Key <i class="fas fa-key"></i></button>
         </div>
       </form>
     </div>
@@ -237,7 +237,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="banReasonTitle">Ban Reason</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button id="ban-reason-x" name="ban-reason-x" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -264,8 +264,8 @@
         </div>
         <div class="modal-footer">
           {{#if admin}}
-          <button type="submit" class="btn btn-danger" id="banIpButton" onclick="" data-dismiss="modal">Ban IP<i class="fas fa-key"></i></button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button id="ban-reason-submit-btn" name="ban-reason-submit-btn" type="submit" class="btn btn-danger" id="banIpButton" onclick="" data-dismiss="modal">Ban IP<i class="fas fa-key"></i></button>
+          <button id="ban-reason-close-btn" name="ban-reason-close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           {{/if}}
         </div>
       </form>
@@ -279,7 +279,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modManageTitle">Manage Moderator</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button id="manage-moderator-x" name="manage-moderator-x" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -302,7 +302,7 @@
                   <option value="{{name}}">{{name}}</option>
               {{/each}}
             </select>
-            <button type="submit" class="btn btn-success">Add Board <i class="fas fa-key"></i></button>
+            <button id="moderator-add-board-btn" name="moderator-add-board-btn" type="submit" class="btn btn-success">Add Board <i class="fas fa-key"></i></button>
           </div>
           <hr>
           <b>Remove Board</b>
@@ -312,8 +312,8 @@
           <button type="submit" class="btn btn-warning">Remove Selected Board/s <i class="fas fa-key"></i></button>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" id="deleteModeratorButton" data-dismiss="modal" onclick="">Delete Moderator <i class="fas fa-key"></i></button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" id="deleteModeratorButton" name="deleteModeratorButton" data-dismiss="modal" onclick="">Delete Moderator <i class="fas fa-key"></i></button>
+          <button id="deleteModeratorClose" name="deleteModeratorClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </form>
 

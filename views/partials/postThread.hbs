@@ -46,12 +46,12 @@
       {{#if stickied}}
       <form id="unsticky-form" name="unsticky-form" method="post" action="/unstickypost">
         <input type="hidden" id="stickyId" name="stickyId" value="{{postNumber}}">
-        <button href="#" type="submit" class="btn btn-danger"><i class="fas fa-thumbtack"></i> Un-Sticky Post</b></button>
+        <button id="unsticky-post-btn" name="unsticky-post-btn" href="#" type="submit" class="btn btn-danger"><i class="fas fa-thumbtack"></i> Un-Sticky Post</b></button>
       </form>
       {{else}}
       <form id="sticky-form" name="sticky-form" method="post" action="/stickypost">
         <input type="hidden" id="stickyId" name="stickyId" value="{{postNumber}}">
-        <button href="#" type="submit" class="btn btn-success"><i class="fas fa-thumbtack"></i> Sticky Post</b></button>
+        <button id="sticky-post-btn" name="sticky-post-btn" href="#" type="submit" class="btn btn-success"><i class="fas fa-thumbtack"></i> Sticky Post</b></button>
       </form>
       {{/if}}
 
