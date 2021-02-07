@@ -17,6 +17,8 @@ $(document).ready( function () {
           //response.text
           //response.file     /admin/reportedimgs/<image>
           console.log(response.text, response.file);
+          $("#simulatedText").text(response.text);
+          $("#simulatedImg").attr("src", "/postimgs/" + response.file);
 
           $("#banIpButton").attr("onclick", "banStatus('" + data[5] + "')");
 
@@ -31,7 +33,7 @@ $(document).ready( function () {
           $('#reportDataModal').modal('show');
 
           $('#ban-post-number').val(data[0]);
-          
+
         },
 
         error: () => {
@@ -39,7 +41,7 @@ $(document).ready( function () {
         }
       });
 
-      
+
     });
 
     $('#moderatorTable tbody').on('click', 'tr', function () {
@@ -81,7 +83,7 @@ function addBoardToMod() {
   }).fail(() => {
     alert('error');
   });
-  
+
 }
 
 function removeBoardFromMod() {

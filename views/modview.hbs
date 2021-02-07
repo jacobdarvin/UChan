@@ -144,10 +144,15 @@
    <b>Off Offenses:</b>   <span id="reportDataModal-Off"></span><br>
    <b>Spam Offenses:</b>  <span id="reportDataModal-Spam"></span><br>
         </pre>
+        <hr>
+        <div class="ml-2">
+          <h4>Simulated Post</h4>
+          <img id="simulatedImg" src="" style="max-width: 400px;">
+          <p   id="simulatedText"> </p>
+        </div>
       </div>
       <div class="modal-footer">
         {{#if admin}}
-        <button id="ignore-report-btn" name="ignore-report-btn" type="button" class="btn btn-primary">Ignore</button>
         <button id="ban-hammer-btn" name="ban-hammer-btn" type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#banReasonModal">Open Ban Hammer <i class="fas fa-key"></i></button>
         {{/if}}
         <button id="close-report-btn" name="close-report-btn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
