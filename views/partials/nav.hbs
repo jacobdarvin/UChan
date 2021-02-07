@@ -9,30 +9,30 @@
     <ul class="navbar-nav mr-auto">
 
       <li class="nav-item {{#if home_active}} active {{/if}}">
-        <a class="select nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        <a class="select nav-link" id="home" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item {{#if rules_active}} active {{/if}}">
-        <a class="select nav-link" href="/rules">Rules</a>
+        <a class="select nav-link" id="rules" href="/rules">Rules</a>
       </li>
       <li class="nav-item {{#if about_active}} active {{/if}}">
-        <a class="select nav-link" href="/about">About</a>
+        <a class="select nav-link" id="about" href="/about">About</a>
       </li>
 
 			{{#if displayName}}
       <li class="nav-item active">
-        <a class="select nav-link" href="/{{boardName}}">{{displayName}}</a>
+        <a class="select nav-link" id="goto{{boardName}}" href="/{{boardName}}">{{displayName}}</a>
       </li>
 			{{/if}}
 
 			{{#if active_session}}
 			<li class="nav-item {{#if mod_active}} active {{/if}}">
-				<a class="select nav-link text-success" href="/modview"><i class="fas fa-tools"></i> Moderator Dashboard</a>
+				<a class="select nav-link text-success" id="modview" href="/modview"><i class="fas fa-tools"></i> Moderator Dashboard</a>
 			</li>
 			{{/if}}
 
 			{{#if active_session}}
 				<li class="nav-item">
-					<a class="select nav-link text-success" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+					<a class="select nav-link text-success" id="logout" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
 				</li>
 			{{/if}}
 

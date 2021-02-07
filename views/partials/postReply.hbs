@@ -1,5 +1,5 @@
 <div id="{{postNumber}}p" class="card post-thread shadow-sm p-0 mt-3 p-3" aria-expanded="true" style="display: flex; flex-wrap: nowrap;">
-  <a href="javascript:;">
+  <a href="javascript:;" id="{{postNumber}}clickImage">
 	{{#if image}}
   <img class="mb-2" src="/postimgs/{{image}}" title="{{imageDisplayName}}" onclick="toggleImage({{postNumber}})" id="{{postNumber}}" title="{{imageDisplayName}}" style="max-width: 300px;">
 	{{/if}}
@@ -7,7 +7,7 @@
   <div class="{{#if image}}ml-3{{/if}}">
     <span style="display: inline-block; word-break: break-word;">
       <b>{{name}} {{#if isOwner}}(You){{/if}}</b> {{created}}
-      <a href="javascript:;" class="thread-quote" {{#if stickied}} {{#if mod_access}} onclick="showReply({{postNumber}})" {{/if}} {{else}} onclick="showReply({{postNumber}})" {{/if}}>
+      <a href="javascript:;" id="{{postNumber}}showReply" class="thread-quote" {{#if stickied}} {{#if mod_access}} onclick="showReply({{postNumber}})" {{/if}} {{else}} onclick="showReply({{postNumber}})" {{/if}}>
       <u>No.{{postNumber}}</u>
       </a>
       <span>
@@ -15,13 +15,13 @@
         <i id="dropdown_icon_{{postNumber}}" class="fa fa-angle-down"></i>
         </a>
         <div id="dropdown_options_{{postNumber}}" class="card post-options shadow-sm menu" style="z-index: 1000;">
-          <i class="fas fa-bullhorn"></i> <a href="#" data-toggle="modal" data-target="#reportModalCenter" onclick="reportId({{postNumber}})">Report</a> <br>
+          <i class="fas fa-bullhorn"></i> <a href="#" id="{{postNumber}}Report" data-toggle="modal" data-target="#reportModalCenter" onclick="reportId({{postNumber}})">Report</a> <br>
 
           {{#if isOwner}}
           <i class="fas fa-trash" style="color:red;"></i> <a href="javascript:;" id="d_{{postNumber}}" style="color: red !important;" onclick="deleteConfirmation({{postNumber}})">Delete</a>
           <span id="dc_{{postNumber}}" style="display: none;">Delete?<br>
-          <a href="javascript:;" onclick="document.getElementById('delete_{{postNumber}}_form').submit()" class="text-danger" style="color: red !important;">Yes</a>
-          <a href="javascript:;" onclick="deleteConfirmation({{postNumber}})">No</a>
+          <a href="javascript:;" id="{{postNumber}}deleteYes" onclick="document.getElementById('delete_{{postNumber}}_form').submit()" class="text-danger" style="color: red !important;">Yes</a>
+          <a href="javascript:;" id="{{postNumber}}deleteNo" onclick="deleteConfirmation({{postNumber}})">No</a>
           </span>
           <form action="/deletePost" method="POST" id="delete_{{postNumber}}_form" name="delete_{{postNumber}}_form" style="display: none;">
             <textarea id="postNumber" name="postNumber" cols="20" rows="20" style="display:none;">{{postNumber}}</textarea>
@@ -31,8 +31,8 @@
           {{#if mod_access}}
           <i class="fas fa-trash" style="color:green;"></i> <a href="javascript:;" id="d_{{postNumber}}" style="color: green !important;" onclick="deleteConfirmation({{postNumber}})">MOD Delete</a>
           <span id="dc_{{postNumber}}" style="display: none;">Delete?<br>
-          <a href="javascript:;" onclick="document.getElementById('delete_{{postNumber}}_form').submit()" class="text-danger" style="color: red !important;">Yes</a>
-          <a href="javascript:;" onclick="deleteConfirmation({{postNumber}})">No</a>
+          <a href="javascript:;" id="modDeleteYes" onclick="document.getElementById('delete_{{postNumber}}_form').submit()" class="text-danger" style="color: red !important;">Yes</a>
+          <a href="javascript:;" id="modDeleteNo" onclick="deleteConfirmation({{postNumber}})">No</a>
           </span>
           <form action="/deletePost" method="POST" id="delete_{{postNumber}}_form" name="delete_{{postNumber}}_form" style="display: none;">
             <textarea id="postNumber" name="postNumber" cols="20" rows="20" style="display:none;">{{postNumber}}</textarea>
@@ -41,7 +41,7 @@
         </div>
       </span>
       {{#each quotes}}
-      <a href="#{{this}}p" onmouseover="highlightReply({{this}})" onmouseout="exitHighlight({{this}})"> @{{this}}</a>
+      <a href="#{{this}}p" id="quotes{{postNumber}}" onmouseover="highlightReply({{this}})" onmouseout="exitHighlight({{this}})"> @{{this}}</a>
       {{/each}}
     </span>
     <a href="#" style="right: 20px; position: absolute;">-</a> <br>

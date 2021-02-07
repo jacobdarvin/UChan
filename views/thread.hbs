@@ -4,9 +4,9 @@
 	<!--⚠️ <a href="javascript:;" class="select" onclick="showReport();">Report Thread</a> <br> -->
 	{{#if stickied}}
 
-	{{#if mod_access}}🗨️ <a href="javascript:;" class="select" onclick="showReply();" style="font-size: 16pt;">Reply To Thread</a> {{/if}}
+	{{#if mod_access}}🗨️ <a href="javascript:;" id="replyToThreadAsMod" class="select" onclick="showReply();" style="font-size: 16pt;">Reply To Thread As Mod</a> {{/if}}
 
-	{{else}} 🗨️ <a href="javascript:;" class="select" onclick="showReply();" style="font-size: 16pt;">Reply To Thread</a>
+	{{else}} 🗨️ <a href="javascript:;" id="replyToThread" class="select" onclick="showReply();" style="font-size: 16pt;">Reply To Thread</a>
 
 	{{/if}}
 <hr>
