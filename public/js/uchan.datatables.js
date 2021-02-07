@@ -49,7 +49,7 @@ $(document).ready( function () {
       var data = bannedTable.row( this ).data();
       alert( 'You clicked on '+data[0]+'\'s row' );
     } );
-    
+
 } );
 
 
@@ -69,9 +69,10 @@ function deleteModerator(value) {
   }).done((response) => {
     //response.result: (boolean) success in deleting or not
     //response.message: message associated with the operation
-    
-    alert(response.message);
+    $('#deletedModeratorMessage').modal('show');
+    $('#moderatorDeletedMessage').text(response.message);
+
   }).fail(() => {
-    alert('error');
+    alert('DELETE MODERATOR ERROR');
   })
-} 
+}
