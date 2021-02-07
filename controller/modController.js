@@ -6,6 +6,7 @@ const BannedIP = require('../model/bannedip.js');
 
 const sanitize = require('mongo-sanitize');
 const userTransactor = require('../helper/user-transactor.js');
+const post = require('../model/post.js');
 
 const getModView = async (req, res) => {
 
@@ -186,6 +187,22 @@ const addBoardToModerator = async(req, res) => {
     res.send(result);
 }
 
+const getReportDetails = async(req, res) => {
+    if (!(req.session.user && req.cookies.user_sid)) {
+        res.render('404', {title: 'Bad Login!'});
+        return;
+    }
+
+    const postNumber = req.query['postNumber'];
+    let details = await ReportedPost.findOne({postNumber: postNumber}).select('text file').lean();
+    if (!details) {
+        res.send({text: 'REPORT HAS BEEN DELETED', file: ''});
+        return;
+    }
+
+    res.send(details);
+}
+
 module.exports = {
     getModView,
     generateRegisterKey,
@@ -193,5 +210,6 @@ module.exports = {
     deleteModerator,
     removeBoardsFromModerator,
     addBoardToModerator,
-    unbanUser
+    unbanUser,
+    getReportDetails
 }

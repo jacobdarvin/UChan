@@ -9,19 +9,37 @@ $(document).ready( function () {
       var data = reportTable.row( this ).data();
       //alert( 'You clicked on '+data[0]+'\'s row' );
 
-      $("#banIpButton").attr("onclick", "banStatus('" + data[5] + "')");
+      $.ajax({
+        type: "get",
+        url: "/admin/getreport",
+        data: {postNumber: data[0]},
+        success: (response) => {
+          //response.text
+          //response.file     /admin/reportedimgs/<image>
+          console.log(response.text, response.file);
 
-      $('#reportDataModal-Title').text("Post @" + data[0]);
+          $("#banIpButton").attr("onclick", "banStatus('" + data[5] + "')");
 
-      $('#reportDataModal-PostN').text(data[0]);
-      $('#reportDataModal-Board').text(data[1]);
-      $('#reportDataModal-Law').text(data[2]);
-      $('#reportDataModal-Off').text(data[3]);
-      $('#reportDataModal-Spam').text(data[4]);
+          $('#reportDataModal-Title').text("Post @" + data[0]);
 
-      $('#reportDataModal').modal('show');
+          $('#reportDataModal-PostN').text(data[0]);
+          $('#reportDataModal-Board').text(data[1]);
+          $('#reportDataModal-Law').text(data[2]);
+          $('#reportDataModal-Off').text(data[3]);
+          $('#reportDataModal-Spam').text(data[4]);
 
-      $('#ban-post-number').val(data[0]);
+          $('#reportDataModal').modal('show');
+
+          $('#ban-post-number').val(data[0]);
+          
+        },
+
+        error: () => {
+          alert('ajax error');
+        }
+      });
+
+      
     });
 
     $('#moderatorTable tbody').on('click', 'tr', function () {
