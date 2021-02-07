@@ -243,7 +243,7 @@
         </div>
         <div class="modal-footer">
           {{#if admin}}
-          <button type="submit" class="btn btn-danger" onclick="checkIfBanned()">Ban IP<i class="fas fa-key"></i></button>
+          <button type="submit" class="btn btn-danger" id="banIpButton" onclick="" data-dismiss="modal">Ban IP<i class="fas fa-key"></i></button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           {{/if}}
         </div>
@@ -301,3 +301,15 @@
     </div>
   </div>
 </div>
+
+<script>
+function banStatus(value) {
+  if (value == 'true') {
+    $('#alreadyBannedModal').modal('show');
+  }
+}
+
+function deleteModerator(value) {
+  alert(value);
+}
+</script>

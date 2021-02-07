@@ -8,6 +8,7 @@ $(document).ready( function () {
     $('#reportTable tbody').on('click', 'tr', function () {
       var data = reportTable.row( this ).data();
       //alert( 'You clicked on '+data[0]+'\'s row' );
+      $("#banIpButton").attr("onclick", "banStatus('" + data[5] + "')");
 
       $('#reportDataModal-Title').text("Post @" + data[0]);
 
@@ -25,8 +26,7 @@ $(document).ready( function () {
     $('#moderatorTable tbody').on('click', 'tr', function () {
       var data = moderatorTable.row( this ).data();
 
-      //DELETE MODERATOR
-      $("#deleteModeratorButton").attr("onclick","alert(" + data[0] + ")");
+      $("#deleteModeratorButton").attr("onclick", "deleteModerator('" + data[0] + "')");
       $('#modManageUsername').val(data[0]);
 
       if(data[1] != ''){
