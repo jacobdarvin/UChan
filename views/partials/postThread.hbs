@@ -13,14 +13,19 @@
         <div id="dropdown_options_{{postNumber}}" class="card post-options shadow-sm menu" style="z-index: 1000;">
           <i class="fas fa-bullhorn"></i> <a href="#" id="{{postNumber}}Report" data-toggle="modal" data-target="#reportModalCenter" onclick="reportId({{postNumber}})">Report</a> <br>
           {{#if isOwner}}
-          <i class="fas fa-trash" style="color:red;"></i> <a href="javascript:;" id="d_{{postNumber}}" style="color: red !important;" onclick="deleteConfirmation({{postNumber}})">Delete</a>
-          <span id="dc_{{postNumber}}" style="display: none;">Delete?<br>
-          <a href="javascript:;" id="{{postNumber}}deleteYes" onclick="document.getElementById('delete_{{postNumber}}_form').submit()" class="text-danger" style="color: red !important;">Yes</a>
-          <a href="javascript:;" id="{{postNumber}}deleteNo" onclick="deleteConfirmation({{postNumber}})">No</a>
-          </span>
-          <form action="/deletePost" method="POST" id="delete_{{postNumber}}_form" name="delete_{{postNumber}}_form" style="display: none;">
-            <textarea id="postNumber" name="postNumber" cols="20" rows="20" style="display:none;">{{postNumber}}</textarea>
-          </form>
+
+            {{#if mod_access}}
+
+            {{else}}
+            <i class="fas fa-trash" style="color:red;"></i> <a href="javascript:;" id="d_{{postNumber}}" style="color: red !important;" onclick="deleteConfirmation({{postNumber}})">Delete</a>
+            <span id="dc_{{postNumber}}" style="display: none;">Delete?<br>
+            <a href="javascript:;" id="{{postNumber}}deleteYes" onclick="document.getElementById('delete_{{postNumber}}_form').submit()" class="text-danger" style="color: red !important;">Yes</a>
+            <a href="javascript:;" id="{{postNumber}}deleteNo" onclick="deleteConfirmation({{postNumber}})">No</a>
+            </span>
+            <form action="/deletePost" method="POST" id="delete_{{postNumber}}_form" name="delete_{{postNumber}}_form" style="display: none;">
+              <textarea id="postNumber" name="postNumber" cols="20" rows="20" style="display:none;">{{postNumber}}</textarea>
+            </form>
+            {{/if}}
           {{/if}}
 
           {{#if mod_access}}
