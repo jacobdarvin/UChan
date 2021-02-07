@@ -72,7 +72,8 @@ function removeBoardFromMod() {
     url: "/removeboards",
     data: {boards: val, username: username}
   }).done((response) => {
-    alert(response.message);
+    $('#deletedModeratorMessage').modal('show');
+    $('#moderatorDeletedMessage').text(response.message);
   }).fail(() => {
     alert('error');
   });
