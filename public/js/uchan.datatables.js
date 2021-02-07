@@ -8,7 +8,7 @@ $(document).ready( function () {
     $('#reportTable tbody').on('click', 'tr', function () {
       var data = reportTable.row( this ).data();
       //alert( 'You clicked on '+data[0]+'\'s row' );
-      
+
       $("#banIpButton").attr("onclick", "banStatus('" + data[5] + "')");
 
       $('#reportDataModal-Title').text("Post @" + data[0]);
@@ -36,8 +36,8 @@ $(document).ready( function () {
         document.getElementById("removeBoardArea").innerHTML = '';
         for(let i = 0; i < boardArray.length; i++) {
           document.getElementById("removeBoardArea").innerHTML +=
-          "<input type='checkbox' class='form-check-input' id='tempId' name=''> " + boardArray[i] + "<br>";
-          $('#tempId').attr("name", boardArray[i]);
+          "<input type='checkbox' class='form-check-input' id='tempId' name='checkboxBoards'> " + boardArray[i] + "<br>";
+          $('#tempId').attr("value", boardArray[i]);
           $('#tempId').attr("id", boardArray[i]);
         }
       } else {
@@ -55,6 +55,19 @@ $(document).ready( function () {
 
 } );
 
+function addBoardToMod() {
+  var fuck = $("#toAddBoard").find(":selected").text();
+  alert(fuck);
+}
+
+function removeBoardFromMod() {
+  var val = [];
+  $('input[name="checkboxBoards"]:checked').each(function(i) {
+     val[i] = $(this).val();
+  })
+
+  alert(val);
+}
 
 function banStatus(value) {
   if (value == 'true') {

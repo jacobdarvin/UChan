@@ -297,19 +297,19 @@
 
           <div class="form-group">
             <label for="default-board"><b>Add Board</b></label>
-            <select class="form-control mb-2" id="add-board" name="add-board">
+            <select class="form-control mb-2" id="toAddBoard" name="toAddBoard">
               {{#each activeBoards}}
                   <option value="{{name}}">{{name}}</option>
               {{/each}}
             </select>
-            <button type="submit" class="btn btn-success">Add Board <i class="fas fa-key"></i></button>
+            <button type="button" class="btn btn-success" id="addBoard" onclick="addBoardToMod()">Add Board <i class="fas fa-key"></i></button>
           </div>
           <hr>
           <b>Remove Board</b>
           <div class="form-check mb-0">
             <p id="removeBoardArea" class="mb-0"></p>
           </div>
-          <button type="submit" class="btn btn-warning">Remove Selected Board/s <i class="fas fa-key"></i></button>
+          <button type="button" class="btn btn-warning" id="removeBoard" onclick="removeBoardFromMod()">Remove Selected Board/s <i class="fas fa-key"></i></button>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" id="deleteModeratorButton" data-dismiss="modal" onclick="">Delete Moderator <i class="fas fa-key"></i></button>
