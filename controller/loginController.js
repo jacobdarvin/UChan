@@ -33,6 +33,7 @@ const loginController = {
                 title: 'XeroxThis',
             		thread: false,
                 about_active: true,
+                invalid: true
               });
             }
           });
@@ -41,6 +42,7 @@ const loginController = {
             title: 'XeroxThis',
         		thread: false,
             about_active: true,
+            invalid: true
           });
         }
     }
