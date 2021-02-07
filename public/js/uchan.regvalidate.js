@@ -39,13 +39,17 @@ formReg.addEventListener('submit', (e) => {
 	}
 
 	//DEACTIVATE REGISTER BUTTON WHILE AJAX IS PROCESSING
+	$("#xeroxThatSubmit").attr("disabled", true);
+
 	$.ajax({
 		type: 'post',
 		url: '/xeroxed',
 		data: {'id-register': id, 'password-register': password, 'key-register': key},
 		success: (response) => {
 			console.log('fires')
+
 			//REACTIVATE REGISTER BUTTON
+			$("#xeroxThatSubmit").attr("disabled", false);
 			if (!response.result) {
 				messages.push(response.message);
 			}
@@ -59,12 +63,13 @@ formReg.addEventListener('submit', (e) => {
 			//show response.message
 			//wait 2 secs or smth
 			//redirect to modview
-
+			$("#successModalFinally").modal('show')
 			return;
 		},
 		error: (e) => {
 			console.log(e)
+			$("#xeroxThatSubmit").attr("disabled", false);
 		}
-	}); 
+	});
 
 });
