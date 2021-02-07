@@ -56,8 +56,20 @@ $(document).ready( function () {
 } );
 
 function addBoardToMod() {
-  var fuck = $("#toAddBoard").find(":selected").text();
-  alert(fuck);
+  var board = $("#toAddBoard").find(":selected").text();
+  let username = $('#modManageUsername').val();
+
+  $.ajax({
+    type: "post",
+    url: "/admin/addboard",
+    data: {board: board, username: username}
+  }).done((response) => {
+    $('#deletedModeratorMessage').modal('show');
+    $('#moderatorDeletedMessage').text(response.message);
+  }).fail(() => {
+    alert('error');
+  });
+  
 }
 
 function removeBoardFromMod() {

@@ -117,4 +117,5 @@ app.post('/generatekey', ModController.generateRegisterKey);
 app.post('/banuser', ModController.banUser);
 app.post('/deletemoderator', ModController.deleteModerator);
 app.post('/removeboards', ModController.removeBoardsFromModerator);
+app.post('/admin/addboard', ModController.addBoardToModerator);
 module.exports = app;

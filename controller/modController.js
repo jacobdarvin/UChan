@@ -146,10 +146,29 @@ const removeBoardsFromModerator = async(req, res) => {
     res.send(result);
 }
 
+const addBoardToModerator = async(req, res) => {
+    if (!(req.session.user && req.cookies.user_sid)) {
+        res.render('404', {title: 'Bad Login!'});
+        return;
+    }
+
+    if (req.session.rank !== 'ADMIN') {
+        res.render('404', {title: 'Invalid moderator access!'});
+        return;
+    }
+
+    const board = req.body['board'];
+    const username = req.body['username'];
+    const result = await userTransactor.addBoard(username, board);
+
+    res.send(result);
+}
+
 module.exports = {
     getModView,
     generateRegisterKey,
     banUser,
     deleteModerator,
-    removeBoardsFromModerator
+    removeBoardsFromModerator,
+    addBoardToModerator
 }

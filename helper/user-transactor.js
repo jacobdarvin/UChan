@@ -204,20 +204,38 @@ const removeBoards = async(username, boardsToRemove) => {
     return {result: true, message: `Boards ${boardsToRemove} successfully removed from ${username}`};
 } 
 
-/*
+
 const addBoard = async(username, board) => {
+    if (!board) {
+        return {result: false, message: 'No board selected.'};
+    }
+    
     try {
         let moderator = await User.findOne({name: username, rank: 'MODERATOR'});
         if (!moderator) {
-            return {result: false, message: ''}
+            return {result: false, message: 'Moderator does not exist.'}
         }
+
+        if (moderator.boards.includes(board)) {
+            return {result: false, message: 'Board is already in this moderator\'s access list'}
+        }
+
+        moderator.boards.push(board);
+        await moderator.save();
+    } catch (e) {
+        console.log(e);
+        return {result: false, message: 'An unexpected error ocurred'};
     }
-} */
+
+    return {result: true, message: `Board ${board} successfully added to ${username}`};
+} 
+
 module.exports = {
     createUser,
     banIp,
     unbanIp,
     generateRegisterKey,
     deleteModerator,
-    removeBoards
+    removeBoards,
+    addBoard
 }
