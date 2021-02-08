@@ -19,9 +19,3 @@ jobs:
           BROWSER: chrome
           ROBOT_TESTS_DIR: ${{ github.workspace }}/robot_tests
           ROBOT_REPORTS_DIR: ${{ github.workspace }}/reports
-      - name: print resuts
-        uses: actions/upload-artifact@v1
-          if: always()
-          with:
-            name: reports
-            path: ${{ github.workspace }}/reports
