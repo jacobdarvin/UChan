@@ -1,11 +1,14 @@
 const database = require('./model/database.js');
 const User = require('./model/user.js');
+const ReportedPost = require('./model/reportedpost.js');
 
 database.connectToDb();
 
 (async function() {
-    let user = await User.findOne({name: 'DARVIN_REAL'});
-    user.boards = ['ufo', 'cas', 'inv'];
+    let post = await ReportedPost.findOne({postNumber: '1000683'});
+    
+    post.banned = false;
 
-    await user.save();
+    await post.save();
+
 })();
