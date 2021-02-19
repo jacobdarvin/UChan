@@ -9,6 +9,7 @@ const Post = require('../model/post.js');
 const BannedIP = require('../model/bannedip.js');
 
 // Helpers
+const postTransactor = require('../helper/post-transactor.js');
 const fsHelper = require('../helper/fsHelper.js');
 const sanitize = require('mongo-sanitize');
 
@@ -66,16 +67,14 @@ const getBoard = async(req, res) => {
 };
 
 const createThread = async(req, res) => {
-    let isValid =  await ThreadValidator.createPostValidation(req, THREAD);
-    if (!isValid) {
-        res.render('404', {title: '404'});
-        return;
-    }
-
     await ThreadValidator.cookieValidation(req, res);
 
+    let text = req.body.text;
+    let name = req.body.name;
+    let file = req.file;
+    let board = req.params.board;
+    let captcha = req.body['g-recaptcha-response'];
     let owner = sanitize(req.cookies.local_user);
-
     let ip = req.headers["x-forwarded-for"];
     if (ip){
         let list = ip.split(",");
@@ -83,38 +82,33 @@ const createThread = async(req, res) => {
     } else {
         ip = req.connection.remoteAddress;
     }
+
+    //TODO: create new check ban function
     let banned = await BannedIP.findOne({ip: ip});
     if (banned) {
         res.render('banned', {title: 'You are banned', reason: banned.reason });
         return;
     }
 
-    let text = sanitize(req.body.text);
-    let name = sanitize(req.body.name);
-    let file = sanitize(req.file);
-    let board = sanitize(req.params.board);
+    let captchaValid = await postTransactor.validateCaptcha(captcha, ip);
+    if (!captchaValid) {
+        fsHelper.fs.unlink(req.file.path, f => {});
+        //TODO: ajax send if js
+        res.render('404', {title: 'Invalid captcha.'});
+        return;
+    }
 
-    let post = new Post({
-        text: text,
-        name: name,
-        type: 'THREAD',
-        board: board,
-        ip: ip,
-        ownerCookie: owner
-    });
-    await post.save();
-
-    if (req.file) {
-        let imageDbName = fsHelper.renameImageAndGetDbName(post._id, req.file);
-        post.image = imageDbName;
-        post.imageDisplayName = req.file.originalName;
-        await post.save();
+    let response = await postTransactor.createThread(text, name, file, board, owner, ip);
+    if (!response.result) {
+        //TODO: ajax send if js
+        fsHelper.fs.unlink(req.file.path, f => {});
+        res.render('404', {title: response.message});
+        return;
     }
 
     //TODO bumping algo
 
-    //TODO: change to res.redirect when thread is hooked up
-    res.redirect(`/thread/${post.postNumber}`);
+    res.redirect(`/thread/${response.postNumber}`);
 };
 
 const validateCaptcha = async(req, res) => {

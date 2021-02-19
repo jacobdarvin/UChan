@@ -16,7 +16,7 @@ const THREAD = 0;
 const REPLY = 1;
 
 const ThreadValidator = {
-
+    //TODO: split thread and reply validation
     createPostValidation: async function(req, type) {
         
         let captcha = req.body['g-recaptcha-response']
@@ -35,6 +35,7 @@ const ThreadValidator = {
             console.error("Captcha failed.");
 
             if (req.file) {
+                //TODO: unlink req.file.path if result fail
                 fs.unlink(req.file.path, f => {});
             }
 

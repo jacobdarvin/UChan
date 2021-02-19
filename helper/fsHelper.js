@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 
+//TODO: rethink this
 const renameImageAndGetDbName = (id, file) => {
     let ogName = file.originalname;
     let extension = ogName.substring(ogName.lastIndexOf("."));
@@ -31,9 +32,9 @@ const makeReportCopy = async(imagename) => {
         }
     });
 }
-
 module.exports = {
     renameImageAndGetDbName,
     deletePostImage,
-    makeReportCopy
+    makeReportCopy,
+    fs
 }
