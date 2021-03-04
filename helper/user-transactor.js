@@ -237,7 +237,13 @@ const addBoard = async(username, board) => {
 } 
 
 /*
+    Checks and gets the ban details of an ip.
 
+    @param ip: String => the ip to check the ban against
+    
+    @return result: boolean => whether the ip is banned 
+    @return message: String => message associated with the result
+    @return details: Object => ban details of an object in JSON
 */
 const checkBan = async(ip) => {
     try {

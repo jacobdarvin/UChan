@@ -86,6 +86,7 @@ const createThread = async(req, res) => {
 
     let banned = await userTransactor.checkBan(ip);
     if (banned['result']) {
+        //TODO: flesh out front end for ban details
         res.render('banned', {title: 'You are banned', reason: banned['details']});
         return;
     }
