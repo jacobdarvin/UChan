@@ -5,10 +5,10 @@ const ReportedPost = require('./model/reportedpost.js');
 database.connectToDb();
 
 (async function() {
-    let post = await ReportedPost.findOne({postNumber: '1000683'});
+    let name = '';
     
-    post.banned = false;
-
-    await post.save();
+    if (!name || name.trim() === '') {
+        console.log('empty');
+    }
 
 })();

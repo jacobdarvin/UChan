@@ -10,6 +10,7 @@ const BannedIP = require('../model/bannedip.js');
 
 // Helpers
 const postTransactor = require('../helper/post-transactor.js');
+const userTransactor = require('../helper/user-transactor.js');
 const fsHelper = require('../helper/fsHelper.js');
 const sanitize = require('mongo-sanitize');
 
@@ -83,10 +84,9 @@ const createThread = async(req, res) => {
         ip = req.connection.remoteAddress;
     }
 
-    //TODO: create new check ban function
-    let banned = await BannedIP.findOne({ip: ip});
-    if (banned) {
-        res.render('banned', {title: 'You are banned', reason: banned.reason });
+    let banned = userTransactor.checkBan(ip);
+    if (banned['result']) {
+        res.render('banned', {title: 'You are banned', reason: banned['details']});
         return;
     }
 
@@ -135,8 +135,6 @@ function getSort(value) {
             return {stickied: 'desc', bump: 'desc'};
     }
 }
-
-
 
 module.exports = {
     getBoard,

@@ -236,6 +236,24 @@ const addBoard = async(username, board) => {
     return {result: true, message: `Board ${board} successfully added to ${username}`};
 } 
 
+/*
+
+*/
+const checkBan = async(ip) => {
+    try {
+        let banned = await BannedIP.findOne({ip: ip});
+        if (banned) {
+            return {result: true, message: 'You are banned.', details: banned};
+        }
+    } catch (e) {
+        console.log("Checkban error: " + e);
+        return {result: true, message: 'An error occurred.', details: null};
+    }
+    
+    return {result: false, message: null, details: null};
+}
+
+
 module.exports = {
     createUser,
     banIp,
@@ -243,5 +261,6 @@ module.exports = {
     generateRegisterKey,
     deleteModerator,
     removeBoards,
-    addBoard
+    addBoard,
+    checkBan
 }

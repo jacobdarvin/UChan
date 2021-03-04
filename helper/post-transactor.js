@@ -122,8 +122,33 @@ const reportThread = async(postNumber, reason, ip) => {
     return {result: true, message: 'Report successfully sent.'};
 }
 
+/*
+    Creates a thread. Peforms validation on the fields input by the user (not in sequence):
+        
+        - Name 
+            - if empty, will set to default 'Anonymous'
+            - not over character limit
+        - Text
+            - not empty
+            - not over character limit
+        - File
+            - has an image file
+            - does not exceed limit
+        - Board
+            - if board user is posting to exists
+
+    @param text: String => body/text of the thread
+    @param name: String => name of the user associated with the post
+    @param file: Object => formdata sent by the user containing the post's image file
+    @param board: String => board user is posting to
+    @param owner: String => the associated owner (in random hash)
+    @param ip: String => ip address of the poster
+
+    @return result: boolean => result of the operation
+    @return message: String => message associated with the operation's result
+*/
 const createThread = async(text, name, file, board, owner, ip) => {
-    if (name.trim() === '') {
+    if (!name || name.trim() === '') {
         name = 'Anonymous';
     }
 
