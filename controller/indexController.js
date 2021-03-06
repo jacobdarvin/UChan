@@ -5,14 +5,15 @@
 
 const Post = require('../model/post.js');
 
-const {ThreadValidator} = require('../validator/threadValidator.js');
+const userTransactor = require('../helper/user-transactor.js');
 
 //======================================================================
 // Controller Functions
 //======================================================================
 
+//TODO: cleanup => replace ThreadValidator dependency
 const getIndex = async (req, res) => {
-    await ThreadValidator.cookieValidation(req, res);
+    await userTransactor.createUserCookie(req, res);
 
     let threads = await  Post.find({type: 'THREAD'})
                     .sort({bump: 'desc'})
