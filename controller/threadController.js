@@ -28,7 +28,6 @@ const getThread = async(req, res) => {
     let postNumber = sanitize(req.params.postNumber);
     let owner = sanitize(req.cookies.local_user);
 
-    console.log(req.session);
     let [thread, replies] = await Promise.all([
 
         Post.findOne({postNumber: postNumber, type: 'THREAD'}).lean(),

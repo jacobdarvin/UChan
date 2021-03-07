@@ -14,6 +14,7 @@ const Board = require('../model/board.js');
 const RegisterKey = require('../model/registerKey.js');
 const BannedIP = require('../model/bannedip.js');
 const ReportedPost = require('../model/reportedpost.js');
+const uid = require('uid-safe');
 
 //======================================================================
 // Exports
@@ -259,6 +260,19 @@ const checkBan = async(ip) => {
     return {result: false, message: null, details: null};
 }
 
+/*
+    Creates a unique cookie code for post owner identification, if 
+    it does not exist. 
+
+    @param req: Object => the request object containing the cookie field
+    @param res: Object => the response object to create the cookie with
+*/
+const createUserCookie = async(req, res) => {
+    if(!req.cookies.local_user){
+        let cookieValue = await uid(18);
+        res.cookie('local_user', cookieValue, {maxAge:  (1000 * 60 * 60 * 24) * 30})
+    }
+}
 
 module.exports = {
     createUser,
@@ -268,5 +282,6 @@ module.exports = {
     deleteModerator,
     removeBoards,
     addBoard,
-    checkBan
+    checkBan,
+    createUserCookie
 }

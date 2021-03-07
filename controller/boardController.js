@@ -20,6 +20,7 @@ const { THREAD } = require('../validator/threadValidator.js');
 
 // Cookies
 const uid = require('uid-safe');
+const user = require('../model/user.js');
 
 //======================================================================
 // Controller Functions
@@ -68,7 +69,7 @@ const getBoard = async(req, res) => {
 };
 
 const createThread = async(req, res) => {
-    await ThreadValidator.cookieValidation(req, res);
+    await userTransactor.createUserCookie(req, res);
 
     let text = req.body.text;
     let name = req.body.name;
