@@ -95,7 +95,6 @@ app.post('/createThread/:board', function(req, res) {
         BoardController.createThread(req, res);
     })
 });
-app.post('/verifyCaptcha', BoardController.validateCaptcha);
 
 app.get('/thread/:postNumber', ThreadController.getThread);
 app.post('/replyThread/:postNumber', function(req, res) {

@@ -1,4 +1,3 @@
-
 //======================================================================
 // Imports
 //======================================================================
@@ -6,33 +5,38 @@
 // Schemas
 const Board = require('../model/board.js');
 const Post = require('../model/post.js');
-const BannedIP = require('../model/bannedip.js');
 
-// Helpers
-const postTransactor = require('../helper/post-transactor.js');
-const userTransactor = require('../helper/user-transactor.js');
+// Transactors
 const fsHelper = require('../helper/fsHelper.js');
+const postTransactor = require('../helper/post-transactor.js');
 const sanitize = require('mongo-sanitize');
-
-// Validators
-const {ThreadValidator} = require('../validator/threadValidator.js');
-const { THREAD } = require('../validator/threadValidator.js');
-
-// Cookies
-const uid = require('uid-safe');
-const user = require('../model/user.js');
+const userTransactor = require('../helper/user-transactor.js');
 
 //======================================================================
 // Controller Functions
 //======================================================================
 
+/**
+ * Gets and renders a specific board with whatever sorting option given.
+ * @author Justin Galura
+ * @async
+ * 
+ * @param {Request} req => the request object. 
+ * @param {string} req.params.board => the board to render. 
+ * @param {string} req.query.view => how the posts would be displayed (eg. view, catalogue)
+ * @param {string} req.query.sort => the sorting parameter. 
+ * 
+ * @param {Response} res => the response object.
+ * 
+ */
 const getBoard = async(req, res) => {
-    await ThreadValidator.cookieValidation(req, res);
-    let board = sanitize(req.params.board);
-    let view = sanitize(req.query['view']);
-    let sort = getSort(sanitize(req.query['sort']));
+    await userTransactor.createUserCookie(req, res);
+    
+    const board = req.params.board;
+    const view = req.query['view'];
+    const sort = getSort(req.query['sort']);
 
-    let noOfThreadLimit = 20; //for testing
+    const noOfThreadLimit = 20; //for testing
     let [threads, boardResult] = await Promise.all([
 
         Post.find({board: board, type: 'THREAD'}).sort(sort).limit(noOfThreadLimit).lean(),
@@ -68,15 +72,28 @@ const getBoard = async(req, res) => {
     });
 };
 
+/**
+ * Creates a thread and redirects to that thread upon successful creation.
+ * 
+ * @param {Request} req => the request.
+ * @param {string} req.body.text => the body of the thread being created.
+ * @param {string} req.body.name => (optional) the name of the poster.
+ * @param {FormData} req.file => the image file of the thread.
+ * @param {string} req.body["g-captcha-response"] => the captcha response.
+ * @param {string} req.cookies.local_user => the unique id of the owner of the post. 
+ * @param {string} req.headers["x-forwarded-for"] => ip address of the user through Heroku.
+ * 
+ * @param {Response} res => the response. 
+ */
 const createThread = async(req, res) => {
     await userTransactor.createUserCookie(req, res);
 
-    let text = req.body.text;
-    let name = req.body.name;
-    let file = req.file;
-    let board = req.params.board;
-    let captcha = req.body['g-recaptcha-response'];
-    let owner = sanitize(req.cookies.local_user);
+    const text = req.body.text;
+    const name = req.body.name;
+    const file = req.file;
+    const board = req.params.board;
+    const captcha = req.body['g-recaptcha-response'];
+    const owner = req.cookies.local_user;
     let ip = req.headers["x-forwarded-for"];
     if (ip){
         let list = ip.split(",");
@@ -113,16 +130,17 @@ const createThread = async(req, res) => {
     res.redirect(`/thread/${response.postNumber}`);
 };
 
-const validateCaptcha = async(req, res) => {
-    let captchaResult = await ThreadValidator.captchaValidation(req.body.captcha);
-    res.send(captchaResult);
-    return;
-};
-
 //===============================================================
 // Inner Functions
 //===============================================================
 
+/**
+ * Gets the sorting object literal to feed into Mongoose's sort().
+ * 
+ * @param {string} value => the sorting method.
+ * 
+ * @return {object} the sorting object literal with the properties of the Schema Board.
+ */
 function getSort(value) {
     switch (value) {
         case 'most_active':
@@ -138,8 +156,8 @@ function getSort(value) {
     }
 }
 
+//TODO: convert to ES6 once TS is implemented.
 module.exports = {
     getBoard,
-    createThread,
-    validateCaptcha
+    createThread
 };

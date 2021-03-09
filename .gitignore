@@ -107,5 +107,11 @@ dist
 
 # TernJS port file
 .tern-port
+
+#JetBrains Bloat
 .idea/workspace.
 .idea/
+.idea/
+
+#postimgs
+public/postimgs/
