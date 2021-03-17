@@ -11,6 +11,13 @@ body {
 	color: #2e2e2e;
 }
 
+.header-bg {
+    background-image: url('/imgs/icons/bg-emoji.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 6rem;
+}
+
 h1 {
 	font-weight: 800;
 	font-size: 62pt;
