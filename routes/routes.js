@@ -17,7 +17,7 @@ const BoardController = require('../controller/boardController.js');
 const IndexController = require('../controller/indexController.js');
 const ThreadController = require('../controller/threadController.js');
 
-const LoginController = require('../controller/loginController.js');
+const LoginController = require('../controller/login.controller.js');
 const RegisterController = require('../controller/registerController.js');
 
 const ModController = require('../controller/modController.js');
