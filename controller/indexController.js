@@ -11,11 +11,10 @@ const userTransactor = require('../helper/user-transactor.js');
 // Controller Functions
 //======================================================================
 
-//TODO: cleanup => replace ThreadValidator dependency
 const getIndex = async (req, res) => {
     await userTransactor.createUserCookie(req, res);
 
-    let threads = await  Post.find({type: 'THREAD'})
+    let activeThreads = await  Post.find({type: 'THREAD'})
                     .sort({bump: 'desc'})
                     .limit(8)
                     .lean();
@@ -23,7 +22,7 @@ const getIndex = async (req, res) => {
     res.render('index', {
         active_session: req.session.user && req.cookies.user_sid,
         title: 'UChan',
-        threads: threads,
+        threads: activeThreads,
         home_active: true,
     });
 
