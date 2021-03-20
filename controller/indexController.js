@@ -20,8 +20,6 @@ const userTransactor = require('../helper/user-transactor.js');
  * 
  */
 const getIndex = async (req, res) => {
-    res.redirected('/xeroxthis');
-    return;
     await userTransactor.createUserCookie(req, res);
 
     try {
