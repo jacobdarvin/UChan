@@ -74,6 +74,7 @@ const getBoard = async(req, res) => {
 
 /**
  * Creates a thread and redirects to that thread upon successful creation.
+ * @async
  * 
  * @param {Request} req => the request.
  * @param {string} req.body.text => the body of the thread being created.
