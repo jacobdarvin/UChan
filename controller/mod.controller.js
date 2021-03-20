@@ -7,7 +7,6 @@ const Board = require('../model/board.js');
 const RegisterKey = require('../model/registerKey.js');
 const User = require('../model/user.js');
 const BannedIP = require('../model/bannedip.js');
-
 const userTransactor = require('../helper/user-transactor.js');
 
 //======================================================================
