@@ -1,3 +1,7 @@
+//======================================================================
+// Imports
+//======================================================================
+
 const ReportedPost = require('../model/reportedpost.js');
 const Board = require('../model/board.js');
 const RegisterKey = require('../model/registerKey.js');
@@ -6,15 +10,18 @@ const BannedIP = require('../model/bannedip.js');
 
 const sanitize = require('mongo-sanitize');
 const userTransactor = require('../helper/user-transactor.js');
-const post = require('../model/post.js');
+
+//======================================================================
+// Exports
+//======================================================================
 
 const getModView = async (req, res) => {
-
-    if (!(req.session.user && req.cookies.user_sid)) {
+    if(!userTransactor.isModSessionActive(req)) {
+        console.log()
         res.render('404', {title: 'Bad Login!'});
         return;
     }
-
+   
     try {
         var [reportedPosts, activeBoards, unregisteredKeys, moderators, bannedips] = await Promise.all([
             ReportedPost.find().sort({date: 'desc'}).lean(),

@@ -23,6 +23,7 @@ const uid = require('uid-safe');
 /**
  * Performs a login process that checks against the database for existing users,
  * and if one exists, performs a bcrypt comparison of the passwords.
+ * @async
  * 
  * @param {string} username the username input 
  * @param {password} password the password to check against an existing user's credentials
@@ -49,6 +50,17 @@ const login = async(username, password) => {
         console.log("user-transactor login: " + e);
         return {success: false, message: 'An error occurred.', result: null};
     }
+};
+
+/**
+ * Checks if there is an active logged in session. 
+ * 
+ * @param {Request} req the request object to check for session and cookie.
+ * 
+ * @returns {boolean} if there is an active mod session. 
+ */
+const isModSessionActive = (req) => {
+    return req.session.user && req.cookies.user_sid;
 };
 
 /*
@@ -159,15 +171,17 @@ const unbanIp = async (ip) => {
     return {result: true, message: 'Successfully unbanned ip.'};
 }
 
-/*
-    Generates a new
+/** 
+    Generates a new register key with associated boards the availer would have
+    authority over. 
+    @async
 
-    @param username: Name of the new user.
-    @param password: Password of the new user.
-    @param registerKey: Unique register key that can only be used once.
+    @param {string} username Name of the new user.
+    @param {string} password Password of the new user.
+    @param {string} registerKey Unique register key that can only be used once.
 
-    @return result (boolean): Whether the report operation is successful.
-    @return message (String): Message associated with the result.
+    @return result Whether the report operation is successful.
+    @return message Message associated with the result.
  */
 const generateRegisterKey = async(defaultBoard) => {
     let exists = await Board.exists({name: defaultBoard});
@@ -307,6 +321,7 @@ const createUserCookie = async(req, res) => {
 
 module.exports = {
     login,
+    isModSessionActive,
     createUser,
     banIp,
     unbanIp,
