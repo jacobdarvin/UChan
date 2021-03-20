@@ -10,6 +10,7 @@ const userTransactor = require('../helper/user-transactor.js');
 
 /**
  * Renders the moderator/admin login page.
+ * @async
  * 
  * @param {Requesst} req request object
  * @param {Resoponse} res response object
@@ -25,6 +26,7 @@ const getLogin = async(req, res) => {
 /**
  * Starts the login operation and assigns the necessary session credentials upon
  * successful validation.
+ * @async
  * 
  * @param {Request} req request object
  * @param {Response} res response object

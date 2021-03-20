@@ -200,7 +200,6 @@ const generateRegisterKey = async(defaultBoard) => {
         console.log(e);
         return {key: null, message: 'generateRegisterKey: An unexpected error ocurred'}
     }
-    console.log(key);
 
     return {key: key._id, message: 'Successfully created new register key.'};
 }

@@ -8,16 +8,21 @@ const RegisterKey = require('../model/registerKey.js');
 const User = require('../model/user.js');
 const BannedIP = require('../model/bannedip.js');
 
-const sanitize = require('mongo-sanitize');
 const userTransactor = require('../helper/user-transactor.js');
 
 //======================================================================
 // Exports
 //======================================================================
 
-const getModView = async (req, res) => {
+/**
+ * Renders the mod dashboard.
+ * @async
+ * 
+ * @param {Request} req 
+ * @param {Response} res 
+ */
+const getModView = async(req, res) => {
     if(!userTransactor.isModSessionActive(req)) {
-        console.log()
         res.render('404', {title: 'Bad Login!'});
         return;
     }
@@ -53,9 +58,17 @@ const getModView = async (req, res) => {
     });
 };
 
+/**
+ * Generates a register key for moderator sign-up with
+ *  one default board. Only admins can generate keys.
+ * @async
+ * 
+ * @param {Request} req 
+ * @param {Response} res 
+ */
 //TODO: ajax this shit
 const generateRegisterKey = async(req, res) => {
-    if (!(req.session.user && req.cookies.user_sid)) {
+    if(!userTransactor.isModSessionActive(req)) {
         res.render('404', {title: 'Bad Login!'});
         return;
     }
@@ -65,21 +78,27 @@ const generateRegisterKey = async(req, res) => {
         return;
     }
 
-    let defaultBoard = sanitize(req.body['default-board']);
+    let defaultBoard = req.body['default-board'];
 
     let result = await userTransactor.generateRegisterKey(defaultBoard);
     if (!result.key) {
         res.render('404', {title: 'Error generating register key!'});
         return;
     }
-    console.log(result.message);
-
+    
     res.redirect(req.get('referer'));
 }
 
+/**
+ * Bans the a user associated with a reported post. Admin access only.
+ * @async
+ * 
+ * @param {Request} req 
+ * @param {Response} res 
+ */
 //TODO: ajax this shit
 const banUser = async(req, res) => {
-    if (!(req.session.user && req.cookies.user_sid)) {
+    if(!userTransactor.isModSessionActive(req)) {
         res.render('404', {title: 'Bad Login!'});
         return;
     }
@@ -108,6 +127,7 @@ const banUser = async(req, res) => {
         return;
     }
 
+    //Two parameters are null currently for start and end date
     let result = await userTransactor.banIp(ip, null, null, reason, remarks);
     if (!result.result) {
         res.render('404', {title: result.message});
@@ -116,10 +136,16 @@ const banUser = async(req, res) => {
 
     res.redirect(req.get('referer'));
 }
-
+/**
+ * Unbans a user. Admin only.
+ * @async
+ * 
+ * @param {Request} req 
+ * @param {Response} res 
+ */
 //TODO: ajax this shit
 const unbanUser = async(req, res) => {
-    if (!(req.session.user && req.cookies.user_sid)) {
+    if(!userTransactor.isModSessionActive(req)) {
         res.render('404', {title: 'Bad Login!'});
         return;
     }
@@ -138,9 +164,15 @@ const unbanUser = async(req, res) => {
     res.redirect(req.get('referer'));
 }
 
-
+/**
+ * Deletes a moderator from the mod roster. Admin only. 
+ * @async
+ * 
+ * @param {Request} req 
+ * @param {Response} res 
+ */
 const deleteModerator = async(req, res) => {
-    if (!(req.session.user && req.cookies.user_sid)) {
+    if(!userTransactor.isModSessionActive(req)) {
         res.render('404', {title: 'Bad Login!'});
         return;
     }
@@ -158,8 +190,15 @@ const deleteModerator = async(req, res) => {
     res.send(result);
 }
 
+/**
+ * Revokes mode authority on selected board/s for a moderator. Admin only. 
+ * @async
+ * 
+ * @param {Request} req 
+ * @param {Response} res 
+ */
 const removeBoardsFromModerator = async(req, res) => {
-    if (!(req.session.user && req.cookies.user_sid)) {
+    if(!userTransactor.isModSessionActive(req)) {
         res.render('404', {title: 'Bad Login!'});
         return;
     }
@@ -176,8 +215,15 @@ const removeBoardsFromModerator = async(req, res) => {
     res.send(result);
 }
 
+/**
+ * Grants auhtority for a moderator over a board. Admin only.
+ * @async
+ * 
+ * @param {Request} req 
+ * @param {Response} res 
+ */
 const addBoardToModerator = async(req, res) => {
-    if (!(req.session.user && req.cookies.user_sid)) {
+    if(!userTransactor.isModSessionActive(req)) {
         res.render('404', {title: 'Bad Login!'});
         return;
     }
@@ -194,8 +240,15 @@ const addBoardToModerator = async(req, res) => {
     res.send(result);
 }
 
+/**
+ * Requests for the report details of a certain post. 
+ * @async
+ * 
+ * @param {Request} req 
+ * @param {Response} res 
+ */
 const getReportDetails = async(req, res) => {
-    if (!(req.session.user && req.cookies.user_sid)) {
+    if(!userTransactor.isModSessionActive(req)) {
         res.render('404', {title: 'Bad Login!'});
         return;
     }

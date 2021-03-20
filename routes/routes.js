@@ -20,7 +20,7 @@ const ThreadController = require('../controller/threadController.js');
 const LoginController = require('../controller/login.controller.js');
 const RegisterController = require('../controller/registerController.js');
 
-const ModController = require('../controller/modController.js');
+const ModController = require('../controller/mod.controller.js');
 
 // DB Constants
 const {IMAGE_SIZE_LIMIT} = require('../model/constants.js');
