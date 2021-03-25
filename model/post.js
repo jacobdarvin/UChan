@@ -1,4 +1,5 @@
-const autoincrement = require('mongoose-auto-increment');
+//TODO: switch to https://github.com/nodkz/mongoose-plugin-autoinc
+const autoincrement = require('mongoose-auto-increment'); //!Not maintained
 const mongoose = require('mongoose');
 const database = require('./database.js');
 
