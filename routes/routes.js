@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Controller Imports
-const BoardController = require('../controller/boardController.js');
+const BoardController = require('../controller/board.controller.js');
 const IndexController = require('../controller/index.controller.js');
 const ThreadController = require('../controller/threadController.js');
 const LoginController = require('../controller/login.controller.js');

@@ -122,9 +122,9 @@ const reportThread = async(postNumber, reason, ip) => {
     return {result: true, message: 'Report successfully sent.'};
 }
 
-/*
+/** 
     Creates a thread. Peforms validation on the fields input by the user (not in sequence):
-        
+    
         - Name 
             - if empty, will set to default 'Anonymous'
             - not over character limit
@@ -136,16 +136,17 @@ const reportThread = async(postNumber, reason, ip) => {
             - does not exceed limit
         - Board
             - if board user is posting to exists
+    @async
 
-    @param text: String => body/text of the thread
-    @param name: String => name of the user associated with the post
-    @param file: Object => formdata sent by the user containing the post's image file
-    @param board: String => board user is posting to
-    @param owner: String => the associated owner (in random hash)
-    @param ip: String => ip address of the poster
+    @param {string} text: String => body/text of the thread
+    @param {string} name: String => name of the user associated with the post
+    @param {FormData} file: Object => formdata sent by the user containing the post's image file
+    @param {string} board: String => board user is posting to
+    @param {string} owner: String => the associated owner (in random hash)
+    @param {string} ip: String => ip address of the poster
 
-    @return result: boolean => result of the operation
-    @return message: String => message associated with the operation's result
+    @return {boolean} => result of the operation
+    @return {string} => message associated with the operation's result
 */
 const createThread = async(text, name, file, board, owner, ip) => {
     if (!name || name.trim() === '') {
@@ -199,11 +200,117 @@ const createThread = async(text, name, file, board, owner, ip) => {
         
     } catch (e) {
         console.log(e);
+        //TODO: delete post upon thread creation error
         return {result: false, message: 'An unexpected error occured while creating the post'};
     }
 
     return {result: true, message: 'Successfully created new thread.', postNumber: post.postNumber};
+};
+
+/**
+ * Replies to a thread. Image file is optional. Processes postNumbers (references to other posts) in the body of\
+ * the text and updates them accordingly. Bumps the parent post if conditions are met. 
+ * @async
+ * 
+ * @param {number} parentPostNumber the parent post to reply to.
+ * @param {text} text body of the reply.
+ * @param {text} name name of the poster.
+ * @param {FormData} file the image file (optional for reply).
+ * @param {string} owner cookie associated with the post for ownership.
+ * @param {string} ip ip associated with the post. 
+ * 
+ * @returns {Transaction} result of the reply transaction. 
+ */
+const replyToThread = async(parentPostNumber, text, name, file, owner, ip) => {
+    if (!name || name.trim() === '') {
+        name = 'Anonymous';
+    }
+
+    if (!text || text.trim() === '') {
+        return {success: false, message: 'Text is empty', result: null};
+    }
+
+    if (text > THREAD_CHAR_LIMIT) {
+        return {success: false, message: 'Text exceeds character limit.', result: null};
+    }
+
+    if (name > NAME_LIMIT) {
+        return {success: false, message: 'Name exceeds character limit.', result: null};
+    }
+
+    if (file) {
+        if (file.size > IMAGE_SIZE_LIMIT) {
+            return {success: false, message: 'File exceeds size limit.', result: null};
+        }
+    }
+
+    try {
+        var parentPost = await Post.findOne({postNumber: parentPostNumber});
+        if (!parentPost) {
+            return {success: false, message: 'Post does not exist.', result: null};
+        }
+    } catch (e) {
+        console.log('Reply to thread error:' + e);
+        return {success: false, message: 'An unexpected error occured.', result: null};
+    }
+
+    try {
+        var reply = new Post({
+            text: text, 
+            name: name,
+            type: 'REPLY',
+            board: parentPost.board,
+            ip: ip,
+            parentPost: parentPostNumber,
+            ownerCookie: owner
+        });
+        await reply.save();
+        await processQuotes(text, reply.postNumber);
+    } catch (e) {
+        console.log('Reply to thread error:' + e);
+        //TODO: delete reply upon failure
+        return {success: false, message: 'An unexpected error occured.', result: null};
+    }
+
+    try {
+        if (file) {
+            let imageDbName = fsHelper.renameImageAndGetDbName(reply._id, file);
+            reply.image = imageDbName;
+            reply.imageDisplayName = file.originalName;
+            await reply.save();
+        }
+    } catch (e) {
+        console.log('Reply to thread error: ' + e);
+        //TODO: delete reply failure
+        return {success: false, message: 'An unexpected error occured.', result: null};
+    }
+
+    if (!parentPost.uniqueIps.includes(ip)) {
+        parentPost.uniqueIps.push(ip);
+    }
+
+    if (file) {
+        parentPost.noOfImages++;
+    }
+    parentPost.noOfPosts++;
+
+    //bumping condition
+    if (parentPost.uniqueIps.length > 1 || parentPost.uniqueIps[0] !== parentPost.ip) {
+        parentPost.bump = Date.now();
+    }
+
+    try {
+        await parentPost.save();
+    } catch (e) {
+        console.log('Reply to thread error: ' + e);
+        //TODO: delete reply failure
+        return {success: false, message: 'An unexpected error occured.', result: null};
+    }
+
+    return {success: true, message: 'Reply successfully posted.', result: reply};
 }
+
+
 
 /*
     ADMIN/MODERATOR
@@ -254,8 +361,41 @@ const validateCaptcha = async(captcha, remoteAddress) => {
     return response.data.success;
 }
 
+//======================================================================
+// Inner Functions
+//======================================================================
+
+async function processQuotes(text, postNumber) {
+    //TODO: change to @
+    let matches = text.match(/[@][\d]{7}/gm);
+    if (!matches) {
+        return;
+    }
+    let quotes = new Set();
+
+    for (let i = 0; i < matches.length; i++) {
+        var str = matches[i],
+        delimiter = '@',
+        start = 1,
+        tokens = str.split(delimiter).slice(start),
+        result = tokens.join(delimiter);
+
+        quotes.add(parseInt(result));
+    }
+
+    // TODO: Stack overflow for more efficienct updating
+    let promises = new Array();
+    for (let item of quotes) {
+        let promise = Post.updateOne({postNumber: item}, {$addToSet: {quotes: postNumber}});
+        promises.push(promise);
+    }
+
+    await Promise.all(promises);
+}
+
 module.exports = {
     createThread,
+    replyToThread,
     reportThread,
     setSticky,
     validateCaptcha

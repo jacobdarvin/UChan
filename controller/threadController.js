@@ -5,28 +5,33 @@
 
 const Board = require('../model/board.js');
 const Post = require('../model/post.js');
-const BannedIP = require('../model/bannedip.js');
 
 const dateHelper = require('../helper/dateHelper.js');
 const fsHelper = require('../helper/fsHelper.js');
 const postTransactor = require('../helper/post-transactor.js');
+const userTransactor = require('../helper/user-transactor.js');
 const sanitize = require('mongo-sanitize');
-const { REPLY } = require('../validator/threadValidator.js');
-
 
 const {ThreadValidator} = require('../validator/threadValidator.js');
 
-//cookies
-const uid = require('uid-safe');
 
 //======================================================================
 // Controller Functions
 //======================================================================
 
+/**
+ * Renders a thread. 
+ * @async
+ * 
+ * @param {Request} req the request object.
+ * @param {Response} res the response object.
+ * 
+ */
 const getThread = async(req, res) => {
-    await ThreadValidator.cookieValidation(req, res);
-    let postNumber = sanitize(req.params.postNumber);
-    let owner = sanitize(req.cookies.local_user);
+    await userTransactor.createUserCookie(req, res);
+
+    const postNumber = req.params['postNumber'];
+    const owner = req.cookies['local_user'];
 
     let [thread, replies] = await Promise.all([
 
@@ -59,6 +64,8 @@ const getThread = async(req, res) => {
     for (let i = 0; i < replies.length; i++) {
         replies[i].created = dateHelper.formatDate(replies[i].created);
         replies[i].isOwner = owner === replies[i].ownerCookie;
+
+        //Moderator access
         replies[i].mod_access = (req.session.user && req.cookies.user_sid) && req.session.boards.includes(thread.board); //BEING CALLED
         replies[i].stickied = thread.stickied; //check if parent post is stickied
     }
@@ -87,18 +94,24 @@ const getThread = async(req, res) => {
 
         replies: replies
     });
-}
-
+};
+/**
+ * Replies to a thread.
+ * @async
+ * 
+ * @param {Request} req the request.
+ * @param {Response} res the response. 
+ * 
+ */
 const replyThread = async(req, res) => {
-    let isValid =  await ThreadValidator.createPostValidation(req, REPLY);
-    if (!isValid) {
-        res.render('404', {title: '404'});
-        return;
-    }
+    await userTransactor.createUserCookie(req, res);
 
-    await ThreadValidator.cookieValidation(req, res);
-    let owner = sanitize(req.cookies.local_user);
-
+    const owner = req.cookies['local_user'];
+    const text = req.body['text'];
+    const name = req.body['name'];
+    const captcha = req.body['g-recaptcha-response'];
+    const file = req.file;
+    const parentPostNumber = req.params['postNumber'];
     let ip = req.headers["x-forwarded-for"];
     if (ip){
         let list = ip.split(",");
@@ -107,66 +120,30 @@ const replyThread = async(req, res) => {
         ip = req.connection.remoteAddress;
     }
 
-    let text = sanitize(req.body.text);
-    let name = sanitize(req.body.name);
-    let file = sanitize(req.file);
-    let parentPostNumber = sanitize(req.params.postNumber);
-
-    let [parentPost, banned] = await Promise.all([
-        Post.findOne({postNumber: parentPostNumber}),
-        BannedIP.findOne({ip: ip})
-    ]);
-
-    console.log(ip, banned);
-    if (banned) {
-        res.render('banned', {title: 'You are banned', reason: banned.reason });
+    const banned = await userTransactor.checkBan(ip);
+    if (banned['result']) {
+        res.render('banned', {title: 'You are banned', reason: banned['details']});
         return;
     }
 
-    if (!parentPost) {
+    const captchaValid = await postTransactor.validateCaptcha(captcha, ip);
+    if (!captchaValid) {
+        fsHelper.fs.unlink(req.file.path, f => {});
+        //TODO: ajax send if js
+        res.render('404', {title: 'Invalid captcha.'});
+        return;
+    }
+
+    const replyTransaction = await postTransactor.replyToThread(parentPostNumber, text, name, 
+        file, owner, ip);
+    
+    //TODO: ajax send
+    //res.send(replyTransaction)
+    if (!replyTransaction.success) {
         res.render('404', {title: '404'});
-        return;
-    }
-
-    let reply = new Post({
-        text: text,
-        name: name,
-        type: 'REPLY',
-        board: parentPost.board,
-        ip: ip,
-        parentPost: parentPostNumber,
-        ownerCookie: owner
-    });
-    await reply.save();
-    await processQuotes(text, reply.postNumber);
-
-    if (req.file) {
-        console.log('hasimage')
-        let imageDbName = fsHelper.renameImageAndGetDbName(reply._id, req.file);
-        reply.image = imageDbName;
-        reply.imageDisplayName = req.file.originalName;
-        await reply.save();
-    }
-
-    //parent post
-    if (!parentPost.uniqueIps.includes(ip)) {
-        parentPost.uniqueIps.push(ip);
-    }
-
-    if (req.file) {
-        parentPost.noOfImages = parentPost.noOfImages + 1;
-    }
-    parentPost.noOfPosts++;
-
-    let array = [];
-    if (parentPost.uniqueIps.length > 1 || parentPost.uniqueIps[0] !== parentPost.ip) {
-        parentPost.bump = Date.now();
-    }
-    await parentPost.save();
+    }    
 
     res.redirect(req.get('referer'));
-
-    return;
 }
 
 const deletePost = async(req, res) => {
