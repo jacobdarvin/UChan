@@ -308,7 +308,60 @@ const replyToThread = async(parentPostNumber, text, name, file, owner, ip) => {
     }
 
     return {success: true, message: 'Reply successfully posted.', result: reply};
-}
+};
+
+/**
+ * Deletes a post and its media file only if the owner parameter passed is the actual 
+ * owner of the post. If the post to delete is a thread, it deletes all the replies, 
+ * otherwise it deletes the reply from the post. 
+ * @async
+ * 
+ * @param {number} postNumber the post number associated with the post to delete
+ * @param {string} owner the owner of the post
+ * 
+ * @returns {Transaction} the result of the delete operation
+ */
+const deletePost = async(postNumber, owner) => {
+    try {
+        var post = await Post.findOne({postNumber: postNumber});
+        if (!post) {
+            return {success: false, message: 'Post does not exist.', result: null}
+        }
+    } catch (e) {
+        console.log("Delete post error: " + e);
+        return {success: false, message: 'An unexpected error occured.', result: null};
+    }
+
+    if (post['ownerCookie'] !== owner) {
+        return {success: false, message: 'You do not own this post.', result: null};
+    }
+
+    let type = post['type'];
+    let board = post['board'];
+
+    if (type === 'THREAD') {
+        deleteReplies(post['postNumber']);
+    } else {
+        await deleteReplyFromParentPost(post);
+    }
+
+    fsHelper.deletePostImage(post['image']);
+    try {
+        await post.remove()
+    } catch (error) {
+        console.log('Delete post error: ' + e);
+        return {success: false, message: 'An unexpected error occured.', result: null};
+    }
+
+    return {
+        success: true,
+        message: 'Successfully deleted post.',
+        result: {
+            type: type,
+            board: board
+        }
+    };
+};
 
 
 
@@ -393,10 +446,61 @@ async function processQuotes(text, postNumber) {
     await Promise.all(promises);
 }
 
+/**
+ * Deletes all the replies of a post.
+ * @async
+ * 
+ * @param {Post} parentPost the post object to delete
+ * 
+ */
+async function deleteReplies(parentPost) {
+    try {
+        var replies = await Post.find({parentPost: parentPost})
+    } catch (error){
+        console.log(error);
+        return;
+    }
+
+    for (let reply of replies) {
+        let image = reply.image;
+        fsHelper.deletePostImage(image);
+
+        reply.remove();
+    }
+}
+
+
+/**
+ * Deletes a reply from the post and updates the parent post accordingly.
+ * @async
+ * 
+ * @param {Post} reply the reply object to delete
+ * 
+ */
+async function deleteReplyFromParentPost(reply) {
+    try {
+        var post = await Post.findOne({postNumber: reply.parentPost});
+    } catch (error) {
+        console.log(error);
+        return;
+    }
+
+    let subtrahend = 0;
+    if (reply.image !== 'undefined' && reply.image !== "" && reply.image !== undefined) {
+        subtrahend = 1;
+    }
+
+    post.noOfImages = post.noOfImages - subtrahend;
+    post.noOfPosts--;
+    await post.save();
+    return;
+}
+
 module.exports = {
     createThread,
     replyToThread,
+    deletePost,
     reportThread,
     setSticky,
     validateCaptcha
-}
+};
