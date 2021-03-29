@@ -146,49 +146,36 @@ const replyThread = async(req, res) => {
     res.redirect(req.get('referer'));
 }
 
+/**
+ * Deletes a particular post. 
+ * @async
+ * 
+ * @param {Request} req the request object.
+ * @param {Result} res the result object. 
+ * 
+ */
 const deletePost = async(req, res) => {
-    await ThreadValidator.cookieValidation(req, res);
+    await userTransactor.createUserCookie(req, res);
+    
+    const postNumber = req.body['postNumber'];
+    const owner = req.cookies['local_user'];
+    const deleteTransaction = await postTransactor.deletePost(postNumber, owner);
+    if (!deleteTransaction['success']) {
+        //TODO: ajax send
 
-    let postNumber = sanitize(req.body.postNumber);
-    try {
-        var post = await Post.findOne({postNumber: postNumber})
-        console.log(post);
-    } catch (error) {
-        console.log(error);
-        res.render('404', {title: 'An error occured!'});
+        //TODO: change error code
+        res.redirect('404', {title: 'Error deleting post.'});
         return;
     }
 
-    if (!post) {
-        res.render('404', {title: 'An error occured!'});
-        return;
-    }
-
-    let type = post.type;
-    let board = post.board;
-
-    if (type === 'THREAD') {
-        deleteReplies(post.postNumber);
-    } else if (type === 'REPLY') {
-        await updateParentPost(post);
-    }
-
-    fsHelper.deletePostImage(post.image);
-    try {
-        await post.remove();
-    } catch (error) {
-        console.log(error);
-        res.render('404', {title: 'An error occured!'});
-        return;
-    }
-
+    const type = deleteTransaction.result.type;
+    const board = deleteTransaction.result.board;
     if (type === 'THREAD') {
         res.redirect(`/${board}`);
     } else if (type === 'REPLY') {
         res.redirect(req.get('referer'))
     }
-
-}
+};
 
 const reportPost = async(req, res) => {
     let ip = req.headers["x-forwarded-for"];
@@ -246,74 +233,6 @@ const unstickyPost = async(req, res) => {
 
     res.redirect(req.get('referer'));
 };
-
-//======================================================================
-// Inner Functions
-//======================================================================
-
-async function processQuotes(text, postNumber) {
-    //TODO: change to @
-    let matches = text.match(/[@][\d]{7}/gm);
-    if (!matches) {
-        return;
-    }
-    let quotes = new Set();
-
-    for (let i = 0; i < matches.length; i++) {
-        var str = matches[i],
-        delimiter = '@',
-        start = 1,
-        tokens = str.split(delimiter).slice(start),
-        result = tokens.join(delimiter);
-
-        quotes.add(parseInt(result));
-    }
-
-    // TODO: Stack overflow for more efficienct updating
-    let promises = new Array();
-    for (let item of quotes) {
-        let promise = Post.updateOne({postNumber: item}, {$addToSet: {quotes: postNumber}});
-        promises.push(promise);
-    }
-
-    await Promise.all(promises);
-}
-
-async function deleteReplies(parentPost) {
-    try {
-        var replies = await Post.find({parentPost: parentPost})
-    } catch (error){
-        console.log(error);
-        return;
-    }
-
-    console.log(replies)
-    for (let reply of replies) {
-        let image = reply.image;
-        fsHelper.deletePostImage(image);
-
-        reply.remove();
-    }
-}
-
-async function updateParentPost(reply) {
-    try {
-        var post = await Post.findOne({postNumber: reply.parentPost});
-    } catch (error) {
-        console.log(error);
-        return;
-    }
-
-    let subtrahend = 0;
-    if (reply.image !== 'undefined' && reply.image !== "" && reply.image !== undefined) {
-        subtrahend = 1;
-    }
-
-    post.noOfImages = post.noOfImages - subtrahend;
-    post.noOfPosts--;
-    await post.save();
-    return;
-}
 
 module.exports = {
     getThread,
