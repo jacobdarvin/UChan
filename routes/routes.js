@@ -1,26 +1,21 @@
 // Import
 const express 	 = require('express');
+const app 		  = express();
 
 // Sessions and Cookies
 const cookieParser   = require('cookie-parser');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-
-const app 		  = express();
 
 //Init Cookie and Body Parser
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cookieParser());
 
 // Controller Imports
-const BoardController = require('../controller/boardController.js');
-const IndexController = require('../controller/indexController.js');
-const ThreadController = require('../controller/threadController.js');
-
-const LoginController = require('../controller/loginController.js');
-const RegisterController = require('../controller/registerController.js');
-
-const ModController = require('../controller/modController.js');
+const BoardController = require('../controller/board.controller.js');
+const IndexController = require('../controller/index.controller.js');
+const ThreadController = require('../controller/thread.controller.js');
+const LoginController = require('../controller/login.controller.js');
+const RegisterController = require('../controller/register.controller.js');
+const ModController = require('../controller/mod.controller.js');
 
 // DB Constants
 const {IMAGE_SIZE_LIMIT} = require('../model/constants.js');

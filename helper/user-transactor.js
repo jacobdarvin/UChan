@@ -20,6 +20,49 @@ const uid = require('uid-safe');
 // Exports
 //======================================================================
 
+/**
+ * Performs a login process that checks against the database for existing users,
+ * and if one exists, performs a bcrypt comparison of the passwords.
+ * @async
+ * 
+ * @param {string} username the username input 
+ * @param {password} password the password to check against an existing user's credentials
+ * 
+ * @returns {Transaction} 
+ * @returns {string} Transaction.username => if the operation is successful; password matched with existing user
+ * @returns {string} => the message associated with the transaction.
+ * @returns {object} => the user object and their credentials.
+ */
+const login = async(username, password) => {
+    try {
+        const user = await User.findOne({name: username});
+        if (!user) {
+            return {success: false, message: 'User does not exist.', result: null};
+        }
+
+        const equal = await bcrypt.compare(password, user.password);
+        if (!equal) {
+            return {success: false, message: "Username and password do not match.", result: null};
+        }
+
+        return {success: true, message: "Successfully logged in.", result: user};
+    } catch (e) {
+        console.log("user-transactor login: " + e);
+        return {success: false, message: 'An error occurred.', result: null};
+    }
+};
+
+/**
+ * Checks if there is an active logged in session. 
+ * 
+ * @param {Request} req the request object to check for session and cookie.
+ * 
+ * @returns {boolean} if there is an active mod session. 
+ */
+const isModSessionActive = (req) => {
+    return req.session.user && req.cookies.user_sid;
+};
+
 /*
     Creates a new moderator user, using a register key. If the register key
     does not exist, then the user creation is cancelled. Password is encrypted
@@ -128,15 +171,17 @@ const unbanIp = async (ip) => {
     return {result: true, message: 'Successfully unbanned ip.'};
 }
 
-/*
-    Generates a new
+/** 
+    Generates a new register key with associated boards the availer would have
+    authority over. 
+    @async
 
-    @param username: Name of the new user.
-    @param password: Password of the new user.
-    @param registerKey: Unique register key that can only be used once.
+    @param {string} username Name of the new user.
+    @param {string} password Password of the new user.
+    @param {string} registerKey Unique register key that can only be used once.
 
-    @return result (boolean): Whether the report operation is successful.
-    @return message (String): Message associated with the result.
+    @return result Whether the report operation is successful.
+    @return message Message associated with the result.
  */
 const generateRegisterKey = async(defaultBoard) => {
     let exists = await Board.exists({name: defaultBoard});
@@ -155,11 +200,10 @@ const generateRegisterKey = async(defaultBoard) => {
         console.log(e);
         return {key: null, message: 'generateRegisterKey: An unexpected error ocurred'}
     }
-    console.log(key);
 
     return {key: key._id, message: 'Successfully created new register key.'};
 }
-
+//TODO: Convert to JSDocs
 /*
     Deletes a moderator and ONLY a moderator. 
 
@@ -275,6 +319,8 @@ const createUserCookie = async(req, res) => {
 }
 
 module.exports = {
+    login,
+    isModSessionActive,
     createUser,
     banIp,
     unbanIp,
