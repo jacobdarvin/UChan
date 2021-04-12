@@ -1,7 +1,5 @@
 /***
  *  Module that is responsible for handling database operations on Posts
- *
- *
  */
 
 //======================================================================
@@ -363,18 +361,18 @@ const deletePost = async(postNumber, owner) => {
     };
 };
 
-
-
-/*
+/** 
     ADMIN/MODERATOR
     Stickies a post. Posts can only be stickied if they're of the type 'THREAD'.
     Only Mmoderators that have power over the post's board can sticky the post.
+    @async
 
-    @param postNumber: The post number to be stickied.
-    @param user: The username requesting the sticky command.
-    @param flag: What to set the sticky status
+    @param {number} postNumber: The post number to be stickied.
+    @param {string} user: The username requesting the sticky command.
+    @param {string} flag: What to set the sticky status
 
-    @return result (boolean): Whether the sticky operation is successful.
+    @return {Transaction}
+    @return {string}: Whether the sticky operation is successful.
     @return message (String): Message associated with the result.
  */
 const setSticky = async(postNumber, username, flag) => {
@@ -406,6 +404,16 @@ const setSticky = async(postNumber, username, flag) => {
     return {result: true, message: `stickyPost: succesfully set post's sticky to ${flag}`};
 }
 
+//?hcaptcha
+//TODO: remove axios dependency
+/**
+ * Validates the captcha test result sent by the user.
+ * @async
+ * 
+ * @param {string} captcha 
+ * @param {string} remoteAddress 
+ * @returns {boolean} the result of the captcha validation
+ */
 const validateCaptcha = async(captcha, remoteAddress) => {
     const secretKey = "6Lff6eQZAAAAAENSnF_AMdFRbhpMlEuU5IhD3gFz";
     const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captcha}&remoteip=${remoteAddress}`;
@@ -419,7 +427,6 @@ const validateCaptcha = async(captcha, remoteAddress) => {
 //======================================================================
 
 async function processQuotes(text, postNumber) {
-    //TODO: change to @
     let matches = text.match(/[@][\d]{7}/gm);
     if (!matches) {
         return;
@@ -451,7 +458,6 @@ async function processQuotes(text, postNumber) {
  * @async
  * 
  * @param {Post} parentPost the post object to delete
- * 
  */
 async function deleteReplies(parentPost) {
     try {
@@ -475,7 +481,6 @@ async function deleteReplies(parentPost) {
  * @async
  * 
  * @param {Post} reply the reply object to delete
- * 
  */
 async function deleteReplyFromParentPost(reply) {
     try {

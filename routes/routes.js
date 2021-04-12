@@ -12,7 +12,7 @@ app.use(cookieParser());
 // Controller Imports
 const BoardController = require('../controller/board.controller.js');
 const IndexController = require('../controller/index.controller.js');
-const ThreadController = require('../controller/threadController.js');
+const ThreadController = require('../controller/thread.controller.js');
 const LoginController = require('../controller/login.controller.js');
 const RegisterController = require('../controller/register.controller.js');
 const ModController = require('../controller/mod.controller.js');

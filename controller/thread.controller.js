@@ -10,7 +10,6 @@ const dateHelper = require('../helper/dateHelper.js');
 const fsHelper = require('../helper/fsHelper.js');
 const postTransactor = require('../helper/post-transactor.js');
 const userTransactor = require('../helper/user-transactor.js');
-const sanitize = require('mongo-sanitize');
 
 const {ThreadValidator} = require('../validator/threadValidator.js');
 
@@ -173,10 +172,19 @@ const deletePost = async(req, res) => {
     if (type === 'THREAD') {
         res.redirect(`/${board}`);
     } else if (type === 'REPLY') {
-        res.redirect(req.get('referer'))
+        //TODO: ajax send for appending
+        res.redirect(req.get('referer'));
     }
 };
 
+/**
+ * Reports a post through the invocation of the reportThread function. 
+ * @async
+ * 
+ * @param {Request} req the request object
+ * @param {Response} res the response object
+ * 
+ */
 const reportPost = async(req, res) => {
     let ip = req.headers["x-forwarded-for"];
     if (ip){
@@ -192,45 +200,65 @@ const reportPost = async(req, res) => {
         return;
     }
 
-    let id = sanitize(req.body['id']);
-    let reason = sanitize(req.body['reason']);
+    let id = req.body['id'];
+    let reason = req.body['reason'];
 
     let result = await postTransactor.reportThread(id, reason, ip);
 
     res.send(result);
 }
 
-//TODO: ajax this shit
+/**
+ * ADMIN/MODERATOR
+ * Stickies a post.
+ * @async
+ * 
+ * @param {Request} req the request object
+ * @param {Response} res the response object
+ * 
+ * @returns 
+ */
 const stickyPost = async(req, res) => {
     if (!(req.session.user && req.cookies.user_sid)) {
         res.render('404', {title: 'Cannot sticky post as a non-moderator.'});
         return;
     }
 
-    let postNumber = sanitize(req.body['stickyId']);
+    let postNumber = req.body['stickyId']
     let result = await postTransactor.setSticky(postNumber, req.session.user, true);
     if (!result) {
         res.render('404', {title: result.message});
         return;
     }
 
+    //TODO ajax send
     res.redirect(req.get('referer'));
 };
 
+/**
+ * ADMIN/MODERATOR
+ * Unstickies a post.
+ * @async
+ * 
+ * @param {Request} req the request object
+ * @param {Response} res the response object
+ * @returns 
+ */
 //TODO: ajax this shit
+//TODO: merge with stickyPost
 const unstickyPost = async(req, res) => {
     if (!(req.session.user && req.cookies.user_sid)) {
         res.render('404', {title: 'Cannot unsticky post as a non-moderator.'});
         return;
     }
 
-    let postNumber = sanitize(req.body['stickyId']);
+    let postNumber = req.body['stickyId'];
     let result = await postTransactor.setSticky(postNumber, req.session.user,false);
     if (!result) {
         res.render('404', {title: result.message});
         return;
     }
-
+    //TODO: ajax send
     res.redirect(req.get('referer'));
 };
 
