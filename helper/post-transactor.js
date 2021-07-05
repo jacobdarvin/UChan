@@ -1,4 +1,4 @@
-/***
+/*
  *  Module that is responsible for handling database operations on Posts
  */
 
