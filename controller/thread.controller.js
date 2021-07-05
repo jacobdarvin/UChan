@@ -121,7 +121,7 @@ const replyThread = async(req, res) => {
 
     const banned = await userTransactor.checkBan(ip);
     if (banned['result']) {
-        res.render('banned', {title: 'You are banned', reason: banned['details']});
+        res.render('banned', {title: 'You are banned', reason: banned['details']['reason'], remarks: banned['details']['remarks']});
         return;
     }
 
@@ -158,12 +158,13 @@ const deletePost = async(req, res) => {
     
     const postNumber = req.body['postNumber'];
     const owner = req.cookies['local_user'];
-    const deleteTransaction = await postTransactor.deletePost(postNumber, owner);
+    const moderatorOverride = userTransactor.isModSessionActive(req);
+    const deleteTransaction = await postTransactor.deletePost(postNumber, owner, moderatorOverride);
     if (!deleteTransaction['success']) {
         //TODO: ajax send
 
         //TODO: change error code
-        res.redirect('404', {title: 'Error deleting post.'});
+        res.redirect('404', {title: deleteTransaction['message']});
         return;
     }
 

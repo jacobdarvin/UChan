@@ -316,10 +316,11 @@ const replyToThread = async(parentPostNumber, text, name, file, owner, ip) => {
  * 
  * @param {number} postNumber the post number associated with the post to delete
  * @param {string} owner the owner of the post
+ * @param {boolean} moderatorOverride pass as true to override ownership restriction to deleting a post
  * 
  * @returns {Transaction} the result of the delete operation
  */
-const deletePost = async(postNumber, owner) => {
+const deletePost = async(postNumber, owner, moderatorOverride) => {
     try {
         var post = await Post.findOne({postNumber: postNumber});
         if (!post) {
@@ -330,7 +331,7 @@ const deletePost = async(postNumber, owner) => {
         return {success: false, message: 'An unexpected error occured.', result: null};
     }
 
-    if (post['ownerCookie'] !== owner) {
+    if (post['ownerCookie'] !== owner && !moderatorOverride) {
         return {success: false, message: 'You do not own this post.', result: null};
     }
 

@@ -6,10 +6,10 @@ const RegisterKey = require('./model/registerKey.js');
 
 database.connectToDb();
 async function test() {
-    //ReportedPost.deleteMany({}, () => {})
+    ReportedPost.deleteMany({}, () => {})
     //ReportedPost.collection.drop();
     //BannedIP.collection.drop();
-    RegisterKey.collection.drop();
+    //RegisterKey.collection.drop();
     //fs.emptyDir('./admin/reportedimgs');
 }
 

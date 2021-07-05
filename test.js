@@ -19,7 +19,7 @@ async function test() {
 
     let number = post.postNumber;
     let reply = new Post({
-        text: `>>${number}\n kys`,
+        text: `@${number}\n ok bro what is the gdp of ecuador`,
         type: 'REPLY',
         board: 'ufo',
         ip: '0',
